@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hazen-house-v1.1';
+const CACHE_NAME = 'hazen-house-v2.0';
 const ASSETS = [
   "./",
   "./index.html",
@@ -175,6 +175,11 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  // Let Firebase and external CDN requests go straight to the network
+  const url = event.request.url;
+  if (url.includes('firebaseio.com') || url.includes('googleapis.com') || url.includes('gstatic.com')) {
+    return; // don't intercept — let browser handle normally
+  }
   event.respondWith(
     caches.match(event.request).then(cached => cached || fetch(event.request))
   );

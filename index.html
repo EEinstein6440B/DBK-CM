@@ -2647,6 +2647,149 @@
       background: rgba(231,76,60,0.08);
     }
 
+    /* Task row2: tags + due */
+    .ttl-task-row2 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 3px;
+      flex-wrap: wrap;
+    }
+
+    /* Editable task text */
+    .ttl-task-text[contenteditable="true"] {
+      outline: none;
+      border-bottom: 1.5px dashed var(--gold);
+      padding-bottom: 1px;
+    }
+
+    /* Category tag */
+    .ttl-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--gold-bg);
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-right: 6px;
+      cursor: pointer;
+    }
+    .cat-bidding { background: rgba(45,51,37,0.12); color: #2d3325; }
+    .cat-permits { background: rgba(192,102,78,0.12); color: #c0664e; }
+    .cat-design { background: rgba(58,142,142,0.12); color: #2a7a7a; }
+    .cat-budget { background: rgba(201,168,76,0.15); color: var(--gold-dark); }
+    .cat-procurement { background: rgba(74,85,100,0.12); color: #4a5564; }
+    .cat-schedule { background: rgba(107,122,46,0.12); color: #6b7a2e; }
+    .cat-contracts { background: rgba(154,133,104,0.12); color: #7a6548; }
+    .cat-site { background: rgba(209,148,64,0.12); color: #b07820; }
+
+    .ttl-due {
+      font-size: 10px;
+      color: var(--grey-400);
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .ttl-due.overdue {
+      color: #e74c3c;
+      font-weight: 600;
+    }
+
+    /* Tag picker dropdown */
+    .ttl-tag-picker {
+      position: absolute;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow-lg);
+      padding: 6px;
+      z-index: 500;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 240px;
+    }
+    .ttl-tag-picker.hidden { display: none; }
+
+    .ttl-tag-option {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: transform 0.1s;
+    }
+    .ttl-tag-option:active { transform: scale(0.95); }
+
+    /* Due date input (hidden native, styled) */
+    .ttl-due-input {
+      font-size: 11px;
+      font-family: var(--font-sans);
+      border: 1px solid var(--grey-200);
+      border-radius: 6px;
+      padding: 2px 6px;
+      color: var(--text-secondary);
+      background: var(--white);
+      outline: none;
+      width: 110px;
+    }
+    .ttl-due-input:focus {
+      border-color: var(--gold);
+    }
+
+    /* Add form expanded */
+    .ttl-add-extras {
+      display: flex;
+      gap: 8px;
+      padding: 6px 16px 10px 16px;
+      background: var(--grey-50);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .ttl-add-cat-btn {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 10px;
+      border: 1.5px dashed var(--grey-300);
+      background: none;
+      color: var(--grey-500);
+      cursor: pointer;
+      font-family: var(--font-sans);
+    }
+    .ttl-add-cat-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold-dark);
+    }
+    .ttl-add-cat-btn.selected {
+      border-style: solid;
+      border-color: var(--gold);
+      background: var(--gold-bg);
+      color: var(--gold-dark);
+    }
+
+    .ttl-add-due {
+      font-size: 11px;
+      font-family: var(--font-sans);
+      border: 1.5px dashed var(--grey-300);
+      border-radius: 8px;
+      padding: 4px 8px;
+      color: var(--grey-500);
+      background: none;
+      outline: none;
+      margin-left: auto;
+    }
+    .ttl-add-due:focus {
+      border-color: var(--gold);
+      border-style: solid;
+      color: var(--text-primary);
+    }
+
     .ttl-add-row {
       display: flex;
       gap: 8px;
@@ -6440,27 +6583,14 @@ Finish: TBD</span></div>
             </div>
           </div>
           <div class="ttl-person-body" id="ttl-cc-body">
-            <div class="ttl-tasks" id="ttl-cc-tasks">
-              <div class="ttl-task" data-person="cc">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Review & sign sub contracts</span>
-                  <span class="ttl-task-meta">Contracts · Due: Apr 1</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-              <div class="ttl-task" data-person="cc">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Approve initial payment schedule</span>
-                  <span class="ttl-task-meta">Budget · Due: Apr 10</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-            </div>
+            <div class="ttl-tasks" id="ttl-cc-tasks"></div>
             <div class="ttl-add-row">
               <input type="text" class="ttl-add-input" id="ttl-cc-input" placeholder="Add a task for Caroline & Chase..." onkeydown="if(event.key==='Enter')addTTLTask('cc')">
               <button class="ttl-add-btn" onclick="addTTLTask('cc')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="ttl-cc-extras">
+              <button class="ttl-add-cat-btn" id="ttl-cc-cat-btn" onclick="showAddTagPicker('cc')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="ttl-cc-due">
             </div>
           </div>
         </div>
@@ -6489,43 +6619,14 @@ Finish: TBD</span></div>
             </div>
           </div>
           <div class="ttl-person-body" id="ttl-santo-body">
-            <div class="ttl-tasks" id="ttl-santo-tasks">
-              <div class="ttl-task" data-person="santo">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Follow up with framing bids</span>
-                  <span class="ttl-task-meta">Bid Tracking · Due: Mar 20</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-              <div class="ttl-task" data-person="santo">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Review electrical estimate</span>
-                  <span class="ttl-task-meta">Budget · Due: Mar 25</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-              <div class="ttl-task" data-person="santo">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Schedule site visit with surveyor</span>
-                  <span class="ttl-task-meta">Pre-Construction · Due: Mar 28</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-              <div class="ttl-task" data-person="santo">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Order Fleetwood windows — long lead</span>
-                  <span class="ttl-task-meta">Procurement · Due: Apr 1</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-            </div>
+            <div class="ttl-tasks" id="ttl-santo-tasks"></div>
             <div class="ttl-add-row">
               <input type="text" class="ttl-add-input" id="ttl-santo-input" placeholder="Add a task for Santo..." onkeydown="if(event.key==='Enter')addTTLTask('santo')">
               <button class="ttl-add-btn" onclick="addTTLTask('santo')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="ttl-santo-extras">
+              <button class="ttl-add-cat-btn" id="ttl-santo-cat-btn" onclick="showAddTagPicker('santo')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="ttl-santo-due">
             </div>
           </div>
         </div>
@@ -6554,43 +6655,14 @@ Finish: TBD</span></div>
             </div>
           </div>
           <div class="ttl-person-body" id="ttl-eric-body">
-            <div class="ttl-tasks" id="ttl-eric-tasks">
-              <div class="ttl-task" data-person="eric">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Confirm pool contract with builder</span>
-                  <span class="ttl-task-meta">Contracts · Due: Mar 18</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-              <div class="ttl-task" data-person="eric">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Submit permit applications to County</span>
-                  <span class="ttl-task-meta">Permits · Due: Mar 22</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-              <div class="ttl-task" data-person="eric">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Finalize structural engineer review</span>
-                  <span class="ttl-task-meta">Design · Due: Mar 30</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-              <div class="ttl-task" data-person="eric">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Review framing schedule with Santo</span>
-                  <span class="ttl-task-meta">Schedule · Due: Apr 5</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-            </div>
+            <div class="ttl-tasks" id="ttl-eric-tasks"></div>
             <div class="ttl-add-row">
               <input type="text" class="ttl-add-input" id="ttl-eric-input" placeholder="Add a task for Eric..." onkeydown="if(event.key==='Enter')addTTLTask('eric')">
               <button class="ttl-add-btn" onclick="addTTLTask('eric')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="ttl-eric-extras">
+              <button class="ttl-add-cat-btn" id="ttl-eric-cat-btn" onclick="showAddTagPicker('eric')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="ttl-eric-due">
             </div>
           </div>
         </div>
@@ -6619,19 +6691,14 @@ Finish: TBD</span></div>
             </div>
           </div>
           <div class="ttl-person-body" id="ttl-nalu-body">
-            <div class="ttl-tasks" id="ttl-nalu-tasks">
-              <div class="ttl-task" data-person="nalu">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Update construction drawings per RFI responses</span>
-                  <span class="ttl-task-meta">Drafting · Due: Apr 1</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-            </div>
+            <div class="ttl-tasks" id="ttl-nalu-tasks"></div>
             <div class="ttl-add-row">
               <input type="text" class="ttl-add-input" id="ttl-nalu-input" placeholder="Add a task for Nalu..." onkeydown="if(event.key==='Enter')addTTLTask('nalu')">
               <button class="ttl-add-btn" onclick="addTTLTask('nalu')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="ttl-nalu-extras">
+              <button class="ttl-add-cat-btn" id="ttl-nalu-cat-btn" onclick="showAddTagPicker('nalu')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="ttl-nalu-due">
             </div>
           </div>
         </div>
@@ -6660,19 +6727,14 @@ Finish: TBD</span></div>
             </div>
           </div>
           <div class="ttl-person-body" id="ttl-jared-body">
-            <div class="ttl-tasks" id="ttl-jared-tasks">
-              <div class="ttl-task" data-person="jared">
-                <input type="checkbox" onchange="updateTTLProgress()">
-                <div class="ttl-task-content">
-                  <span class="ttl-task-text">Update 3D model with latest design revisions</span>
-                  <span class="ttl-task-meta">Modeling · Due: Apr 5</span>
-                </div>
-                <button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>
-              </div>
-            </div>
+            <div class="ttl-tasks" id="ttl-jared-tasks"></div>
             <div class="ttl-add-row">
               <input type="text" class="ttl-add-input" id="ttl-jared-input" placeholder="Add a task for Jared..." onkeydown="if(event.key==='Enter')addTTLTask('jared')">
               <button class="ttl-add-btn" onclick="addTTLTask('jared')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="ttl-jared-extras">
+              <button class="ttl-add-cat-btn" id="ttl-jared-cat-btn" onclick="showAddTagPicker('jared')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="ttl-jared-due">
             </div>
           </div>
         </div>
@@ -6707,9 +6769,25 @@ Finish: TBD</span></div>
               <input type="text" class="ttl-add-input" id="ttl-jim-input" placeholder="Add a task for Jim..." onkeydown="if(event.key==='Enter')addTTLTask('jim')">
               <button class="ttl-add-btn" onclick="addTTLTask('jim')">+ Add</button>
             </div>
+            <div class="ttl-add-extras" id="ttl-jim-extras">
+              <button class="ttl-add-cat-btn" id="ttl-jim-cat-btn" onclick="showAddTagPicker('jim')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="ttl-jim-due">
+            </div>
           </div>
         </div>
 
+      </div>
+
+      <!-- Global Tag Picker (floating, repositioned by JS) -->
+      <div class="ttl-tag-picker hidden" id="ttl-global-tag-picker">
+        <button class="ttl-tag-option cat-bidding" onclick="applyTag('bidding','Bidding')">Bidding</button>
+        <button class="ttl-tag-option cat-permits" onclick="applyTag('permits','Permits')">Permits</button>
+        <button class="ttl-tag-option cat-design" onclick="applyTag('design','Design')">Design</button>
+        <button class="ttl-tag-option cat-budget" onclick="applyTag('budget','Budget')">Budget</button>
+        <button class="ttl-tag-option cat-procurement" onclick="applyTag('procurement','Procurement')">Procurement</button>
+        <button class="ttl-tag-option cat-schedule" onclick="applyTag('schedule','Schedule')">Schedule</button>
+        <button class="ttl-tag-option cat-contracts" onclick="applyTag('contracts','Contracts')">Contracts</button>
+        <button class="ttl-tag-option cat-site" onclick="applyTag('site','Site')">Site</button>
       </div>
 
       <!-- Bottom Tab Bar -->
@@ -6742,6 +6820,25 @@ Finish: TBD</span></div>
     </div>
 
   </div> <!-- close #app -->
+
+  <!-- Firebase SDK (compat for script-tag usage) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+  <script>
+    // ========== FIREBASE INIT ==========
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLPDfwjS21MULv2TKfd6FU6Ypg47JWPKc",
+      authDomain: "dc-dbk-construction-manager.firebaseapp.com",
+      databaseURL: "https://dc-dbk-construction-manager-default-rtdb.firebaseio.com",
+      projectId: "dc-dbk-construction-manager",
+      storageBucket: "dc-dbk-construction-manager.firebasestorage.app",
+      messagingSenderId: "597291014232",
+      appId: "1:597291014232:web:31bf0fc65ee91af93fd22d"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
 
   <script>
     // ========== PASSWORD GATE ==========
@@ -6898,37 +6995,312 @@ Finish: TBD</span></div>
       });
     }
 
+    // ===== TASK CATEGORIES =====
+    const TTL_CATEGORIES = [
+      { key: 'bidding', label: 'Bidding' },
+      { key: 'permits', label: 'Permits' },
+      { key: 'design', label: 'Design' },
+      { key: 'budget', label: 'Budget' },
+      { key: 'procurement', label: 'Procurement' },
+      { key: 'schedule', label: 'Schedule' },
+      { key: 'contracts', label: 'Contracts' },
+      { key: 'site', label: 'Site' }
+    ];
+
+    let tagPickerTarget = null;
+    const tasksRef = db.ref('tasks');
+
+    function formatTaskDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr + 'T00:00:00');
+      return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear().toString().slice(2);
+    }
+
+    // ===== BUILD TASK DOM FROM DATA =====
+    function buildTaskEl(taskId, data) {
+      const div = document.createElement('div');
+      div.className = 'ttl-task' + (data.done ? ' checked' : '');
+      div.setAttribute('data-person', data.person);
+      div.setAttribute('data-id', taskId);
+      if (data.cat) div.setAttribute('data-cat', data.cat);
+      if (data.due) div.setAttribute('data-due', data.due);
+
+      // Tag HTML
+      let tagHtml = '';
+      if (data.cat) {
+        const catObj = TTL_CATEGORIES.find(c => c.key === data.cat);
+        tagHtml = '<span class="ttl-tag cat-' + data.cat + '" onclick="showTagPicker(this)">' + (catObj ? catObj.label : data.cat) + '</span>';
+      } else {
+        tagHtml = '<span class="ttl-tag" onclick="showTagPicker(this)" style="border:1.5px dashed var(--grey-300);background:none;color:var(--grey-400);">+ Tag</span>';
+      }
+
+      // Due HTML
+      let dueHtml = '';
+      if (data.due) {
+        const today = new Date(); today.setHours(0,0,0,0);
+        const dueDate = new Date(data.due + 'T00:00:00');
+        const overdue = dueDate < today ? ' overdue' : '';
+        dueHtml = '<span class="ttl-due' + overdue + '" onclick="showDuePicker(this)">Due: ' + formatTaskDate(data.due) + '</span>';
+      } else {
+        dueHtml = '<span class="ttl-due" onclick="showDuePicker(this)" style="color:var(--grey-300);">+ Due date</span>';
+      }
+
+      div.innerHTML =
+        '<input type="checkbox" ' + (data.done ? 'checked' : '') + ' onchange="toggleTaskDone(this)">' +
+        '<div class="ttl-task-content">' +
+          '<span class="ttl-task-text" onclick="editTaskText(this)">' + (data.text || 'Untitled') + '</span>' +
+          '<div class="ttl-task-row2">' + tagHtml + dueHtml + '</div>' +
+        '</div>' +
+        '<button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>';
+
+      return div;
+    }
+
+    // ===== FIREBASE REAL-TIME LISTENERS =====
+    function initFirebaseTasks() {
+      const people = ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim'];
+
+      people.forEach(person => {
+        const personRef = tasksRef.child(person);
+        const container = document.getElementById('ttl-' + person + '-tasks');
+
+        // Listen for new tasks
+        personRef.on('child_added', snap => {
+          const existing = container.querySelector('[data-id="' + snap.key + '"]');
+          if (existing) return; // already rendered
+          const el = buildTaskEl(snap.key, snap.val());
+          container.appendChild(el);
+          updateTTLProgress();
+        });
+
+        // Listen for changed tasks (edit text, toggle done, change tag/due)
+        personRef.on('child_changed', snap => {
+          const existing = container.querySelector('[data-id="' + snap.key + '"]');
+          if (existing) {
+            const newEl = buildTaskEl(snap.key, snap.val());
+            container.replaceChild(newEl, existing);
+          }
+          updateTTLProgress();
+        });
+
+        // Listen for deleted tasks
+        personRef.on('child_removed', snap => {
+          const existing = container.querySelector('[data-id="' + snap.key + '"]');
+          if (existing) {
+            existing.style.opacity = '0';
+            existing.style.transform = 'translateX(20px)';
+            existing.style.transition = 'all 0.2s';
+            setTimeout(() => { existing.remove(); updateTTLProgress(); }, 200);
+          } else {
+            updateTTLProgress();
+          }
+        });
+      });
+    }
+
+    // ===== SEED INITIAL TASKS (runs once if DB is empty) =====
+    function seedInitialTasks() {
+      tasksRef.once('value', snap => {
+        if (snap.exists()) {
+          // DB already has tasks — do nothing
+          return;
+        }
+        // First time: push starter tasks
+        const seed = {
+          cc: [
+            { text: 'Review & sign sub contracts', cat: 'contracts', due: '2026-04-01', done: false, person: 'cc' },
+            { text: 'Approve initial payment schedule', cat: 'budget', due: '2026-04-10', done: false, person: 'cc' }
+          ],
+          santo: [
+            { text: 'Follow up with framing bids', cat: 'bidding', due: '2026-03-20', done: false, person: 'santo' },
+            { text: 'Review electrical estimate', cat: 'budget', due: '2026-03-25', done: false, person: 'santo' },
+            { text: 'Schedule site visit with surveyor', cat: 'site', due: '2026-03-28', done: false, person: 'santo' },
+            { text: 'Order Fleetwood windows — long lead', cat: 'procurement', due: '2026-04-01', done: false, person: 'santo' }
+          ],
+          eric: [
+            { text: 'Confirm pool contract with builder', cat: 'contracts', due: '2026-03-18', done: false, person: 'eric' },
+            { text: 'Submit permit applications to County', cat: 'permits', due: '2026-03-22', done: false, person: 'eric' },
+            { text: 'Finalize structural engineer review', cat: 'design', due: '2026-03-30', done: false, person: 'eric' },
+            { text: 'Review framing schedule with Santo', cat: 'schedule', due: '2026-04-05', done: false, person: 'eric' }
+          ],
+          nalu: [
+            { text: 'Update construction drawings per RFI responses', cat: 'design', due: '2026-04-01', done: false, person: 'nalu' }
+          ],
+          jared: [
+            { text: 'Update 3D model with latest design revisions', cat: 'design', due: '2026-04-05', done: false, person: 'jared' }
+          ]
+        };
+        Object.keys(seed).forEach(person => {
+          seed[person].forEach(task => {
+            tasksRef.child(person).push(task);
+          });
+        });
+      });
+    }
+
+    // ===== TOGGLE DONE (syncs to Firebase) =====
+    function toggleTaskDone(cb) {
+      const task = cb.closest('.ttl-task');
+      const id = task.getAttribute('data-id');
+      const person = task.getAttribute('data-person');
+      db.ref('tasks/' + person + '/' + id + '/done').set(cb.checked);
+    }
+
+    // ===== INLINE TEXT EDITING (syncs to Firebase on blur) =====
+    function editTaskText(span) {
+      if (span.getAttribute('contenteditable') === 'true') return;
+      span.setAttribute('contenteditable', 'true');
+      span.focus();
+      const range = document.createRange();
+      range.selectNodeContents(span);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+
+      function finishEdit() {
+        span.removeAttribute('contenteditable');
+        span.removeEventListener('blur', finishEdit);
+        span.removeEventListener('keydown', handleKey);
+        const cleaned = span.textContent.trim();
+        if (!cleaned) span.textContent = 'Untitled task';
+        // Save to Firebase
+        const task = span.closest('.ttl-task');
+        const id = task.getAttribute('data-id');
+        const person = task.getAttribute('data-person');
+        db.ref('tasks/' + person + '/' + id + '/text').set(cleaned || 'Untitled task');
+      }
+      function handleKey(e) {
+        if (e.key === 'Enter') { e.preventDefault(); span.blur(); }
+        if (e.key === 'Escape') { span.blur(); }
+      }
+      span.addEventListener('blur', finishEdit);
+      span.addEventListener('keydown', handleKey);
+    }
+
+    // ===== TAG PICKER (syncs to Firebase) =====
+    function showTagPicker(tagEl) {
+      const picker = document.getElementById('ttl-global-tag-picker');
+      const task = tagEl.closest('.ttl-task');
+      tagPickerTarget = { mode: 'task', el: tagEl, task: task };
+      const rect = tagEl.getBoundingClientRect();
+      picker.style.position = 'fixed';
+      picker.style.top = (rect.bottom + 4) + 'px';
+      picker.style.left = Math.max(8, rect.left) + 'px';
+      picker.classList.remove('hidden');
+      setTimeout(() => { document.addEventListener('click', closeTagPickerOutside); }, 10);
+    }
+
+    function showAddTagPicker(person) {
+      const picker = document.getElementById('ttl-global-tag-picker');
+      const btn = document.getElementById('ttl-' + person + '-cat-btn');
+      tagPickerTarget = { mode: 'add', person: person, btn: btn };
+      const rect = btn.getBoundingClientRect();
+      picker.style.position = 'fixed';
+      picker.style.top = (rect.bottom + 4) + 'px';
+      picker.style.left = Math.max(8, rect.left) + 'px';
+      picker.classList.remove('hidden');
+      setTimeout(() => { document.addEventListener('click', closeTagPickerOutside); }, 10);
+    }
+
+    function applyTag(catKey, catLabel) {
+      const picker = document.getElementById('ttl-global-tag-picker');
+      picker.classList.add('hidden');
+      document.removeEventListener('click', closeTagPickerOutside);
+      if (!tagPickerTarget) return;
+
+      if (tagPickerTarget.mode === 'task') {
+        const task = tagPickerTarget.task;
+        const id = task.getAttribute('data-id');
+        const person = task.getAttribute('data-person');
+        db.ref('tasks/' + person + '/' + id + '/cat').set(catKey);
+      } else if (tagPickerTarget.mode === 'add') {
+        const btn = tagPickerTarget.btn;
+        btn.textContent = catLabel;
+        btn.className = 'ttl-add-cat-btn selected';
+        btn.setAttribute('data-cat', catKey);
+      }
+      tagPickerTarget = null;
+    }
+
+    function closeTagPickerOutside(e) {
+      const picker = document.getElementById('ttl-global-tag-picker');
+      if (!picker.contains(e.target)) {
+        picker.classList.add('hidden');
+        document.removeEventListener('click', closeTagPickerOutside);
+        tagPickerTarget = null;
+      }
+    }
+
+    // ===== DUE DATE PICKER (syncs to Firebase) =====
+    function showDuePicker(dueEl) {
+      const task = dueEl.closest('.ttl-task');
+      const currentDue = task.getAttribute('data-due') || '';
+      const input = document.createElement('input');
+      input.type = 'date';
+      input.className = 'ttl-due-input';
+      input.value = currentDue;
+      dueEl.style.display = 'none';
+      dueEl.parentNode.insertBefore(input, dueEl.nextSibling);
+      input.focus();
+
+      function finish() {
+        const val = input.value;
+        const id = task.getAttribute('data-id');
+        const person = task.getAttribute('data-person');
+        if (val) {
+          db.ref('tasks/' + person + '/' + id + '/due').set(val);
+        } else {
+          db.ref('tasks/' + person + '/' + id + '/due').remove();
+        }
+        dueEl.style.display = '';
+        input.remove();
+      }
+      input.addEventListener('change', finish);
+      input.addEventListener('blur', finish);
+    }
+
+    // ===== ADD TASK (writes to Firebase — real-time listener renders it) =====
     function addTTLTask(person) {
       const input = document.getElementById('ttl-' + person + '-input');
       const text = input.value.trim();
       if (!text) return;
 
-      const container = document.getElementById('ttl-' + person + '-tasks');
-      const task = document.createElement('div');
-      task.className = 'ttl-task';
-      task.setAttribute('data-person', person);
-      task.innerHTML =
-        '<input type="checkbox" onchange="updateTTLProgress()">' +
-        '<div class="ttl-task-content">' +
-          '<span class="ttl-task-text">' + text + '</span>' +
-          '<span class="ttl-task-meta">Added just now</span>' +
-        '</div>' +
-        '<button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>';
-      container.appendChild(task);
+      const catBtn = document.getElementById('ttl-' + person + '-cat-btn');
+      const dueInput = document.getElementById('ttl-' + person + '-due');
+      const catKey = catBtn.getAttribute('data-cat') || '';
+      const dueVal = dueInput.value || '';
+
+      const taskData = {
+        text: text,
+        done: false,
+        person: person,
+        createdAt: Date.now()
+      };
+      if (catKey) taskData.cat = catKey;
+      if (dueVal) taskData.due = dueVal;
+
+      // Push to Firebase — the child_added listener will render it
+      tasksRef.child(person).push(taskData);
+
+      // Reset form
       input.value = '';
-      updateTTLProgress();
+      catBtn.textContent = '+ Category';
+      catBtn.className = 'ttl-add-cat-btn';
+      catBtn.removeAttribute('data-cat');
+      dueInput.value = '';
     }
 
     function deleteTTLTask(btn) {
       const task = btn.closest('.ttl-task');
-      task.style.opacity = '0';
-      task.style.transform = 'translateX(20px)';
-      task.style.transition = 'all 0.2s';
-      setTimeout(() => {
-        task.remove();
-        updateTTLProgress();
-      }, 200);
+      const id = task.getAttribute('data-id');
+      const person = task.getAttribute('data-person');
+      // Remove from Firebase — the child_removed listener handles the animation
+      db.ref('tasks/' + person + '/' + id).remove();
     }
+
+    // ===== INIT: seed + listen =====
+    seedInitialTasks();
+    initFirebaseTasks();
 
     // ========== SCHEDULE / GANTT FUNCTIONS ==========
 
