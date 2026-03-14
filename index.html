@@ -121,8 +121,6 @@
        ============================================= */
     .top-bar {
       background: var(--black);
-      background-image: url("Thumbnails/ribbon-pattern.jpg");
-      background-size: 300px 300px;
       color: var(--white);
       padding: 0 20px;
       padding-top: var(--safe-top);
@@ -130,6 +128,16 @@
       top: 0;
       z-index: 100;
       border-bottom: none;
+    }
+    .top-bar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url("Thumbnails/ribbon-pattern.jpg");
+      background-size: 300px 300px;
+      background-position: center center;
+      opacity: 0.4;
+      pointer-events: none;
     }
 
     .top-bar::after {
@@ -147,6 +155,8 @@
       align-items: center;
       justify-content: space-between;
       height: 56px;
+      position: relative;
+      z-index: 1;
     }
 
     .top-bar-title {
@@ -437,12 +447,21 @@
        ============================================= */
     .project-top-bar {
       background: var(--black);
-      background-image: url("Thumbnails/ribbon-pattern.jpg");
-      background-size: 300px 300px;
       padding: 0 16px;
       padding-top: var(--safe-top);
       border-bottom: none;
       position: relative;
+    }
+
+    .project-top-bar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url("Thumbnails/ribbon-pattern.jpg");
+      background-size: 300px 300px;
+      background-position: center center;
+      opacity: 0.4;
+      pointer-events: none;
     }
 
     .project-top-bar::after {
@@ -460,6 +479,8 @@
       align-items: center;
       height: 56px;
       gap: 12px;
+      position: relative;
+      z-index: 1;
     }
 
     .back-btn {
@@ -3021,7 +3042,7 @@
   <!-- PASSWORD GATE -->
   <div id="password-gate">
     <div class="pw-logo">DC <span class="pw-logo-accent">+</span> DBK</div>
-    <div class="pw-subtitle">CONSTRUCTION MANAGER</div>
+    <div class="pw-subtitle">CONSTRUCTION MANAGER · v1.1</div>
     <div class="pw-box">
       <div class="pw-box-title">Team Access</div>
       <input type="password" class="pw-input" id="pw-input" placeholder="Enter password" autocomplete="off" onkeydown="if(event.key==='Enter')checkPassword()">
