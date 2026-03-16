@@ -667,6 +667,76 @@
       flex-shrink: 0;
     }
 
+    /* Project Overview Section */
+    .project-overview-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .overview-section {
+      margin-bottom: 24px;
+    }
+    .overview-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .overview-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .overview-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .overview-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--grey-400);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .overview-value {
+      font-size: 13px;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .phase-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .phase-item:last-child {
+      border-bottom: none;
+    }
+
+    .phase-header {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
+    .phase-desc {
+      font-size: 12px;
+      color: var(--grey-400);
+    }
+
     /* =============================================
        FOOTER
        ============================================= */
@@ -2697,6 +2767,22 @@
       font-weight: 600;
     }
 
+    /* Project badge */
+    .ttl-project-badge {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      background: var(--gold-bg);
+      color: var(--gold-dark);
+    }
+    .ttl-project-badge.beck-badge {
+      background: rgba(58,142,142,0.08);
+      color: #2a6b6b;
+    }
+
     /* Tag picker dropdown */
     .ttl-tag-picker {
       position: absolute;
@@ -3239,7 +3325,7 @@
         </div>
 
         <div class="project-list">
-          <button class="project-card" onclick="showProject()">
+          <button class="project-card" onclick="showProject('hazen')">
             <div class="project-icon-wrap">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -3249,6 +3335,45 @@
             <div class="project-info">
               <div class="project-card-name">Hazen House</div>
               <div class="project-card-meta">Residential &bull; Kauai, HI</div>
+            </div>
+            <div class="project-status-pill active">
+              <span class="project-status-dot"></span>
+              Active
+            </div>
+            <svg class="project-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+
+          <button class="project-card" onclick="showProject('beck')">
+            <div class="project-icon-wrap" style="background:#3a8e8e;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <div class="project-info">
+              <div class="project-card-name">Beck Attic Renovation</div>
+              <div class="project-card-meta">Design-Build &bull; Kilauea, HI</div>
+            </div>
+            <div class="project-status-pill" style="background:rgba(58,142,142,0.08);color:#2a6b6b;">
+              <span class="project-status-dot"></span>
+              Planning
+            </div>
+            <svg class="project-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+
+          <button class="project-card" onclick="showDCTeam()" style="border-color:var(--gold);box-shadow:0 2px 8px rgba(201,168,76,0.12);">
+            <div class="project-icon-wrap" style="background:var(--gold);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="project-info">
+              <div class="project-card-name">DC Team</div>
+              <div class="project-card-meta">All Projects</div>
             </div>
             <div class="project-status-pill active">
               <span class="project-status-dot"></span>
@@ -6819,6 +6944,669 @@ Finish: TBD</span></div>
       </div>
     </div>
 
+    <!-- ============ BECK PROJECT PAGE ============ -->
+    <div id="beck-project-page" class="page hidden">
+
+      <!-- Project Nav Bar -->
+      <div class="project-top-bar">
+        <div class="project-top-bar-inner">
+          <button class="back-btn" onclick="showHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            Projects
+          </button>
+          <span class="project-nav-title">Beck Attic Renovation</span>
+          <svg class="more-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Project Hero -->
+      <div class="project-hero">
+        <h1 class="project-hero-name">Beck Attic Renovation</h1>
+        <span class="project-hero-badge" style="background:rgba(58,142,142,0.08);color:#2a6b6b;">
+          <span class="hero-badge-dot" style="background:#3a8e8e;"></span>
+          Planning
+        </span>
+      </div>
+
+      <!-- Project Overview -->
+      <div class="project-content" style="padding-bottom:100px;">
+        <div class="project-overview-card">
+          <div class="overview-section">
+            <h3 class="overview-title">Project Details</h3>
+            <div class="overview-grid">
+              <div class="overview-item">
+                <span class="overview-label">Owner</span>
+                <span class="overview-value">Michael Beck</span>
+              </div>
+              <div class="overview-item">
+                <span class="overview-label">Location</span>
+                <span class="overview-value">4585 Kuawa Rd, Kilauea, HI 96754</span>
+              </div>
+              <div class="overview-item">
+                <span class="overview-label">TMK</span>
+                <span class="overview-value">(4) 5-2-013-002</span>
+              </div>
+              <div class="overview-item">
+                <span class="overview-label">Scope</span>
+                <span class="overview-value">~2,700 sq ft attic conversion, 2BR/2BA → 4BR/3BA</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="overview-section">
+            <h3 class="overview-title">Project Phases</h3>
+            <div class="phase-item">
+              <div class="phase-header">Phase I: Schematic Design</div>
+              <div class="phase-desc">Estimated: 30-40 hours</div>
+            </div>
+            <div class="phase-item">
+              <div class="phase-header">Phase II: Construction Documents</div>
+              <div class="phase-desc">Estimated: 35-45 hours</div>
+            </div>
+            <div class="phase-item">
+              <div class="phase-header">Phase III: Coordination & Bidding</div>
+              <div class="phase-desc">Estimated: 10-20 hours</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Cards -->
+        <div class="section-cards">
+          <button class="section-card" onclick="showBeckTaskList()">
+            <div class="section-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 11l3 3L22 4"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11"/>
+              </svg>
+            </div>
+            <div class="section-card-info">
+              <div class="section-card-name">Team Task List</div>
+              <div class="section-card-desc">Tasks for Santo, Eric & Nalu</div>
+            </div>
+            <svg class="section-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Tab Bar -->
+      <div class="tab-bar">
+        <button class="tab-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          </svg>
+          <span>Projects</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span>Schedule</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Messages</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+          <span>More</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ BECK TASK LIST PAGE ============ -->
+    <div id="beck-tasklist-page" class="page hidden">
+
+      <!-- Task List Nav Bar -->
+      <div class="project-top-bar">
+        <div class="project-top-bar-inner">
+          <button class="back-btn" onclick="showProject('beck')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            Beck Attic
+          </button>
+          <span class="project-nav-title">Team Task List</span>
+          <svg class="more-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Task List Hero -->
+      <div class="project-hero">
+        <h1 class="project-hero-name">Team Task List</h1>
+        <span class="project-hero-badge" style="background:rgba(58,142,142,0.08);color:#2a6b6b;">
+          <span class="hero-badge-dot" style="background:#3a8e8e;"></span>
+          Beck Attic
+        </span>
+      </div>
+
+      <!-- ===== TEAM MEMBERS CARDS ===== -->
+      <div class="ttl-team-cards-wrap">
+        <div class="ttl-team-cards">
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#2d3325;">SG</div>
+            <div class="ttl-mc-name">Santo Giorgio</div>
+            <div class="ttl-mc-bullets">
+              <span>Site inspections</span>
+              <span>Coordination</span>
+            </div>
+          </div>
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:var(--gold);">EE</div>
+            <div class="ttl-mc-name">Eric Einstein</div>
+            <div class="ttl-mc-bullets">
+              <span>Design / PM</span>
+              <span>Technical leadership</span>
+            </div>
+          </div>
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#4a5564;">NB</div>
+            <div class="ttl-mc-name">Nalu Brady</div>
+            <div class="ttl-mc-bullets">
+              <span>Drafting</span>
+              <span>On-site Support</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Team Summary Bar -->
+      <div class="ttl-summary-bar">
+        <div class="ttl-summary-stat">
+          <span class="ttl-summary-number" id="beck-ttl-total-tasks">0</span>
+          <span class="ttl-summary-label">Total</span>
+        </div>
+        <div class="ttl-summary-stat">
+          <span class="ttl-summary-number ttl-open" id="beck-ttl-open-tasks">0</span>
+          <span class="ttl-summary-label">Open</span>
+        </div>
+        <div class="ttl-summary-stat">
+          <span class="ttl-summary-number ttl-done" id="beck-ttl-done-tasks">0</span>
+          <span class="ttl-summary-label">Done</span>
+        </div>
+        <div class="ttl-summary-progress">
+          <div class="ttl-progress-bar">
+            <div class="ttl-progress-fill" id="beck-ttl-progress-fill" style="width:0%"></div>
+          </div>
+          <span class="ttl-progress-pct" id="beck-ttl-progress-pct">0%</span>
+        </div>
+      </div>
+
+      <!-- Person Task Sections -->
+      <div class="project-content" style="padding-bottom:120px;">
+
+        <!-- Santo's Tasks -->
+        <div class="ttl-person-section" id="beck-ttl-santo-section">
+          <div class="ttl-person-header" onclick="toggleTTLSection('santo')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#2d3325;">SG</div>
+              <div>
+                <div class="ttl-person-name">Santo</div>
+                <div class="ttl-person-role">Inspections · Coordination</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="beck-ttl-santo-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="beck-ttl-santo-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="beck-ttl-santo-count">0/2</span>
+              <svg class="ttl-chevron" id="beck-ttl-santo-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="beck-ttl-santo-body">
+            <div class="ttl-tasks" id="beck-ttl-santo-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="beck-ttl-santo-input" placeholder="Add a task for Santo..." onkeydown="if(event.key==='Enter')addTTLTask('santo','beck')">
+              <button class="ttl-add-btn" onclick="addTTLTask('santo','beck')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="beck-ttl-santo-extras">
+              <button class="ttl-add-cat-btn" id="beck-ttl-santo-cat-btn" onclick="showAddTagPicker('santo')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="beck-ttl-santo-due">
+            </div>
+          </div>
+        </div>
+
+        <!-- Eric's Tasks -->
+        <div class="ttl-person-section" id="beck-ttl-eric-section">
+          <div class="ttl-person-header" onclick="toggleTTLSection('eric')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:var(--gold);">EE</div>
+              <div>
+                <div class="ttl-person-name">Eric</div>
+                <div class="ttl-person-role">Design · Project Management</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="beck-ttl-eric-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="beck-ttl-eric-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="beck-ttl-eric-count">0/3</span>
+              <svg class="ttl-chevron" id="beck-ttl-eric-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="beck-ttl-eric-body">
+            <div class="ttl-tasks" id="beck-ttl-eric-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="beck-ttl-eric-input" placeholder="Add a task for Eric..." onkeydown="if(event.key==='Enter')addTTLTask('eric','beck')">
+              <button class="ttl-add-btn" onclick="addTTLTask('eric','beck')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="beck-ttl-eric-extras">
+              <button class="ttl-add-cat-btn" id="beck-ttl-eric-cat-btn" onclick="showAddTagPicker('eric')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="beck-ttl-eric-due">
+            </div>
+          </div>
+        </div>
+
+        <!-- Nalu's Tasks -->
+        <div class="ttl-person-section" id="beck-ttl-nalu-section">
+          <div class="ttl-person-header" onclick="toggleTTLSection('nalu')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#4a5564;">NB</div>
+              <div>
+                <div class="ttl-person-name">Nalu</div>
+                <div class="ttl-person-role">Drafting · On-site Support</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="beck-ttl-nalu-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="beck-ttl-nalu-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="beck-ttl-nalu-count">0/1</span>
+              <svg class="ttl-chevron" id="beck-ttl-nalu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="beck-ttl-nalu-body">
+            <div class="ttl-tasks" id="beck-ttl-nalu-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="beck-ttl-nalu-input" placeholder="Add a task for Nalu..." onkeydown="if(event.key==='Enter')addTTLTask('nalu','beck')">
+              <button class="ttl-add-btn" onclick="addTTLTask('nalu','beck')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="beck-ttl-nalu-extras">
+              <button class="ttl-add-cat-btn" id="beck-ttl-nalu-cat-btn" onclick="showAddTagPicker('nalu')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="beck-ttl-nalu-due">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Global Tag Picker (floating, repositioned by JS) -->
+      <div class="ttl-tag-picker hidden" id="ttl-global-tag-picker">
+        <button class="ttl-tag-option cat-bidding" onclick="applyTag('bidding','Bidding')">Bidding</button>
+        <button class="ttl-tag-option cat-permits" onclick="applyTag('permits','Permits')">Permits</button>
+        <button class="ttl-tag-option cat-design" onclick="applyTag('design','Design')">Design</button>
+        <button class="ttl-tag-option cat-budget" onclick="applyTag('budget','Budget')">Budget</button>
+        <button class="ttl-tag-option cat-procurement" onclick="applyTag('procurement','Procurement')">Procurement</button>
+        <button class="ttl-tag-option cat-schedule" onclick="applyTag('schedule','Schedule')">Schedule</button>
+        <button class="ttl-tag-option cat-contracts" onclick="applyTag('contracts','Contracts')">Contracts</button>
+        <button class="ttl-tag-option cat-site" onclick="applyTag('site','Site')">Site</button>
+      </div>
+
+      <!-- Bottom Tab Bar -->
+      <div class="tab-bar">
+        <button class="tab-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          </svg>
+          <span>Projects</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span>Schedule</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Messages</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+          <span>More</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ DC TEAM PAGE ============ -->
+    <div id="dc-team-page" class="page hidden">
+
+      <!-- DC Team Nav Bar -->
+      <div class="project-top-bar">
+        <div class="project-top-bar-inner">
+          <button class="back-btn" onclick="showHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            Home
+          </button>
+          <span class="project-nav-title">DC Team</span>
+          <svg class="more-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- DC Team Hero -->
+      <div class="project-hero">
+        <h1 class="project-hero-name">DC Team</h1>
+        <span class="project-hero-badge">
+          <span class="hero-badge-dot"></span>
+          All Projects
+        </span>
+      </div>
+
+      <!-- ===== TEAM MEMBERS CARDS ===== -->
+      <div class="ttl-team-cards-wrap">
+        <div class="ttl-team-cards">
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#9a8568;">CC</div>
+            <div class="ttl-mc-name">Caroline & Chase Hazen</div>
+            <div class="ttl-mc-bullets">
+              <span>Owner-Builder (acting GC)</span>
+            </div>
+          </div>
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#2d3325;">SG</div>
+            <div class="ttl-mc-name">Santo Giorgio</div>
+            <div class="ttl-mc-bullets">
+              <span>Inspections · Pay Orders</span>
+            </div>
+          </div>
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:var(--gold);">EE</div>
+            <div class="ttl-mc-name">Eric Einstein</div>
+            <div class="ttl-mc-bullets">
+              <span>On-site PM · Estimates</span>
+            </div>
+          </div>
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#4a5564;">NB</div>
+            <div class="ttl-mc-name">Nalu Brady</div>
+            <div class="ttl-mc-bullets">
+              <span>Drafting · On-site Support</span>
+            </div>
+          </div>
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#3a8e8e;">JJ</div>
+            <div class="ttl-mc-name">Jared Jones</div>
+            <div class="ttl-mc-bullets">
+              <span>3D Modeling</span>
+            </div>
+          </div>
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#c0664e;">JT</div>
+            <div class="ttl-mc-name">Jim Tripolet</div>
+            <div class="ttl-mc-bullets">
+              <span>Structural Engineer</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Team Summary Bar -->
+      <div class="ttl-summary-bar">
+        <div class="ttl-summary-stat">
+          <span class="ttl-summary-number" id="dc-ttl-total-tasks">0</span>
+          <span class="ttl-summary-label">Total</span>
+        </div>
+        <div class="ttl-summary-stat">
+          <span class="ttl-summary-number ttl-open" id="dc-ttl-open-tasks">0</span>
+          <span class="ttl-summary-label">Open</span>
+        </div>
+        <div class="ttl-summary-stat">
+          <span class="ttl-summary-number ttl-done" id="dc-ttl-done-tasks">0</span>
+          <span class="ttl-summary-label">Done</span>
+        </div>
+        <div class="ttl-summary-progress">
+          <div class="ttl-progress-bar">
+            <div class="ttl-progress-fill" id="dc-ttl-progress-fill" style="width:0%"></div>
+          </div>
+          <span class="ttl-progress-pct" id="dc-ttl-progress-pct">0%</span>
+        </div>
+      </div>
+
+      <!-- Person Task Sections (all 6 people aggregated) -->
+      <div class="project-content" style="padding-bottom:120px;">
+
+        <!-- CC Tasks -->
+        <div class="ttl-person-section" id="dc-ttl-cc-section">
+          <div class="ttl-person-header" onclick="toggleDCTeamSection('cc')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#9a8568;">CC</div>
+              <div>
+                <div class="ttl-person-name">Caroline & Chase</div>
+                <div class="ttl-person-role">Owners</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="dc-ttl-cc-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="dc-ttl-cc-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="dc-ttl-cc-count">0/0</span>
+              <svg class="ttl-chevron" id="dc-ttl-cc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-ttl-cc-body">
+            <div class="ttl-tasks" id="dc-ttl-cc-tasks"></div>
+          </div>
+        </div>
+
+        <!-- Santo Tasks -->
+        <div class="ttl-person-section" id="dc-ttl-santo-section">
+          <div class="ttl-person-header" onclick="toggleDCTeamSection('santo')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#2d3325;">SG</div>
+              <div>
+                <div class="ttl-person-name">Santo</div>
+                <div class="ttl-person-role">Inspections · Coordination</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="dc-ttl-santo-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="dc-ttl-santo-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="dc-ttl-santo-count">0/0</span>
+              <svg class="ttl-chevron" id="dc-ttl-santo-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-ttl-santo-body">
+            <div class="ttl-tasks" id="dc-ttl-santo-tasks"></div>
+          </div>
+        </div>
+
+        <!-- Eric Tasks -->
+        <div class="ttl-person-section" id="dc-ttl-eric-section">
+          <div class="ttl-person-header" onclick="toggleDCTeamSection('eric')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:var(--gold);">EE</div>
+              <div>
+                <div class="ttl-person-name">Eric</div>
+                <div class="ttl-person-role">Design · PM</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="dc-ttl-eric-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="dc-ttl-eric-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="dc-ttl-eric-count">0/0</span>
+              <svg class="ttl-chevron" id="dc-ttl-eric-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-ttl-eric-body">
+            <div class="ttl-tasks" id="dc-ttl-eric-tasks"></div>
+          </div>
+        </div>
+
+        <!-- Nalu Tasks -->
+        <div class="ttl-person-section" id="dc-ttl-nalu-section">
+          <div class="ttl-person-header" onclick="toggleDCTeamSection('nalu')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#4a5564;">NB</div>
+              <div>
+                <div class="ttl-person-name">Nalu</div>
+                <div class="ttl-person-role">Drafting</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="dc-ttl-nalu-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="dc-ttl-nalu-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="dc-ttl-nalu-count">0/0</span>
+              <svg class="ttl-chevron" id="dc-ttl-nalu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-ttl-nalu-body">
+            <div class="ttl-tasks" id="dc-ttl-nalu-tasks"></div>
+          </div>
+        </div>
+
+        <!-- Jared Tasks -->
+        <div class="ttl-person-section" id="dc-ttl-jared-section">
+          <div class="ttl-person-header" onclick="toggleDCTeamSection('jared')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#3a8e8e;">JJ</div>
+              <div>
+                <div class="ttl-person-name">Jared</div>
+                <div class="ttl-person-role">3D Modeling</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="dc-ttl-jared-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="dc-ttl-jared-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="dc-ttl-jared-count">0/0</span>
+              <svg class="ttl-chevron" id="dc-ttl-jared-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-ttl-jared-body">
+            <div class="ttl-tasks" id="dc-ttl-jared-tasks"></div>
+          </div>
+        </div>
+
+        <!-- Jim Tasks -->
+        <div class="ttl-person-section" id="dc-ttl-jim-section">
+          <div class="ttl-person-header" onclick="toggleDCTeamSection('jim')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#c0664e;">JT</div>
+              <div>
+                <div class="ttl-person-name">Jim</div>
+                <div class="ttl-person-role">Structural Engineer</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="dc-ttl-jim-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="dc-ttl-jim-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="dc-ttl-jim-count">0/0</span>
+              <svg class="ttl-chevron" id="dc-ttl-jim-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-ttl-jim-body">
+            <div class="ttl-tasks" id="dc-ttl-jim-tasks"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Tab Bar -->
+      <div class="tab-bar">
+        <button class="tab-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          </svg>
+          <span>Projects</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span>Schedule</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Messages</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+          <span>More</span>
+        </button>
+      </div>
+    </div>
+
   </div> <!-- close #app -->
 
   <!-- Firebase SDK (compat for script-tag usage) -->
@@ -6877,7 +7665,7 @@ Finish: TBD</span></div>
     }
 
     function hideAllPages() {
-      ['home-page','project-page','construction-page','architecture-page','materials-page','plans-page','tasklist-page'].forEach(id => {
+      ['home-page','project-page','construction-page','architecture-page','materials-page','plans-page','tasklist-page','beck-project-page','beck-tasklist-page','dc-team-page'].forEach(id => {
         document.getElementById(id).classList.add('hidden');
       });
     }
@@ -6891,8 +7679,25 @@ Finish: TBD</span></div>
       p.style.animation = '';
     }
 
-    function showProject() {
-      showPage('project-page');
+    function showProject(projectId = 'hazen') {
+      if (projectId === 'hazen') {
+        showPage('project-page');
+      } else if (projectId === 'beck') {
+        showPage('beck-project-page');
+      }
+    }
+
+    function showBeckTaskList() {
+      showPage('beck-tasklist-page');
+    }
+
+    function showDCTeam() {
+      showPage('dc-team-page');
+      initDCTeamTasks();
+    }
+
+    function showHome() {
+      showPage('home-page');
     }
 
     // Bid sent day counters
@@ -6926,10 +7731,6 @@ Finish: TBD</span></div>
     document.addEventListener('DOMContentLoaded', updateBidTimers);
     setTimeout(updateBidTimers, 100);
 
-    function showHome() {
-      showPage('home-page');
-    }
-
     function showConstructionManagement() {
       showPage('construction-page');
     }
@@ -6957,20 +7758,115 @@ Finish: TBD</span></div>
       }
     }
 
-    function updateTTLProgress() {
-      const allTasks = document.querySelectorAll('#tasklist-page .ttl-task');
-      const allChecked = document.querySelectorAll('#tasklist-page .ttl-task input[type="checkbox"]:checked');
+    function toggleDCTeamSection(person) {
+      const body = document.getElementById('dc-ttl-' + person + '-body');
+      const chevron = document.getElementById('dc-ttl-' + person + '-chevron');
+      if (body.classList.contains('collapsed')) {
+        body.classList.remove('collapsed');
+        chevron.classList.remove('collapsed');
+      } else {
+        body.classList.add('collapsed');
+        chevron.classList.add('collapsed');
+      }
+    }
+
+    function initDCTeamTasks() {
+      // Aggregate tasks from both Hazen and Beck projects
+      const people = ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim'];
+
+      people.forEach(person => {
+        const container = document.getElementById('dc-ttl-' + person + '-tasks');
+        if (!container) return;
+
+        // Listen to Hazen tasks for this person
+        const hazenRef = tasksRef('hazen').child(person);
+        hazenRef.on('child_added', snap => {
+          const existing = container.querySelector('[data-id="' + snap.key + '"]');
+          if (existing) return;
+          const el = buildTaskEl(snap.key, snap.val(), 'hazen');
+          container.appendChild(el);
+          updateTTLProgress('dc-ttl');
+        });
+
+        hazenRef.on('child_changed', snap => {
+          const existing = container.querySelector('[data-id="' + snap.key + '"]');
+          if (existing) {
+            const newEl = buildTaskEl(snap.key, snap.val(), 'hazen');
+            container.replaceChild(newEl, existing);
+          }
+          updateTTLProgress('dc-ttl');
+        });
+
+        hazenRef.on('child_removed', snap => {
+          const existing = container.querySelector('[data-id="' + snap.key + '"]');
+          if (existing) {
+            existing.style.opacity = '0';
+            existing.style.transform = 'translateX(20px)';
+            existing.style.transition = 'all 0.2s';
+            setTimeout(() => { existing.remove(); updateTTLProgress('dc-ttl'); }, 200);
+          } else {
+            updateTTLProgress('dc-ttl');
+          }
+        });
+
+        // Listen to Beck tasks for this person
+        const beckRef = tasksRef('beck').child(person);
+        beckRef.on('child_added', snap => {
+          const existing = container.querySelector('[data-id="' + snap.key + '"]');
+          if (existing) return;
+          const el = buildTaskEl(snap.key, snap.val(), 'beck');
+          container.appendChild(el);
+          updateTTLProgress('dc-ttl');
+        });
+
+        beckRef.on('child_changed', snap => {
+          const existing = container.querySelector('[data-id="' + snap.key + '"]');
+          if (existing) {
+            const newEl = buildTaskEl(snap.key, snap.val(), 'beck');
+            container.replaceChild(newEl, existing);
+          }
+          updateTTLProgress('dc-ttl');
+        });
+
+        beckRef.on('child_removed', snap => {
+          const existing = container.querySelector('[data-id="' + snap.key + '"]');
+          if (existing) {
+            existing.style.opacity = '0';
+            existing.style.transform = 'translateX(20px)';
+            existing.style.transition = 'all 0.2s';
+            setTimeout(() => { existing.remove(); updateTTLProgress('dc-ttl'); }, 200);
+          } else {
+            updateTTLProgress('dc-ttl');
+          }
+        });
+      });
+    }
+
+    function updateTTLProgress(prefix = 'ttl') {
+      // Determine the page and selector based on prefix
+      let pageId = 'tasklist-page';
+      if (prefix === 'beck-ttl') pageId = 'beck-tasklist-page';
+      else if (prefix === 'dc-ttl') pageId = 'dc-team-page';
+
+      const allTasks = document.querySelectorAll('#' + pageId + ' .' + prefix + '-task');
+      const allChecked = document.querySelectorAll('#' + pageId + ' .' + prefix + '-task input[type="checkbox"]:checked');
       const total = allTasks.length;
       const done = allChecked.length;
       const open = total - done;
       const pct = total > 0 ? Math.round((done / total) * 100) : 0;
 
-      // Update summary bar
-      document.getElementById('ttl-total-tasks').textContent = total;
-      document.getElementById('ttl-open-tasks').textContent = open;
-      document.getElementById('ttl-done-tasks').textContent = done;
-      document.getElementById('ttl-progress-fill').style.width = pct + '%';
-      document.getElementById('ttl-progress-pct').textContent = pct + '%';
+      // Update summary bar (only if elements exist)
+      const totalEl = document.getElementById(prefix + '-total-tasks');
+      const openEl = document.getElementById(prefix + '-open-tasks');
+      const doneEl = document.getElementById(prefix + '-done-tasks');
+      const fillEl = document.getElementById(prefix + '-progress-fill');
+      const pctEl = document.getElementById(prefix + '-progress-pct');
+
+      if (totalEl) totalEl.textContent = total;
+      if (openEl) openEl.textContent = open;
+      if (doneEl) doneEl.textContent = done;
+      if (fillEl) fillEl.style.width = pct + '%';
+      if (pctEl) pctEl.textContent = pct + '%';
 
       // Update strikethrough styling
       allTasks.forEach(task => {
@@ -6980,20 +7876,42 @@ Finish: TBD</span></div>
       });
 
       // Per-person rings
-      ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim'].forEach(person => {
-        const tasks = document.querySelectorAll('#ttl-' + person + '-tasks .ttl-task');
-        const checked = document.querySelectorAll('#ttl-' + person + '-tasks .ttl-task input[type="checkbox"]:checked');
+      // For hazen: all 6 people; for beck: 3 people; for dc: all 6 people
+      let peopleList = ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim'];
+      if (prefix === 'beck-ttl') peopleList = ['santo', 'eric', 'nalu'];
+
+      peopleList.forEach(person => {
+        const tasks = document.querySelectorAll('#' + pageId + ' #' + prefix + '-' + person + '-tasks .ttl-task');
+        const checked = document.querySelectorAll('#' + pageId + ' #' + prefix + '-' + person + '-tasks .ttl-task input[type="checkbox"]:checked');
         const pTotal = tasks.length;
         const pDone = checked.length;
         const pPct = pTotal > 0 ? Math.round((pDone / pTotal) * 100) : 0;
 
-        const countEl = document.getElementById('ttl-' + person + '-count');
+        const countEl = document.getElementById(prefix + '-' + person + '-count');
         if (countEl) countEl.textContent = pDone + '/' + pTotal;
 
-        const ringFill = document.getElementById('ttl-' + person + '-ring-fill');
+        const ringFill = document.getElementById(prefix + '-' + person + '-ring-fill');
         if (ringFill) ringFill.setAttribute('stroke-dasharray', pPct + ', 100');
       });
     }
+
+    // ===== PROJECTS CONFIG =====
+    const PROJECTS = {
+      hazen: {
+        name: 'Hazen House',
+        shortName: 'Hazen',
+        location: 'Kauai, HI',
+        color: '#c9a84c',
+        people: ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim']
+      },
+      beck: {
+        name: 'Beck Attic Renovation',
+        shortName: 'Beck',
+        location: 'Kilauea, HI',
+        color: '#3a8e8e',
+        people: ['santo', 'eric', 'nalu']
+      }
+    };
 
     // ===== TASK CATEGORIES =====
     const TTL_CATEGORIES = [
@@ -7008,7 +7926,10 @@ Finish: TBD</span></div>
     ];
 
     let tagPickerTarget = null;
-    const tasksRef = db.ref('tasks');
+
+    function tasksRef(projectId) {
+      return db.ref('tasks/' + projectId);
+    }
 
     function formatTaskDate(dateStr) {
       if (!dateStr) return '';
@@ -7017,11 +7938,12 @@ Finish: TBD</span></div>
     }
 
     // ===== BUILD TASK DOM FROM DATA =====
-    function buildTaskEl(taskId, data) {
+    function buildTaskEl(taskId, data, projectId = 'hazen') {
       const div = document.createElement('div');
       div.className = 'ttl-task' + (data.done ? ' checked' : '');
       div.setAttribute('data-person', data.person);
       div.setAttribute('data-id', taskId);
+      div.setAttribute('data-project', projectId);
       if (data.cat) div.setAttribute('data-cat', data.cat);
       if (data.due) div.setAttribute('data-due', data.due);
 
@@ -7045,11 +7967,16 @@ Finish: TBD</span></div>
         dueHtml = '<span class="ttl-due" onclick="showDuePicker(this)" style="color:var(--grey-300);">+ Due date</span>';
       }
 
+      let projectBadgeHtml = '';
+      if (projectId === 'beck') {
+        projectBadgeHtml = '<span class="ttl-project-badge beck-badge">Beck</span>';
+      }
+
       div.innerHTML =
         '<input type="checkbox" ' + (data.done ? 'checked' : '') + ' onchange="toggleTaskDone(this)">' +
         '<div class="ttl-task-content">' +
           '<span class="ttl-task-text" onclick="editTaskText(this)">' + (data.text || 'Untitled') + '</span>' +
-          '<div class="ttl-task-row2">' + tagHtml + dueHtml + '</div>' +
+          '<div class="ttl-task-row2">' + tagHtml + dueHtml + projectBadgeHtml + '</div>' +
         '</div>' +
         '<button class="ttl-task-delete" onclick="deleteTTLTask(this)" title="Delete">&times;</button>';
 
@@ -7057,30 +7984,31 @@ Finish: TBD</span></div>
     }
 
     // ===== FIREBASE REAL-TIME LISTENERS =====
-    function initFirebaseTasks() {
-      const people = ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim'];
+    function initFirebaseTasks(projectId = 'hazen', prefix = 'ttl') {
+      const people = PROJECTS[projectId].people;
 
       people.forEach(person => {
-        const personRef = tasksRef.child(person);
-        const container = document.getElementById('ttl-' + person + '-tasks');
+        const personRef = tasksRef(projectId).child(person);
+        const container = document.getElementById(prefix + '-' + person + '-tasks');
+        if (!container) return; // Container doesn't exist for this page
 
         // Listen for new tasks
         personRef.on('child_added', snap => {
           const existing = container.querySelector('[data-id="' + snap.key + '"]');
           if (existing) return; // already rendered
-          const el = buildTaskEl(snap.key, snap.val());
+          const el = buildTaskEl(snap.key, snap.val(), projectId);
           container.appendChild(el);
-          updateTTLProgress();
+          updateTTLProgress(prefix);
         });
 
         // Listen for changed tasks (edit text, toggle done, change tag/due)
         personRef.on('child_changed', snap => {
           const existing = container.querySelector('[data-id="' + snap.key + '"]');
           if (existing) {
-            const newEl = buildTaskEl(snap.key, snap.val());
+            const newEl = buildTaskEl(snap.key, snap.val(), projectId);
             container.replaceChild(newEl, existing);
           }
-          updateTTLProgress();
+          updateTTLProgress(prefix);
         });
 
         // Listen for deleted tasks
@@ -7090,9 +8018,9 @@ Finish: TBD</span></div>
             existing.style.opacity = '0';
             existing.style.transform = 'translateX(20px)';
             existing.style.transition = 'all 0.2s';
-            setTimeout(() => { existing.remove(); updateTTLProgress(); }, 200);
+            setTimeout(() => { existing.remove(); updateTTLProgress(prefix); }, 200);
           } else {
-            updateTTLProgress();
+            updateTTLProgress(prefix);
           }
         });
       });
@@ -7100,41 +8028,64 @@ Finish: TBD</span></div>
 
     // ===== SEED INITIAL TASKS (runs once if DB is empty) =====
     function seedInitialTasks() {
-      tasksRef.once('value', snap => {
-        if (snap.exists()) {
-          // DB already has tasks — do nothing
-          return;
-        }
-        // First time: push starter tasks
-        const seed = {
-          cc: [
-            { text: 'Review & sign sub contracts', cat: 'contracts', due: '2026-04-01', done: false, person: 'cc' },
-            { text: 'Approve initial payment schedule', cat: 'budget', due: '2026-04-10', done: false, person: 'cc' }
-          ],
-          santo: [
-            { text: 'Follow up with framing bids', cat: 'bidding', due: '2026-03-20', done: false, person: 'santo' },
-            { text: 'Review electrical estimate', cat: 'budget', due: '2026-03-25', done: false, person: 'santo' },
-            { text: 'Schedule site visit with surveyor', cat: 'site', due: '2026-03-28', done: false, person: 'santo' },
-            { text: 'Order Fleetwood windows — long lead', cat: 'procurement', due: '2026-04-01', done: false, person: 'santo' }
-          ],
-          eric: [
-            { text: 'Confirm pool contract with builder', cat: 'contracts', due: '2026-03-18', done: false, person: 'eric' },
-            { text: 'Submit permit applications to County', cat: 'permits', due: '2026-03-22', done: false, person: 'eric' },
-            { text: 'Finalize structural engineer review', cat: 'design', due: '2026-03-30', done: false, person: 'eric' },
-            { text: 'Review framing schedule with Santo', cat: 'schedule', due: '2026-04-05', done: false, person: 'eric' }
-          ],
-          nalu: [
-            { text: 'Update construction drawings per RFI responses', cat: 'design', due: '2026-04-01', done: false, person: 'nalu' }
-          ],
-          jared: [
-            { text: 'Update 3D model with latest design revisions', cat: 'design', due: '2026-04-05', done: false, person: 'jared' }
-          ]
-        };
-        Object.keys(seed).forEach(person => {
-          seed[person].forEach(task => {
-            tasksRef.child(person).push(task);
+      // Seed Hazen tasks
+      tasksRef('hazen').once('value', snap => {
+        if (!snap.exists()) {
+          const hazenSeed = {
+            cc: [
+              { text: 'Review & sign sub contracts', cat: 'contracts', due: '2026-04-01', done: false, person: 'cc' },
+              { text: 'Approve initial payment schedule', cat: 'budget', due: '2026-04-10', done: false, person: 'cc' }
+            ],
+            santo: [
+              { text: 'Follow up with framing bids', cat: 'bidding', due: '2026-03-20', done: false, person: 'santo' },
+              { text: 'Review electrical estimate', cat: 'budget', due: '2026-03-25', done: false, person: 'santo' },
+              { text: 'Schedule site visit with surveyor', cat: 'site', due: '2026-03-28', done: false, person: 'santo' },
+              { text: 'Order Fleetwood windows — long lead', cat: 'procurement', due: '2026-04-01', done: false, person: 'santo' }
+            ],
+            eric: [
+              { text: 'Confirm pool contract with builder', cat: 'contracts', due: '2026-03-18', done: false, person: 'eric' },
+              { text: 'Submit permit applications to County', cat: 'permits', due: '2026-03-22', done: false, person: 'eric' },
+              { text: 'Finalize structural engineer review', cat: 'design', due: '2026-03-30', done: false, person: 'eric' },
+              { text: 'Review framing schedule with Santo', cat: 'schedule', due: '2026-04-05', done: false, person: 'eric' }
+            ],
+            nalu: [
+              { text: 'Update construction drawings per RFI responses', cat: 'design', due: '2026-04-01', done: false, person: 'nalu' }
+            ],
+            jared: [
+              { text: 'Update 3D model with latest design revisions', cat: 'design', due: '2026-04-05', done: false, person: 'jared' }
+            ]
+          };
+          Object.keys(hazenSeed).forEach(person => {
+            hazenSeed[person].forEach(task => {
+              tasksRef('hazen').child(person).push(task);
+            });
           });
-        });
+        }
+      });
+
+      // Seed Beck tasks
+      tasksRef('beck').once('value', snap => {
+        if (!snap.exists()) {
+          const beckSeed = {
+            santo: [
+              { text: 'Schedule initial site visit with Michael', cat: 'site', due: '2026-04-01', done: false, person: 'santo' },
+              { text: 'Document existing attic conditions', cat: 'site', due: '2026-04-05', done: false, person: 'santo' }
+            ],
+            eric: [
+              { text: 'Review existing plans and roof structure', cat: 'design', due: '2026-03-25', done: false, person: 'eric' },
+              { text: 'Prepare schematic design options for attic layout', cat: 'design', due: '2026-04-15', done: false, person: 'eric' },
+              { text: 'Coordinate with structural engineer on collar ties', cat: 'design', due: '2026-04-20', done: false, person: 'eric' }
+            ],
+            nalu: [
+              { text: 'Draft existing conditions floor plan', cat: 'design', due: '2026-04-10', done: false, person: 'nalu' }
+            ]
+          };
+          Object.keys(beckSeed).forEach(person => {
+            beckSeed[person].forEach(task => {
+              tasksRef('beck').child(person).push(task);
+            });
+          });
+        }
       });
     }
 
@@ -7143,7 +8094,8 @@ Finish: TBD</span></div>
       const task = cb.closest('.ttl-task');
       const id = task.getAttribute('data-id');
       const person = task.getAttribute('data-person');
-      db.ref('tasks/' + person + '/' + id + '/done').set(cb.checked);
+      const projectId = task.getAttribute('data-project') || 'hazen';
+      db.ref('tasks/' + projectId + '/' + person + '/' + id + '/done').set(cb.checked);
     }
 
     // ===== INLINE TEXT EDITING (syncs to Firebase on blur) =====
@@ -7167,7 +8119,8 @@ Finish: TBD</span></div>
         const task = span.closest('.ttl-task');
         const id = task.getAttribute('data-id');
         const person = task.getAttribute('data-person');
-        db.ref('tasks/' + person + '/' + id + '/text').set(cleaned || 'Untitled task');
+        const projectId = task.getAttribute('data-project') || 'hazen';
+        db.ref('tasks/' + projectId + '/' + person + '/' + id + '/text').set(cleaned || 'Untitled task');
       }
       function handleKey(e) {
         if (e.key === 'Enter') { e.preventDefault(); span.blur(); }
@@ -7212,7 +8165,8 @@ Finish: TBD</span></div>
         const task = tagPickerTarget.task;
         const id = task.getAttribute('data-id');
         const person = task.getAttribute('data-person');
-        db.ref('tasks/' + person + '/' + id + '/cat').set(catKey);
+        const projectId = task.getAttribute('data-project') || 'hazen';
+        db.ref('tasks/' + projectId + '/' + person + '/' + id + '/cat').set(catKey);
       } else if (tagPickerTarget.mode === 'add') {
         const btn = tagPickerTarget.btn;
         btn.textContent = catLabel;
@@ -7247,10 +8201,11 @@ Finish: TBD</span></div>
         const val = input.value;
         const id = task.getAttribute('data-id');
         const person = task.getAttribute('data-person');
+        const projectId = task.getAttribute('data-project') || 'hazen';
         if (val) {
-          db.ref('tasks/' + person + '/' + id + '/due').set(val);
+          db.ref('tasks/' + projectId + '/' + person + '/' + id + '/due').set(val);
         } else {
-          db.ref('tasks/' + person + '/' + id + '/due').remove();
+          db.ref('tasks/' + projectId + '/' + person + '/' + id + '/due').remove();
         }
         dueEl.style.display = '';
         input.remove();
@@ -7260,15 +8215,20 @@ Finish: TBD</span></div>
     }
 
     // ===== ADD TASK (writes to Firebase — real-time listener renders it) =====
-    function addTTLTask(person) {
-      const input = document.getElementById('ttl-' + person + '-input');
+    function addTTLTask(person, projectId = 'hazen') {
+      // Determine prefix based on projectId
+      const prefix = projectId === 'hazen' ? 'ttl-' : projectId === 'beck' ? 'beck-ttl-' : 'ttl-';
+
+      const input = document.getElementById(prefix + person + '-input');
+      if (!input) return;
+
       const text = input.value.trim();
       if (!text) return;
 
-      const catBtn = document.getElementById('ttl-' + person + '-cat-btn');
-      const dueInput = document.getElementById('ttl-' + person + '-due');
-      const catKey = catBtn.getAttribute('data-cat') || '';
-      const dueVal = dueInput.value || '';
+      const catBtn = document.getElementById(prefix + person + '-cat-btn');
+      const dueInput = document.getElementById(prefix + person + '-due');
+      const catKey = catBtn ? catBtn.getAttribute('data-cat') || '' : '';
+      const dueVal = dueInput ? dueInput.value || '' : '';
 
       const taskData = {
         text: text,
@@ -7280,27 +8240,31 @@ Finish: TBD</span></div>
       if (dueVal) taskData.due = dueVal;
 
       // Push to Firebase — the child_added listener will render it
-      tasksRef.child(person).push(taskData);
+      tasksRef(projectId).child(person).push(taskData);
 
       // Reset form
       input.value = '';
-      catBtn.textContent = '+ Category';
-      catBtn.className = 'ttl-add-cat-btn';
-      catBtn.removeAttribute('data-cat');
-      dueInput.value = '';
+      if (catBtn) {
+        catBtn.textContent = '+ Category';
+        catBtn.className = 'ttl-add-cat-btn';
+        catBtn.removeAttribute('data-cat');
+      }
+      if (dueInput) dueInput.value = '';
     }
 
     function deleteTTLTask(btn) {
       const task = btn.closest('.ttl-task');
       const id = task.getAttribute('data-id');
       const person = task.getAttribute('data-person');
+      const projectId = task.getAttribute('data-project') || 'hazen';
       // Remove from Firebase — the child_removed listener handles the animation
-      db.ref('tasks/' + person + '/' + id).remove();
+      db.ref('tasks/' + projectId + '/' + person + '/' + id).remove();
     }
 
     // ===== INIT: seed + listen =====
     seedInitialTasks();
-    initFirebaseTasks();
+    initFirebaseTasks('hazen', 'ttl');
+    initFirebaseTasks('beck', 'beck-ttl');
 
     // ========== SCHEDULE / GANTT FUNCTIONS ==========
 

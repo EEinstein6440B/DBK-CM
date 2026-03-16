@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hazen-house-v2.0';
+const CACHE_NAME = 'dc-dbk-v3.0';
 const ASSETS = [
   "./",
   "./index.html",
