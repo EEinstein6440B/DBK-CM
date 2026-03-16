@@ -2935,6 +2935,22 @@
       color: var(--gold-dark);
     }
 
+    .ttl-add-project-select {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--grey-200);
+      background: var(--white);
+      font-size: 13px;
+      color: var(--grey-700);
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      appearance: auto;
+    }
+    .ttl-add-project-select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
     .ttl-add-due {
       font-size: 11px;
       font-family: var(--font-sans);
@@ -7296,7 +7312,7 @@ Finish: TBD</span></div>
               <button class="ttl-add-btn" onclick="addTTLTask('santo','beck')">+ Add</button>
             </div>
             <div class="ttl-add-extras" id="beck-ttl-santo-extras">
-              <button class="ttl-add-cat-btn" id="beck-ttl-santo-cat-btn" onclick="showAddTagPicker('santo')">+ Category</button>
+              <button class="ttl-add-cat-btn" id="beck-ttl-santo-cat-btn" onclick="showAddTagPicker('santo','beck-ttl')">+ Category</button>
               <input type="date" class="ttl-add-due" id="beck-ttl-santo-due">
             </div>
           </div>
@@ -7332,7 +7348,7 @@ Finish: TBD</span></div>
               <button class="ttl-add-btn" onclick="addTTLTask('eric','beck')">+ Add</button>
             </div>
             <div class="ttl-add-extras" id="beck-ttl-eric-extras">
-              <button class="ttl-add-cat-btn" id="beck-ttl-eric-cat-btn" onclick="showAddTagPicker('eric')">+ Category</button>
+              <button class="ttl-add-cat-btn" id="beck-ttl-eric-cat-btn" onclick="showAddTagPicker('eric','beck-ttl')">+ Category</button>
               <input type="date" class="ttl-add-due" id="beck-ttl-eric-due">
             </div>
           </div>
@@ -7368,7 +7384,7 @@ Finish: TBD</span></div>
               <button class="ttl-add-btn" onclick="addTTLTask('nalu','beck')">+ Add</button>
             </div>
             <div class="ttl-add-extras" id="beck-ttl-nalu-extras">
-              <button class="ttl-add-cat-btn" id="beck-ttl-nalu-cat-btn" onclick="showAddTagPicker('nalu')">+ Category</button>
+              <button class="ttl-add-cat-btn" id="beck-ttl-nalu-cat-btn" onclick="showAddTagPicker('nalu','beck-ttl')">+ Category</button>
               <input type="date" class="ttl-add-due" id="beck-ttl-nalu-due">
             </div>
           </div>
@@ -7531,6 +7547,18 @@ Finish: TBD</span></div>
           </div>
           <div class="ttl-person-body" id="dc-ttl-jordan-body">
             <div class="ttl-tasks" id="dc-ttl-jordan-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="dc-ttl-jordan-input" placeholder="Add a task for Jordan..." onkeydown="if(event.key==='Enter')addDCTeamTask('jordan')">
+              <button class="ttl-add-btn" onclick="addDCTeamTask('jordan')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="dc-ttl-jordan-extras">
+              <select class="ttl-add-project-select" id="dc-ttl-jordan-project">
+                <option value="hazen">Hazen House</option>
+                <option value="beck">Beck Attic</option>
+              </select>
+              <button class="ttl-add-cat-btn" id="dc-ttl-jordan-cat-btn" onclick="showAddTagPicker('jordan','dc-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="dc-ttl-jordan-due">
+            </div>
           </div>
         </div>
 
@@ -7558,6 +7586,18 @@ Finish: TBD</span></div>
           </div>
           <div class="ttl-person-body" id="dc-ttl-santo-body">
             <div class="ttl-tasks" id="dc-ttl-santo-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="dc-ttl-santo-input" placeholder="Add a task for Santo..." onkeydown="if(event.key==='Enter')addDCTeamTask('santo')">
+              <button class="ttl-add-btn" onclick="addDCTeamTask('santo')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="dc-ttl-santo-extras">
+              <select class="ttl-add-project-select" id="dc-ttl-santo-project">
+                <option value="hazen">Hazen House</option>
+                <option value="beck">Beck Attic</option>
+              </select>
+              <button class="ttl-add-cat-btn" id="dc-ttl-santo-cat-btn" onclick="showAddTagPicker('santo','dc-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="dc-ttl-santo-due">
+            </div>
           </div>
         </div>
 
@@ -7585,6 +7625,18 @@ Finish: TBD</span></div>
           </div>
           <div class="ttl-person-body" id="dc-ttl-eric-body">
             <div class="ttl-tasks" id="dc-ttl-eric-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="dc-ttl-eric-input" placeholder="Add a task for Eric..." onkeydown="if(event.key==='Enter')addDCTeamTask('eric')">
+              <button class="ttl-add-btn" onclick="addDCTeamTask('eric')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="dc-ttl-eric-extras">
+              <select class="ttl-add-project-select" id="dc-ttl-eric-project">
+                <option value="hazen">Hazen House</option>
+                <option value="beck">Beck Attic</option>
+              </select>
+              <button class="ttl-add-cat-btn" id="dc-ttl-eric-cat-btn" onclick="showAddTagPicker('eric','dc-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="dc-ttl-eric-due">
+            </div>
           </div>
         </div>
 
@@ -7612,6 +7664,18 @@ Finish: TBD</span></div>
           </div>
           <div class="ttl-person-body" id="dc-ttl-nalu-body">
             <div class="ttl-tasks" id="dc-ttl-nalu-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="dc-ttl-nalu-input" placeholder="Add a task for Nalu..." onkeydown="if(event.key==='Enter')addDCTeamTask('nalu')">
+              <button class="ttl-add-btn" onclick="addDCTeamTask('nalu')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="dc-ttl-nalu-extras">
+              <select class="ttl-add-project-select" id="dc-ttl-nalu-project">
+                <option value="hazen">Hazen House</option>
+                <option value="beck">Beck Attic</option>
+              </select>
+              <button class="ttl-add-cat-btn" id="dc-ttl-nalu-cat-btn" onclick="showAddTagPicker('nalu','dc-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="dc-ttl-nalu-due">
+            </div>
           </div>
         </div>
 
@@ -7639,6 +7703,18 @@ Finish: TBD</span></div>
           </div>
           <div class="ttl-person-body" id="dc-ttl-jared-body">
             <div class="ttl-tasks" id="dc-ttl-jared-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="dc-ttl-jared-input" placeholder="Add a task for Jared..." onkeydown="if(event.key==='Enter')addDCTeamTask('jared')">
+              <button class="ttl-add-btn" onclick="addDCTeamTask('jared')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="dc-ttl-jared-extras">
+              <select class="ttl-add-project-select" id="dc-ttl-jared-project">
+                <option value="hazen">Hazen House</option>
+                <option value="beck">Beck Attic</option>
+              </select>
+              <button class="ttl-add-cat-btn" id="dc-ttl-jared-cat-btn" onclick="showAddTagPicker('jared','dc-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="dc-ttl-jared-due">
+            </div>
           </div>
         </div>
 
@@ -7666,6 +7742,18 @@ Finish: TBD</span></div>
           </div>
           <div class="ttl-person-body" id="dc-ttl-luciano-body">
             <div class="ttl-tasks" id="dc-ttl-luciano-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="dc-ttl-luciano-input" placeholder="Add a task for Luciano..." onkeydown="if(event.key==='Enter')addDCTeamTask('luciano')">
+              <button class="ttl-add-btn" onclick="addDCTeamTask('luciano')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="dc-ttl-luciano-extras">
+              <select class="ttl-add-project-select" id="dc-ttl-luciano-project">
+                <option value="hazen">Hazen House</option>
+                <option value="beck">Beck Attic</option>
+              </select>
+              <button class="ttl-add-cat-btn" id="dc-ttl-luciano-cat-btn" onclick="showAddTagPicker('luciano','dc-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="dc-ttl-luciano-due">
+            </div>
           </div>
         </div>
 
@@ -7912,6 +8000,19 @@ Finish: TBD</span></div>
         chevron.classList.add('collapsed');
       }
     }
+
+    // Person display name mapping
+    const PERSON_DISPLAY_NAMES = {
+      jordan: 'Jordan G.', santo: 'Santo G.', jared: 'Jared J.',
+      luciano: 'Luciano J.', nalu: 'Nalu B.', eric: 'Eric E.',
+      cc: 'Caroline & Chase', jim: 'Jim'
+    };
+    function getPersonDisplayName(key) {
+      return PERSON_DISPLAY_NAMES[key] || key;
+    }
+
+    // Track who is currently signed in (set during sign-in flow)
+    window.currentSignedInUser = '';
 
     const DC_TEAM_PEOPLE = ['jordan', 'santo', 'jared', 'luciano', 'nalu', 'eric'];
 
@@ -8257,6 +8358,7 @@ Finish: TBD</span></div>
             if (snap.exists()) {
               const data = snap.val();
               data.completedAt = Date.now();
+              data.completedBy = window.currentSignedInUser || person;
               // Write to archive
               db.ref('archive/' + projectId + '/' + person + '/' + id).set(data);
               // Remove from active
@@ -8333,7 +8435,7 @@ Finish: TBD</span></div>
       div.innerHTML =
         '<div style="flex:1;min-width:0;">' +
           '<span class="ttl-task-text" style="text-decoration:line-through;opacity:0.7;">' + (data.text || 'Untitled') + '</span>' +
-          '<div class="ttl-task-row2">' + projectBadgeHtml + '<span class="ttl-archive-date">Completed: ' + dateStr + '</span></div>' +
+          '<div class="ttl-task-row2">' + projectBadgeHtml + '<span class="ttl-archive-date">Completed: ' + dateStr + (data.completedBy ? ' by ' + getPersonDisplayName(data.completedBy) : '') + '</span></div>' +
         '</div>' +
         '<button class="ttl-restore-btn" onclick="restoreTask(\'' + projectId + '\', \'' + person + '\', \'' + taskId + '\')">Restore</button>';
 
@@ -8399,9 +8501,10 @@ Finish: TBD</span></div>
       setTimeout(() => { document.addEventListener('click', closeTagPickerOutside); }, 10);
     }
 
-    function showAddTagPicker(person) {
+    function showAddTagPicker(person, prefix) {
+      prefix = prefix || 'ttl';
       const picker = document.getElementById('ttl-global-tag-picker');
-      const btn = document.getElementById('ttl-' + person + '-cat-btn');
+      const btn = document.getElementById(prefix + '-' + person + '-cat-btn');
       tagPickerTarget = { mode: 'add', person: person, btn: btn };
       const rect = btn.getBoundingClientRect();
       picker.style.position = 'fixed';
@@ -8496,6 +8599,44 @@ Finish: TBD</span></div>
       if (dueVal) taskData.due = dueVal;
 
       // Push to Firebase — the child_added listener will render it
+      tasksRef(projectId).child(person).push(taskData);
+
+      // Reset form
+      input.value = '';
+      if (catBtn) {
+        catBtn.textContent = '+ Category';
+        catBtn.className = 'ttl-add-cat-btn';
+        catBtn.removeAttribute('data-cat');
+      }
+      if (dueInput) dueInput.value = '';
+    }
+
+    // Add task from DC Team page — routes to the selected project
+    function addDCTeamTask(person) {
+      const input = document.getElementById('dc-ttl-' + person + '-input');
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
+
+      const projectSelect = document.getElementById('dc-ttl-' + person + '-project');
+      const projectId = projectSelect ? projectSelect.value : 'hazen';
+
+      const catBtn = document.getElementById('dc-ttl-' + person + '-cat-btn');
+      const dueInput = document.getElementById('dc-ttl-' + person + '-due');
+      const catKey = catBtn ? catBtn.getAttribute('data-cat') || '' : '';
+      const dueVal = dueInput ? dueInput.value || '' : '';
+
+      const taskData = {
+        text: text,
+        done: false,
+        person: person,
+        createdAt: Date.now()
+      };
+      if (catKey) taskData.cat = catKey;
+      if (dueVal) taskData.due = dueVal;
+
+      // Push to the selected project — real-time listeners will pick it up in both
+      // the project task list AND the DC Team aggregated view
       tasksRef(projectId).child(person).push(taskData);
 
       // Reset form
