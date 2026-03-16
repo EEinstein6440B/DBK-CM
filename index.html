@@ -3321,7 +3321,7 @@
       <div class="home-content">
         <div class="section-header">
           <span class="section-title">Projects</span>
-          <span class="section-count">1 Active</span>
+          <span class="section-count">2 Active</span>
         </div>
 
         <div class="project-list">
@@ -3365,19 +3365,23 @@
             </svg>
           </button>
 
+
+        </div>
+
+
+        <!-- Task Lists -->
+        <div class="section-header" style="margin-top:28px;">
+          <span class="section-title">Task Lists</span>
+        </div>
+
+        <div class="project-list">
           <button class="project-card" onclick="showDCTeam()" style="border-color:var(--gold);box-shadow:0 2px 8px rgba(201,168,76,0.12);">
-            <div class="project-icon-wrap" style="background:var(--gold);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
+            <div class="project-icon-wrap" style="background:var(--gold);padding:6px;">
+              <img src="DC_Logo_Transparent.png" alt="DC" style="width:100%;height:100%;object-fit:contain;filter:brightness(0);">
             </div>
             <div class="project-info">
               <div class="project-card-name">DC Team</div>
-              <div class="project-card-meta">All Projects</div>
-            </div>
-            <div class="project-status-pill active">
-              <span class="project-status-dot"></span>
-              Active
+              <div class="project-card-meta">All Projects &bull; Task Manager</div>
             </div>
             <svg class="project-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="9 18 15 12 9 6"/>
@@ -7333,51 +7337,33 @@ Finish: TBD</span></div>
         <div class="ttl-team-cards">
 
           <div class="ttl-member-card">
-            <div class="ttl-mc-avatar" style="background:#9a8568;">CC</div>
-            <div class="ttl-mc-name">Caroline & Chase Hazen</div>
-            <div class="ttl-mc-bullets">
-              <span>Owner-Builder (acting GC)</span>
-            </div>
+            <div class="ttl-mc-avatar" style="background:#c0664e;">JG</div>
+            <div class="ttl-mc-name">Jordan Gromiak</div>
           </div>
 
           <div class="ttl-member-card">
             <div class="ttl-mc-avatar" style="background:#2d3325;">SG</div>
             <div class="ttl-mc-name">Santo Giorgio</div>
-            <div class="ttl-mc-bullets">
-              <span>Inspections · Pay Orders</span>
-            </div>
-          </div>
-
-          <div class="ttl-member-card">
-            <div class="ttl-mc-avatar" style="background:var(--gold);">EE</div>
-            <div class="ttl-mc-name">Eric Einstein</div>
-            <div class="ttl-mc-bullets">
-              <span>On-site PM · Estimates</span>
-            </div>
-          </div>
-
-          <div class="ttl-member-card">
-            <div class="ttl-mc-avatar" style="background:#4a5564;">NB</div>
-            <div class="ttl-mc-name">Nalu Brady</div>
-            <div class="ttl-mc-bullets">
-              <span>Drafting · On-site Support</span>
-            </div>
           </div>
 
           <div class="ttl-member-card">
             <div class="ttl-mc-avatar" style="background:#3a8e8e;">JJ</div>
             <div class="ttl-mc-name">Jared Jones</div>
-            <div class="ttl-mc-bullets">
-              <span>3D Modeling</span>
-            </div>
           </div>
 
           <div class="ttl-member-card">
-            <div class="ttl-mc-avatar" style="background:#c0664e;">JT</div>
-            <div class="ttl-mc-name">Jim Tripolet</div>
-            <div class="ttl-mc-bullets">
-              <span>Structural Engineer</span>
-            </div>
+            <div class="ttl-mc-avatar" style="background:#6b7a2e;">LJ</div>
+            <div class="ttl-mc-name">Luciano Junqueira</div>
+          </div>
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#4a5564;">NB</div>
+            <div class="ttl-mc-name">Nalu Brady Jr.</div>
+          </div>
+
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:var(--gold);">EE</div>
+            <div class="ttl-mc-name">Eric Einstein</div>
           </div>
 
         </div>
@@ -7408,31 +7394,30 @@ Finish: TBD</span></div>
       <!-- Person Task Sections (all 6 people aggregated) -->
       <div class="project-content" style="padding-bottom:120px;">
 
-        <!-- CC Tasks -->
-        <div class="ttl-person-section" id="dc-ttl-cc-section">
-          <div class="ttl-person-header" onclick="toggleDCTeamSection('cc')">
+        <!-- Jordan Tasks -->
+        <div class="ttl-person-section" id="dc-ttl-jordan-section">
+          <div class="ttl-person-header" onclick="toggleDCTeamSection('jordan')">
             <div class="ttl-person-left">
-              <div class="ttl-avatar" style="background:#9a8568;">CC</div>
+              <div class="ttl-avatar" style="background:#c0664e;">JG</div>
               <div>
-                <div class="ttl-person-name">Caroline & Chase</div>
-                <div class="ttl-person-role">Owners</div>
+                <div class="ttl-person-name">Jordan Gromiak</div>
               </div>
             </div>
             <div class="ttl-person-right">
-              <div class="ttl-mini-ring" id="dc-ttl-cc-ring">
+              <div class="ttl-mini-ring" id="dc-ttl-jordan-ring">
                 <svg viewBox="0 0 36 36">
                   <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="ring-fill" id="dc-ttl-cc-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="dc-ttl-jordan-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
                 </svg>
               </div>
-              <span class="ttl-person-count" id="dc-ttl-cc-count">0/0</span>
-              <svg class="ttl-chevron" id="dc-ttl-cc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <span class="ttl-person-count" id="dc-ttl-jordan-count">0/0</span>
+              <svg class="ttl-chevron" id="dc-ttl-jordan-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
             </div>
           </div>
-          <div class="ttl-person-body" id="dc-ttl-cc-body">
-            <div class="ttl-tasks" id="dc-ttl-cc-tasks"></div>
+          <div class="ttl-person-body" id="dc-ttl-jordan-body">
+            <div class="ttl-tasks" id="dc-ttl-jordan-tasks"></div>
           </div>
         </div>
 
@@ -7442,8 +7427,7 @@ Finish: TBD</span></div>
             <div class="ttl-person-left">
               <div class="ttl-avatar" style="background:#2d3325;">SG</div>
               <div>
-                <div class="ttl-person-name">Santo</div>
-                <div class="ttl-person-role">Inspections · Coordination</div>
+                <div class="ttl-person-name">Santo Giorgio</div>
               </div>
             </div>
             <div class="ttl-person-right">
@@ -7470,8 +7454,7 @@ Finish: TBD</span></div>
             <div class="ttl-person-left">
               <div class="ttl-avatar" style="background:var(--gold);">EE</div>
               <div>
-                <div class="ttl-person-name">Eric</div>
-                <div class="ttl-person-role">Design · PM</div>
+                <div class="ttl-person-name">Eric Einstein</div>
               </div>
             </div>
             <div class="ttl-person-right">
@@ -7498,8 +7481,7 @@ Finish: TBD</span></div>
             <div class="ttl-person-left">
               <div class="ttl-avatar" style="background:#4a5564;">NB</div>
               <div>
-                <div class="ttl-person-name">Nalu</div>
-                <div class="ttl-person-role">Drafting</div>
+                <div class="ttl-person-name">Nalu Brady Jr.</div>
               </div>
             </div>
             <div class="ttl-person-right">
@@ -7526,8 +7508,7 @@ Finish: TBD</span></div>
             <div class="ttl-person-left">
               <div class="ttl-avatar" style="background:#3a8e8e;">JJ</div>
               <div>
-                <div class="ttl-person-name">Jared</div>
-                <div class="ttl-person-role">3D Modeling</div>
+                <div class="ttl-person-name">Jared Jones</div>
               </div>
             </div>
             <div class="ttl-person-right">
@@ -7548,31 +7529,30 @@ Finish: TBD</span></div>
           </div>
         </div>
 
-        <!-- Jim Tasks -->
-        <div class="ttl-person-section" id="dc-ttl-jim-section">
-          <div class="ttl-person-header" onclick="toggleDCTeamSection('jim')">
+        <!-- Luciano Tasks -->
+        <div class="ttl-person-section" id="dc-ttl-luciano-section">
+          <div class="ttl-person-header" onclick="toggleDCTeamSection('luciano')">
             <div class="ttl-person-left">
-              <div class="ttl-avatar" style="background:#c0664e;">JT</div>
+              <div class="ttl-avatar" style="background:#6b7a2e;">LJ</div>
               <div>
-                <div class="ttl-person-name">Jim</div>
-                <div class="ttl-person-role">Structural Engineer</div>
+                <div class="ttl-person-name">Luciano Junqueira</div>
               </div>
             </div>
             <div class="ttl-person-right">
-              <div class="ttl-mini-ring" id="dc-ttl-jim-ring">
+              <div class="ttl-mini-ring" id="dc-ttl-luciano-ring">
                 <svg viewBox="0 0 36 36">
                   <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="ring-fill" id="dc-ttl-jim-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="dc-ttl-luciano-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
                 </svg>
               </div>
-              <span class="ttl-person-count" id="dc-ttl-jim-count">0/0</span>
-              <svg class="ttl-chevron" id="dc-ttl-jim-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <span class="ttl-person-count" id="dc-ttl-luciano-count">0/0</span>
+              <svg class="ttl-chevron" id="dc-ttl-luciano-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
             </div>
           </div>
-          <div class="ttl-person-body" id="dc-ttl-jim-body">
-            <div class="ttl-tasks" id="dc-ttl-jim-tasks"></div>
+          <div class="ttl-person-body" id="dc-ttl-luciano-body">
+            <div class="ttl-tasks" id="dc-ttl-luciano-tasks"></div>
           </div>
         </div>
 
@@ -7770,9 +7750,11 @@ Finish: TBD</span></div>
       }
     }
 
+    const DC_TEAM_PEOPLE = ['jordan', 'santo', 'jared', 'luciano', 'nalu', 'eric'];
+
     function initDCTeamTasks() {
-      // Aggregate tasks from both Hazen and Beck projects
-      const people = ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim'];
+      // Aggregate tasks from all projects for DC Team members
+      const people = DC_TEAM_PEOPLE;
 
       people.forEach(person => {
         const container = document.getElementById('dc-ttl-' + person + '-tasks');
@@ -7848,8 +7830,8 @@ Finish: TBD</span></div>
       if (prefix === 'beck-ttl') pageId = 'beck-tasklist-page';
       else if (prefix === 'dc-ttl') pageId = 'dc-team-page';
 
-      const allTasks = document.querySelectorAll('#' + pageId + ' .' + prefix + '-task');
-      const allChecked = document.querySelectorAll('#' + pageId + ' .' + prefix + '-task input[type="checkbox"]:checked');
+      const allTasks = document.querySelectorAll('#' + pageId + ' .ttl-task');
+      const allChecked = document.querySelectorAll('#' + pageId + ' .ttl-task input[type="checkbox"]:checked');
       const total = allTasks.length;
       const done = allChecked.length;
       const open = total - done;
@@ -7876,9 +7858,9 @@ Finish: TBD</span></div>
       });
 
       // Per-person rings
-      // For hazen: all 6 people; for beck: 3 people; for dc: all 6 people
       let peopleList = ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim'];
       if (prefix === 'beck-ttl') peopleList = ['santo', 'eric', 'nalu'];
+      else if (prefix === 'dc-ttl') peopleList = DC_TEAM_PEOPLE;
 
       peopleList.forEach(person => {
         const tasks = document.querySelectorAll('#' + pageId + ' #' + prefix + '-' + person + '-tasks .ttl-task');
@@ -7967,9 +7949,12 @@ Finish: TBD</span></div>
         dueHtml = '<span class="ttl-due" onclick="showDuePicker(this)" style="color:var(--grey-300);">+ Due date</span>';
       }
 
+      // Project badge — shown on all tasks so DC Team view identifies which project
       let projectBadgeHtml = '';
-      if (projectId === 'beck') {
-        projectBadgeHtml = '<span class="ttl-project-badge beck-badge">Beck</span>';
+      const projConfig = PROJECTS[projectId];
+      if (projConfig) {
+        const badgeClass = projectId === 'beck' ? 'beck-badge' : '';
+        projectBadgeHtml = '<span class="ttl-project-badge ' + badgeClass + '">' + projConfig.shortName + '</span>';
       }
 
       div.innerHTML =
