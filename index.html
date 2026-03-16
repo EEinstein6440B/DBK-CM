@@ -1423,6 +1423,66 @@
       border-top: 1px solid var(--border-light);
     }
 
+    .cm-contact-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .cm-contact-info {
+      flex: 1;
+    }
+
+    .contact-status-select {
+      font-size: 11px;
+      font-family: var(--font-sans);
+      border: 1px solid var(--grey-200);
+      border-radius: 8px;
+      padding: 4px 8px;
+      background: var(--white);
+      color: var(--text-secondary);
+      cursor: pointer;
+      outline: none;
+      min-width: 120px;
+    }
+
+    .contact-status-select.status-accepted {
+      border-color: #27ae60;
+      color: #27ae60;
+      background: rgba(39,174,96,0.06);
+    }
+
+    .contact-status-select.status-did-not-accept {
+      border-color: #e74c3c;
+      color: #e74c3c;
+      background: rgba(231,76,60,0.06);
+    }
+
+    .contact-status-select.status-did-not-respond {
+      border-color: #f39c12;
+      color: #f39c12;
+      background: rgba(243,156,18,0.06);
+    }
+
+    .contact-note-area {
+      width: 100%;
+      font-size: 12px;
+      font-family: var(--font-sans);
+      border: 1px solid var(--grey-200);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-top: 6px;
+      resize: vertical;
+      min-height: 40px;
+      outline: none;
+      color: var(--text-primary);
+    }
+
+    .contact-note-area:focus {
+      border-color: var(--gold);
+    }
+
     /* =============================================
        SCHEDULE TAB - BuilderTrend-style Gantt
        ============================================= */
@@ -2669,6 +2729,22 @@
       cursor: pointer;
     }
 
+    .ttl-task.checked {
+      opacity: 0.5;
+      animation: fadeOut 0.5s ease 2.5s forwards;
+    }
+
+    .ttl-task.checked .ttl-task-text {
+      text-decoration: line-through;
+      color: var(--grey-400);
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+      }
+    }
+
     .ttl-task-content {
       flex: 1;
       min-width: 0;
@@ -3264,6 +3340,43 @@
       min-height: 18px;
     }
 
+    /* Hazen-only access mode hiding */
+    #app.hazen-only-mode #beck-project-page,
+    #app.hazen-only-mode #beck-tasklist-page {
+      display: none !important;
+    }
+
+    /* Archived task styles */
+    .ttl-archive-task {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--grey-100);
+      opacity: 0.7;
+    }
+
+    .ttl-archive-date {
+      font-size: 10px;
+      color: var(--grey-400);
+    }
+
+    .ttl-restore-btn {
+      font-size: 11px;
+      color: var(--gold-dark);
+      background: var(--gold-bg);
+      border: none;
+      border-radius: 8px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+
+    .ttl-restore-btn:hover {
+      background: var(--gold-bg-strong);
+    }
+
   </style>
 </head>
 <body>
@@ -3495,22 +3608,6 @@
             </svg>
           </button>
 
-          <!-- Team Task List -->
-          <button class="section-card tasks" onclick="showTaskListPage()">
-            <div class="section-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 11l3 3L22 4"/>
-                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-              </svg>
-            </div>
-            <div class="section-card-info">
-              <div class="section-card-name">Team Task List</div>
-              <div class="section-card-desc">Assigned tasks &amp; action items by team member</div>
-            </div>
-            <svg class="section-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </button>
         </div>
       </div>
 
@@ -3566,7 +3663,6 @@
         <div class="cm-tabs-scroll">
           <button class="cm-tab-pill active" data-tab="overview" onclick="switchCMTab('overview')">Overview</button>
           <button class="cm-tab-pill" data-tab="schedule" onclick="switchCMTab('schedule')">Schedule</button>
-          <button class="cm-tab-pill" data-tab="todo" onclick="switchCMTab('todo')">To Do</button>
           <button class="cm-tab-pill" data-tab="bidtracking" onclick="switchCMTab('bidtracking')">Bid Tracking</button>
           <button class="cm-tab-pill" data-tab="contacts" onclick="switchCMTab('contacts')">Contacts</button>
         </div>
@@ -7556,6 +7652,27 @@ Finish: TBD</span></div>
           </div>
         </div>
 
+        <!-- Completed Tasks Archive -->
+        <div class="ttl-person-section" id="dc-archive-section" style="margin-top:20px;border-top:2px solid var(--grey-200);padding-top:16px;">
+          <div class="ttl-person-header" onclick="toggleDCArchive()">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:var(--grey-300);color:var(--grey-600);">✓</div>
+              <div>
+                <div class="ttl-person-name">Completed Tasks</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <span class="ttl-person-count" id="dc-archive-count">0</span>
+              <svg class="ttl-chevron collapsed" id="dc-archive-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body collapsed" id="dc-archive-body">
+            <div class="ttl-tasks" id="dc-archive-tasks"></div>
+          </div>
+        </div>
+
       </div>
 
       <!-- Bottom Tab Bar -->
@@ -7611,16 +7728,30 @@ Finish: TBD</span></div>
   <script>
     // ========== PASSWORD GATE ==========
     // Change this password to whatever you want your team to use
-    const APP_PASSWORD = 'hazen2026';
+    const DC_PASSWORD = 'DC2000';
+    const HAZEN_PASSWORD = 'Hazen2026';
 
     function checkPassword() {
       const input = document.getElementById('pw-input');
       const error = document.getElementById('pw-error');
-      if (input.value === APP_PASSWORD) {
+      const pw = input.value;
+
+      if (pw === DC_PASSWORD) {
+        // DC Team - full access
+        window.accessLevel = 'full';
+        sessionStorage.setItem('pw-ok', '1');
+        sessionStorage.setItem('accessLevel', 'full');
         document.getElementById('password-gate').classList.add('hidden');
         document.getElementById('app').style.display = '';
-        // Remember for this session
+        applyAccessLevel();
+      } else if (pw === HAZEN_PASSWORD) {
+        // Hazen House only
+        window.accessLevel = 'hazen-only';
         sessionStorage.setItem('pw-ok', '1');
+        sessionStorage.setItem('accessLevel', 'hazen-only');
+        document.getElementById('password-gate').classList.add('hidden');
+        document.getElementById('app').style.display = '';
+        applyAccessLevel();
       } else {
         error.textContent = 'Incorrect password';
         input.value = '';
@@ -7633,10 +7764,25 @@ Finish: TBD</span></div>
       }
     }
 
+    function applyAccessLevel() {
+      if (window.accessLevel === 'hazen-only') {
+        // Hide Beck and DC Team cards on home
+        const beckCard = document.querySelector('[onclick="showBeckProject()"]');
+        const dcCard = document.querySelector('[onclick="showDCTeam()"]');
+        if (beckCard) beckCard.parentElement.style.display = 'none';
+        if (dcCard) dcCard.parentElement.style.display = 'none';
+        // Add class to app for CSS-based hiding
+        document.getElementById('app').classList.add('hazen-only-mode');
+      }
+    }
+
     // Check if already authenticated this session
     if (sessionStorage.getItem('pw-ok') === '1') {
+      window.accessLevel = sessionStorage.getItem('accessLevel') || 'full';
       document.getElementById('password-gate').classList.add('hidden');
       document.getElementById('app').style.display = '';
+      // Re-apply access level restrictions on page load
+      document.addEventListener('DOMContentLoaded', applyAccessLevel);
     } else {
       // Auto-focus password input
       document.addEventListener('DOMContentLoaded', function() {
@@ -7822,6 +7968,9 @@ Finish: TBD</span></div>
           }
         });
       });
+
+      // Initialize archive section
+      initDCArchive();
     }
 
     function updateTTLProgress(prefix = 'ttl') {
@@ -8080,7 +8229,112 @@ Finish: TBD</span></div>
       const id = task.getAttribute('data-id');
       const person = task.getAttribute('data-person');
       const projectId = task.getAttribute('data-project') || 'hazen';
-      db.ref('tasks/' + projectId + '/' + person + '/' + id + '/done').set(cb.checked);
+
+      if (cb.checked) {
+        // Mark as checked visually
+        task.classList.add('checked');
+        // Wait 2.5 seconds, then archive
+        setTimeout(() => {
+          // Read current task data
+          db.ref('tasks/' + projectId + '/' + person + '/' + id).once('value', snap => {
+            if (snap.exists()) {
+              const data = snap.val();
+              data.completedAt = Date.now();
+              // Write to archive
+              db.ref('archive/' + projectId + '/' + person + '/' + id).set(data);
+              // Remove from active
+              db.ref('tasks/' + projectId + '/' + person + '/' + id).remove();
+            }
+          });
+        }, 2500);
+      } else {
+        task.classList.remove('checked');
+        db.ref('tasks/' + projectId + '/' + person + '/' + id + '/done').set(false);
+      }
+    }
+
+    // ===== ARCHIVE FUNCTIONS =====
+    function toggleDCArchive() {
+      const chevron = document.getElementById('dc-archive-chevron');
+      const body = document.getElementById('dc-archive-body');
+      chevron.classList.toggle('collapsed');
+      body.classList.toggle('collapsed');
+    }
+
+    function initDCArchive() {
+      const archiveContainer = document.getElementById('dc-archive-tasks');
+      const countEl = document.getElementById('dc-archive-count');
+      if (!archiveContainer) return;
+
+      db.ref('archive').on('value', snap => {
+        const data = snap.val() || {};
+        archiveContainer.innerHTML = '';
+        let totalCount = 0;
+
+        // For each project
+        Object.keys(data).forEach(projectId => {
+          const projData = data[projectId];
+          if (!projData) return;
+
+          // For each person in that project
+          Object.keys(projData).forEach(person => {
+            const personData = projData[person];
+            if (!personData) return;
+
+            // For each archived task
+            Object.keys(personData).forEach(taskId => {
+              const taskData = personData[taskId];
+              const el = buildArchiveTaskEl(taskId, taskData, projectId, person);
+              archiveContainer.appendChild(el);
+              totalCount++;
+            });
+          });
+        });
+
+        countEl.textContent = totalCount;
+      });
+    }
+
+    function buildArchiveTaskEl(taskId, data, projectId, person) {
+      const div = document.createElement('div');
+      div.className = 'ttl-archive-task';
+      div.setAttribute('data-id', taskId);
+      div.setAttribute('data-project', projectId);
+      div.setAttribute('data-person', person);
+
+      const completedDate = new Date(data.completedAt);
+      const dateStr = (completedDate.getMonth() + 1) + '/' + completedDate.getDate() + '/' + completedDate.getFullYear().toString().slice(2);
+
+      // Project badge
+      let projectBadgeHtml = '';
+      const projConfig = PROJECTS[projectId];
+      if (projConfig) {
+        const badgeClass = projectId === 'beck' ? 'beck-badge' : '';
+        projectBadgeHtml = '<span class="ttl-project-badge ' + badgeClass + '">' + projConfig.shortName + '</span>';
+      }
+
+      div.innerHTML =
+        '<div style="flex:1;min-width:0;">' +
+          '<span class="ttl-task-text" style="text-decoration:line-through;opacity:0.7;">' + (data.text || 'Untitled') + '</span>' +
+          '<div class="ttl-task-row2">' + projectBadgeHtml + '<span class="ttl-archive-date">Completed: ' + dateStr + '</span></div>' +
+        '</div>' +
+        '<button class="ttl-restore-btn" onclick="restoreTask(\'' + projectId + '\', \'' + person + '\', \'' + taskId + '\')">Restore</button>';
+
+      return div;
+    }
+
+    function restoreTask(projectId, person, taskId) {
+      db.ref('archive/' + projectId + '/' + person + '/' + taskId).once('value', snap => {
+        if (snap.exists()) {
+          const data = snap.val();
+          delete data.completedAt;
+          data.done = false;
+          // Write back to tasks
+          db.ref('tasks/' + projectId + '/' + person + '/' + taskId).set(data);
+          // Remove from archive
+          db.ref('archive/' + projectId + '/' + person + '/' + taskId).remove();
+        }
+      });
     }
 
     // ===== INLINE TEXT EDITING (syncs to Firebase on blur) =====
@@ -8580,7 +8834,105 @@ Finish: TBD</span></div>
         // Scroll pill into view
         activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
       }
+
+      // Initialize contacts when contacts tab is shown
+      if (tabName === 'contacts') {
+        initContacts();
+      }
     }
+
+    function updateContactStatus(contactId, value) {
+      db.ref('contacts/' + contactId + '/status').set(value);
+    }
+
+    function updateContactNote(contactId, note) {
+      db.ref('contacts/' + contactId + '/note').set(note);
+    }
+
+    function initContacts() {
+      // Set up all contact cards with status and notes
+      const contactCards = document.querySelectorAll('.cm-contact-card');
+      let contactIndex = 0;
+
+      contactCards.forEach(card => {
+        const name = card.querySelector('.cm-contact-name');
+        if (!name) return;
+
+        const contactId = 'contact-' + contactIndex;
+        contactIndex++;
+        card.setAttribute('data-contact-id', contactId);
+
+        // Check if already initialized
+        if (card.querySelector('.contact-status-select')) return;
+
+        // Restructure card to add status and notes
+        const trade = card.querySelector('.cm-contact-trade');
+        const rfp = card.querySelector('.cm-card-rfp');
+
+        if (trade && rfp) {
+          // Wrap existing content
+          const wrapper = document.createElement('div');
+          wrapper.className = 'cm-contact-row';
+
+          const infoDiv = document.createElement('div');
+          infoDiv.className = 'cm-contact-info';
+
+          // Move elements into info div
+          while (card.firstChild && card.firstChild !== rfp) {
+            infoDiv.appendChild(card.firstChild);
+          }
+          wrapper.appendChild(infoDiv);
+
+          // Create status select
+          const selectDiv = document.createElement('div');
+          const statusSelect = document.createElement('select');
+          statusSelect.className = 'contact-status-select';
+          statusSelect.setAttribute('data-contact-id', contactId);
+          statusSelect.innerHTML = '<option value="pending">Pending</option><option value="accepted">Accepted</option><option value="did-not-accept">Did Not Accept</option><option value="did-not-respond">Did Not Respond</option>';
+          statusSelect.addEventListener('change', function() {
+            updateContactStatus(contactId, this.value);
+            updateSelectStyle(this);
+          });
+          selectDiv.appendChild(statusSelect);
+          wrapper.appendChild(selectDiv);
+
+          card.appendChild(wrapper);
+          card.appendChild(rfp);
+
+          // Create notes textarea
+          const notesArea = document.createElement('textarea');
+          notesArea.className = 'contact-note-area';
+          notesArea.setAttribute('data-contact-id', contactId);
+          notesArea.placeholder = 'Add notes...';
+          notesArea.addEventListener('blur', function() {
+            updateContactNote(contactId, this.value);
+          });
+          card.appendChild(notesArea);
+        }
+      });
+
+      // Load contact data from Firebase
+      db.ref('contacts').on('value', snap => {
+        const data = snap.val() || {};
+        Object.keys(data).forEach(id => {
+          const select = document.querySelector('[data-contact-id="' + id + '"].contact-status-select');
+          const note = document.querySelector('[data-contact-id="' + id + '"].contact-note-area');
+          if (select) {
+            select.value = data[id].status || 'pending';
+            updateSelectStyle(select);
+          }
+          if (note) note.value = data[id].note || '';
+        });
+      });
+    }
+
+    function updateSelectStyle(select) {
+      select.classList.remove('status-accepted', 'status-did-not-accept', 'status-did-not-respond');
+      if (select.value === 'accepted') select.classList.add('status-accepted');
+      else if (select.value === 'did-not-accept') select.classList.add('status-did-not-accept');
+      else if (select.value === 'did-not-respond') select.classList.add('status-did-not-respond');
+    }
+
     // ========== MATERIALS, FINISHES & SCHEDULES PAGE FUNCTIONS ==========
     
     function showMaterialsPage() {
