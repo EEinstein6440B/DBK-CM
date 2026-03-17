@@ -9418,7 +9418,10 @@ Finish: TBD</span></div>
             <div class="dc-meeting-attendee-chip" data-person="jared" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">JJ Jared</div>
             <div class="dc-meeting-attendee-chip" data-person="luciano" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">LJ Luciano</div>
           </div>
-          <button onclick="createMeeting()" style="width:100%;padding:12px;background:var(--gold);color:var(--white);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">Create Meeting</button>
+          <div style="display:flex;gap:8px;">
+            <button id="mtg-create-btn" onclick="createMeeting()" style="flex:1;padding:12px;background:var(--gold);color:var(--white);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">Create Meeting</button>
+            <button id="mtg-cancel-edit-btn" onclick="cancelEditMeeting()" style="display:none;padding:12px 20px;background:var(--grey-200);color:var(--grey-600);border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Cancel</button>
+          </div>
         </div>
 
         <!-- Per-Person Meeting Sections -->
@@ -10505,6 +10508,74 @@ Finish: TBD</span></div>
 
     let calMode = 'both'; // 'tasks', 'events', 'both'
     let calMeetings = []; // loaded from Firebase
+    let editingMeetingId = null; // set when editing an existing meeting
+
+    function editMeeting(meetingId) {
+      db.ref('meetings/' + meetingId).once('value', function(snap) {
+        var m = snap.val();
+        if (!m) return;
+
+        editingMeetingId = meetingId;
+
+        // Switch to meetings tab if not already there
+        switchDCView('meetings');
+
+        // Populate form fields
+        document.getElementById('mtg-title').value = m.title || '';
+        document.getElementById('mtg-date').value = m.date || '';
+        document.getElementById('mtg-time').value = m.time || '09:00';
+        document.getElementById('mtg-duration').value = m.duration != null ? m.duration : 60;
+        document.getElementById('mtg-project').value = m.project || '';
+        document.getElementById('mtg-location').value = m.location || '';
+
+        // Set attendees
+        document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip').forEach(function(chip) {
+          var person = chip.getAttribute('data-person');
+          if (m.attendees && m.attendees.indexOf(person) >= 0) {
+            chip.classList.add('selected');
+          } else {
+            chip.classList.remove('selected');
+          }
+        });
+
+        // Change button to "Save Changes"
+        var btn = document.getElementById('mtg-create-btn');
+        if (btn) {
+          btn.textContent = 'Save Changes';
+          btn.style.background = '#3a8e8e';
+        }
+
+        // Show cancel button
+        var cancelBtn = document.getElementById('mtg-cancel-edit-btn');
+        if (cancelBtn) cancelBtn.style.display = '';
+
+        // Scroll to top of meetings view
+        document.getElementById('dc-meetings-view').scrollTop = 0;
+        document.getElementById('mtg-title').focus();
+      });
+    }
+
+    function cancelEditMeeting() {
+      editingMeetingId = null;
+
+      // Reset form
+      document.getElementById('mtg-title').value = '';
+      document.getElementById('mtg-date').value = '';
+      document.getElementById('mtg-time').value = '09:00';
+      document.getElementById('mtg-duration').value = '60';
+      document.getElementById('mtg-project').value = '';
+      document.getElementById('mtg-location').value = '';
+      document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip.selected').forEach(function(c) { c.classList.remove('selected'); });
+
+      // Reset button
+      var btn = document.getElementById('mtg-create-btn');
+      if (btn) {
+        btn.textContent = 'Create Meeting';
+        btn.style.background = '';
+      }
+      var cancelBtn = document.getElementById('mtg-cancel-edit-btn');
+      if (cancelBtn) cancelBtn.style.display = 'none';
+    }
 
     function setCalMode(mode) {
       calMode = mode;
@@ -10560,12 +10631,28 @@ Finish: TBD</span></div>
         createdBy: window.currentSignedInUser || 'eric'
       };
 
-      db.ref('meetings').push(meetingData);
+      if (editingMeetingId) {
+        // Update existing meeting
+        db.ref('meetings/' + editingMeetingId).update(meetingData);
+        editingMeetingId = null;
 
-      // Open Google Calendar with the event pre-filled
-      var gcalLink = buildGoogleCalUrl(meetingData);
-      if (confirm('Meeting created! Add to your Google Calendar?')) {
-        window.open(gcalLink, '_blank');
+        // Reset button back to Create
+        var btn = document.getElementById('mtg-create-btn');
+        if (btn) {
+          btn.textContent = 'Create Meeting';
+          btn.style.background = '';
+        }
+        var cancelBtn = document.getElementById('mtg-cancel-edit-btn');
+        if (cancelBtn) cancelBtn.style.display = 'none';
+      } else {
+        // Create new meeting
+        db.ref('meetings').push(meetingData);
+
+        // Open Google Calendar with the event pre-filled
+        var gcalLink = buildGoogleCalUrl(meetingData);
+        if (confirm('Meeting created! Add to your Google Calendar?')) {
+          window.open(gcalLink, '_blank');
+        }
       }
 
       // Reset form
@@ -10578,6 +10665,7 @@ Finish: TBD</span></div>
       document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip.selected').forEach(c => c.classList.remove('selected'));
 
       loadUpcomingMeetings();
+      loadPersonMeetings();
     }
 
 
@@ -10655,6 +10743,10 @@ Finish: TBD</span></div>
                   '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
                   'Add to Calendar' +
                 '</a>' +
+                '<button class="dc-meeting-gcal-btn" onclick="editMeeting(\'' + m.id + '\')">' +
+                  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>' +
+                  'Edit' +
+                '</button>' +
                 '<button class="dc-meeting-card-delete" onclick="deleteMeeting(\'' + m.id + '\')" title="Delete">\u00d7</button>' +
               '</div>';
             container.appendChild(el);
@@ -10732,6 +10824,10 @@ Finish: TBD</span></div>
                 '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
                 'Add to Google Calendar' +
               '</a>' +
+              '<button class="dc-meeting-gcal-btn" onclick="editMeeting(\'' + m.id + '\')">' +
+                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>' +
+                'Edit' +
+              '</button>' +
             '</div>';
 
           container.appendChild(card);
@@ -10742,7 +10838,9 @@ Finish: TBD</span></div>
     function deleteMeeting(meetingId) {
       if (confirm('Delete this meeting?')) {
         db.ref('meetings/' + meetingId).remove();
+        if (editingMeetingId === meetingId) cancelEditMeeting();
         loadUpcomingMeetings();
+        loadPersonMeetings();
       }
     }
 
