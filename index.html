@@ -9272,6 +9272,11 @@ Finish: TBD</span></div>
       luciano: 'Luciano J.', nalu: 'Nalu B.', eric: 'Eric E.',
       cc: 'Caroline & Chase', jim: 'Jim'
     };
+    const PERSON_INITIALS = {
+      jordan: 'JG', santo: 'SG', jared: 'JJ',
+      luciano: 'LJ', nalu: 'NB', eric: 'EE',
+      cc: 'CC', jim: 'JM'
+    };
     function getPersonDisplayName(key) {
       return PERSON_DISPLAY_NAMES[key] || key;
     }
@@ -10111,7 +10116,8 @@ Finish: TBD</span></div>
             const evEl = document.createElement('div');
             evEl.className = 'dc-cal-event cal-' + person;
             const projLabel = PROJECTS[ev.project] ? PROJECTS[ev.project].shortName : ev.project;
-            evEl.textContent = ev.title;
+            const initials = PERSON_INITIALS[person] || person.slice(0,2).toUpperCase();
+            evEl.innerHTML = '<strong>' + initials + '</strong> ' + (ev.title || 'Untitled');
             evEl.title = person.charAt(0).toUpperCase() + person.slice(1) + ' · ' + projLabel + ': ' + ev.title;
             cell.appendChild(evEl);
           });
