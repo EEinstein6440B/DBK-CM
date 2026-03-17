@@ -9292,17 +9292,17 @@ Finish: TBD</span></div>
       <!-- Calendar View -->
       <div id="dc-calendar-view" class="dc-calendar-view">
 
-        <!-- Setup Instructions (shown until calendars are connected) -->
-        <div class="dc-cal-setup" id="dc-cal-setup-banner">
-          <div class="dc-cal-setup-title">Connect Google Calendars</div>
+        <!-- Setup Instructions (shown until all calendars are connected) -->
+        <div class="dc-cal-setup" id="dc-cal-setup-banner" style="display:none;">
+          <div class="dc-cal-setup-title">Connect More Google Calendars</div>
           <div class="dc-cal-setup-text">
-            Each team member needs to share their Google Calendar so events appear here. It takes about 2 minutes per person:
+            Team members can share their Google Calendar so their events appear here:
           </div>
           <ul class="dc-cal-setup-steps">
             <li data-step="1.">Open Google Calendar &rarr; Settings (gear icon)</li>
             <li data-step="2.">Click your calendar under &ldquo;Settings for my calendars&rdquo;</li>
-            <li data-step="3.">Scroll to &ldquo;Integrate calendar&rdquo; &rarr; copy the Calendar ID</li>
-            <li data-step="4.">For team editing: under &ldquo;Share with specific people&rdquo; add team members with &ldquo;Make changes to events&rdquo; permission</li>
+            <li data-step="3.">Under &ldquo;Access permissions&rdquo; check &ldquo;Make available to public&rdquo;</li>
+            <li data-step="4.">Scroll to &ldquo;Integrate calendar&rdquo; &rarr; copy the Calendar ID</li>
             <li data-step="5.">Send the Calendar ID to Eric to connect it here</li>
           </ul>
         </div>
@@ -10638,14 +10638,17 @@ Finish: TBD</span></div>
     }
 
     function loadCalendarData() {
-      // Load both tasks and meetings, then render
+      // Load Firebase meetings, Google Calendar events, and task due dates, then render
       calMeetings = [];
       db.ref('meetings').once('value', snap => {
         const data = snap.val() || {};
         Object.keys(data).forEach(id => {
           calMeetings.push({ id: id, ...data[id] });
         });
-        loadTaskDueDates(); // this calls renderCalendar when done
+        // Fetch Google Calendar events, then load task due dates (which calls renderCalendar)
+        fetchGoogleCalendarEvents(function() {
+          loadTaskDueDates(); // this calls renderCalendar when done
+        });
       });
     }
 
@@ -10979,6 +10982,9 @@ Finish: TBD</span></div>
 
     // ========== DC TEAM CALENDAR ==========
 
+    // Google Calendar API key
+    const GCAL_API_KEY = 'AIzaSyABuZCxA8R3qJtxyKS6H7nUMqzUrw2-ZPY';
+
     // Google Calendar IDs — add each team member's calendar ID as they share it
     const DC_CALENDAR_IDS = {
       eric: 'c_2f84fe69b8c627c05bf9b882d38b2623347d3a9822c75ade153cd15a93e80339@group.calendar.google.com',
@@ -10988,6 +10994,91 @@ Finish: TBD</span></div>
       nalu: '',
       jordan: ''
     };
+
+    // Google Calendar events fetched from API
+    let gcalEvents = {}; // { 'person': [ { title, date, time, duration, source:'gcal' } ] }
+
+    function fetchGoogleCalendarEvents(callback) {
+      gcalEvents = {};
+      var people = Object.keys(DC_CALENDAR_IDS);
+      var pending = 0;
+      var hasCals = false;
+
+      people.forEach(function(person) {
+        var calId = DC_CALENDAR_IDS[person];
+        if (!calId) return;
+        hasCals = true;
+        pending++;
+
+        // Fetch events for current month +/- 1 month
+        var year = calCurrentDate.getFullYear();
+        var month = calCurrentDate.getMonth();
+        var timeMin = new Date(year, month - 1, 1).toISOString();
+        var timeMax = new Date(year, month + 2, 0).toISOString();
+
+        var url = 'https://www.googleapis.com/calendar/v3/calendars/' +
+          encodeURIComponent(calId) +
+          '/events?key=' + GCAL_API_KEY +
+          '&timeMin=' + encodeURIComponent(timeMin) +
+          '&timeMax=' + encodeURIComponent(timeMax) +
+          '&singleEvents=true&orderBy=startTime&maxResults=250';
+
+        fetch(url)
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            if (data.items) {
+              gcalEvents[person] = [];
+              data.items.forEach(function(evt) {
+                var startDate = '';
+                var startTime = '';
+                var endDate = '';
+
+                if (evt.start.dateTime) {
+                  // Timed event
+                  var sd = new Date(evt.start.dateTime);
+                  startDate = sd.getFullYear() + '-' + String(sd.getMonth()+1).padStart(2,'0') + '-' + String(sd.getDate()).padStart(2,'0');
+                  startTime = String(sd.getHours()).padStart(2,'0') + ':' + String(sd.getMinutes()).padStart(2,'0');
+                  var ed = evt.end.dateTime ? new Date(evt.end.dateTime) : sd;
+                  var durMin = Math.round((ed - sd) / 60000);
+                  gcalEvents[person].push({
+                    title: evt.summary || 'Untitled',
+                    date: startDate,
+                    time: startTime,
+                    duration: durMin,
+                    source: 'gcal',
+                    gcalId: evt.id,
+                    location: evt.location || ''
+                  });
+                } else if (evt.start.date) {
+                  // All-day event
+                  startDate = evt.start.date;
+                  gcalEvents[person].push({
+                    title: evt.summary || 'Untitled',
+                    date: startDate,
+                    time: '',
+                    duration: 0,
+                    source: 'gcal',
+                    gcalId: evt.id,
+                    location: evt.location || ''
+                  });
+                }
+              });
+            }
+            pending--;
+            if (pending === 0 && callback) callback();
+          })
+          .catch(function(err) {
+            console.warn('Google Calendar fetch error for ' + person + ':', err);
+            pending--;
+            if (pending === 0 && callback) callback();
+          });
+      });
+
+      // If no calendars are connected, call back immediately
+      if (!hasCals) {
+        if (callback) callback();
+      }
+    }
 
     // Build a Google Calendar "Add Event" URL from a meeting object
     function buildGoogleCalUrl(m) {
@@ -11194,18 +11285,39 @@ Finish: TBD</span></div>
         dotsWrap.className = 'dc-cal-dots';
         let hasDots = false;
 
-        DC_TEAM_PEOPLE.forEach(person => {
-          if (calHiddenPeople[person]) return;
-          const events = (calEvents[person] || []).filter(e => e.date === dateStr);
-          if (events.length > 0) {
-            const dot = document.createElement('div');
-            dot.className = 'dc-cal-dot dot-' + person;
-            dotsWrap.appendChild(dot);
-            hasDots = true;
-          }
-        });
+        // Task due date dots
+        if (calMode === 'tasks' || calMode === 'both') {
+          DC_TEAM_PEOPLE.forEach(person => {
+            if (calHiddenPeople[person]) return;
+            const events = (calEvents[person] || []).filter(e => e.date === dateStr);
+            if (events.length > 0) {
+              const dot = document.createElement('div');
+              dot.className = 'dc-cal-dot dot-' + person;
+              dotsWrap.appendChild(dot);
+              hasDots = true;
+            }
+          });
+        }
 
-        // Add meeting dots
+        // Google Calendar event dots (person-colored, circle with ring)
+        if (calMode === 'events' || calMode === 'both') {
+          DC_TEAM_PEOPLE.forEach(person => {
+            if (calHiddenPeople[person]) return;
+            const gevts = (gcalEvents[person] || []).filter(e => e.date === dateStr);
+            if (gevts.length > 0) {
+              const dot = document.createElement('div');
+              dot.className = 'dc-cal-dot dot-' + person;
+              dot.style.border = '1.5px solid ' + (PERSON_COLORS[person] || '#999');
+              dot.style.background = 'transparent';
+              dot.style.width = '7px';
+              dot.style.height = '7px';
+              dotsWrap.appendChild(dot);
+              hasDots = true;
+            }
+          });
+        }
+
+        // Firebase meeting dots (gold square)
         if (calMode === 'events' || calMode === 'both') {
           const mtgsForDay = calMeetings.filter(m => m.date === dateStr);
           if (mtgsForDay.length > 0) {
@@ -11215,11 +11327,6 @@ Finish: TBD</span></div>
             dotsWrap.appendChild(dot);
             hasDots = true;
           }
-        }
-
-        // Hide task dots if mode is events-only
-        if (calMode === 'events') {
-          dotsWrap.querySelectorAll('.dc-cal-dot:not(.dot-meeting)').forEach(d => d.style.display = 'none');
         }
 
         if (hasDots) cell.appendChild(dotsWrap);
@@ -11276,12 +11383,24 @@ Finish: TBD</span></div>
         allMeetings = calMeetings.filter(m => m.date === dateStr);
       }
 
+      // Gather Google Calendar events for this date
+      let allGcalEvents = [];
+      if (calMode === 'events' || calMode === 'both') {
+        DC_TEAM_PEOPLE.forEach(person => {
+          if (calHiddenPeople[person]) return;
+          var gevts = (gcalEvents[person] || []).filter(e => e.date === dateStr);
+          gevts.forEach(ge => {
+            allGcalEvents.push({ ...ge, person: person });
+          });
+        });
+      }
+
       // Filter tasks based on mode
       if (calMode === 'events') {
         allEvents = [];
       }
 
-      const totalItems = allEvents.length + allMeetings.length;
+      const totalItems = allEvents.length + allMeetings.length + allGcalEvents.length;
 
       if (totalItems === 0) {
         eventsContainer.innerHTML = '<div class="dc-cal-day-empty">Nothing scheduled for this day</div>';
@@ -11316,6 +11435,36 @@ Finish: TBD</span></div>
               '</a>' +
             '</div>' +
             '<span class="dc-cal-event-type-badge type-meeting">Meeting</span>';
+          eventsContainer.appendChild(evEl);
+        });
+
+        // Render Google Calendar events
+        allGcalEvents.forEach(ge => {
+          const initials = PERSON_INITIALS[ge.person] || ge.person.slice(0,2).toUpperCase();
+          const color = PERSON_COLORS[ge.person] || '#999';
+
+          let geTimeStr = '';
+          if (ge.time) {
+            const parts = ge.time.split(':');
+            const hr = parseInt(parts[0]);
+            geTimeStr = (hr > 12 ? hr - 12 : hr) + ':' + parts[1] + (hr >= 12 ? ' PM' : ' AM');
+          }
+          if (ge.duration === 0) geTimeStr = 'All day';
+          else if (geTimeStr && ge.duration) {
+            if (ge.duration >= 60) geTimeStr += ' (' + Math.round(ge.duration/60*10)/10 + 'hr)';
+            else geTimeStr += ' (' + ge.duration + 'min)';
+          }
+
+          const evEl = document.createElement('div');
+          evEl.className = 'dc-cal-event';
+          evEl.innerHTML =
+            '<div class="dc-cal-event-avatar" style="background:transparent;border:2px solid ' + color + ';color:' + color + ';font-size:9px;">' + initials + '</div>' +
+            '<div class="dc-cal-event-info">' +
+              '<div class="dc-cal-event-title">' + (ge.title || 'Untitled') + '</div>' +
+              '<div class="dc-cal-event-meta">' + getPersonDisplayName(ge.person) + (geTimeStr ? ' · ' + geTimeStr : '') + '</div>' +
+              (ge.location ? '<div class="dc-cal-event-meta">' + ge.location + '</div>' : '') +
+            '</div>' +
+            '<span class="dc-cal-event-type-badge" style="background:#4285f4;color:#fff;">GCal</span>';
           eventsContainer.appendChild(evEl);
         });
 
