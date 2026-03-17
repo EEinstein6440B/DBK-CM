@@ -2862,6 +2862,10 @@
       background: rgba(61,79,95,0.08);
       color: #3d4f5f;
     }
+    .ttl-project-badge.king-badge {
+      background: rgba(154,103,72,0.08);
+      color: #7a5030;
+    }
 
     /* Tag picker dropdown */
     .ttl-tag-picker {
@@ -3364,7 +3368,9 @@
     #app.hazen-only-mode #beck-project-page,
     #app.hazen-only-mode #beck-tasklist-page,
     #app.hazen-only-mode #leeward-project-page,
-    #app.hazen-only-mode #leeward-tasklist-page {
+    #app.hazen-only-mode #leeward-tasklist-page,
+    #app.hazen-only-mode #king-project-page,
+    #app.hazen-only-mode #king-tasklist-page {
       display: none !important;
     }
 
@@ -3456,7 +3462,7 @@
       <div class="home-content">
         <div class="section-header">
           <span class="section-title">Projects</span>
-          <span class="section-count">3 Active</span>
+          <span class="section-count">4 Active</span>
         </div>
 
         <div class="project-list">
@@ -3514,6 +3520,26 @@
             <div class="project-status-pill" style="background:rgba(61,79,95,0.08);color:#3d4f5f;">
               <span class="project-status-dot"></span>
               Pre-Development
+            </div>
+            <svg class="project-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+
+          <button class="project-card" onclick="showProject('king')">
+            <div class="project-icon-wrap" style="background:#9a6748;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <div class="project-info">
+              <div class="project-card-name">King Renovation</div>
+              <div class="project-card-meta">Architecture &amp; Interiors &bull; Koloa, HI</div>
+            </div>
+            <div class="project-status-pill active">
+              <span class="project-status-dot"></span>
+              Active
             </div>
             <svg class="project-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="9 18 15 12 9 6"/>
@@ -7459,6 +7485,401 @@ Finish: TBD</span></div>
       </div>
     </div>
 
+    <!-- ============ KING RENOVATION PROJECT PAGE ============ -->
+    <div id="king-project-page" class="page hidden">
+
+      <!-- Project Nav Bar -->
+      <div class="project-top-bar">
+        <div class="project-top-bar-inner">
+          <button class="back-btn" onclick="showHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            Projects
+          </button>
+          <span class="project-nav-title">King Renovation</span>
+          <svg class="more-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Project Hero -->
+      <div class="project-hero">
+        <h1 class="project-hero-name">King Renovation</h1>
+        <span class="project-hero-badge" style="background:rgba(154,103,72,0.08);color:#7a5030;">
+          <span class="hero-badge-dot" style="background:#9a6748;"></span>
+          Active
+        </span>
+      </div>
+
+      <!-- Project Overview -->
+      <div class="project-content" style="padding-bottom:100px;">
+        <div class="project-overview-card">
+          <div class="overview-section">
+            <h3 class="overview-title">Project Details</h3>
+            <div class="overview-grid">
+              <div class="overview-item">
+                <span class="overview-label">Owner</span>
+                <span class="overview-value">Monte (Via Kellie King)</span>
+              </div>
+              <div class="overview-item">
+                <span class="overview-label">Address</span>
+                <span class="overview-value">4792 Lawai Rd, Koloa, HI</span>
+              </div>
+              <div class="overview-item">
+                <span class="overview-label">Service Type</span>
+                <span class="overview-value">Architecture &amp; Interior Design (Hourly)</span>
+              </div>
+              <div class="overview-item">
+                <span class="overview-label">Scope</span>
+                <span class="overview-value">New cabinetry, fixtures, appliances, floors, windows, entry courtyard, rear lanai extension</span>
+              </div>
+              <div class="overview-item">
+                <span class="overview-label">Contract Date</span>
+                <span class="overview-value">March 3, 2026</span>
+              </div>
+              <div class="overview-item">
+                <span class="overview-label">Retainer</span>
+                <span class="overview-value">$10,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Cards -->
+        <div class="section-cards">
+          <button class="section-card" onclick="showKingTaskList()" style="border-left:3px solid #9a6748;">
+            <div class="section-card-icon" style="background:rgba(154,103,72,0.08);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+            </div>
+            <div class="section-card-info">
+              <div class="section-card-name">Team Task List</div>
+              <div class="section-card-desc">Tasks for Luciano, Nalu, Santo, Eric &amp; Jared</div>
+            </div>
+            <svg class="section-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Tab Bar -->
+      <div class="tab-bar">
+        <button class="tab-item active" onclick="showHome()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          </svg>
+          <span>Projects</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span>Schedule</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Messages</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+          <span>More</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ KING TASK LIST PAGE ============ -->
+    <div id="king-tasklist-page" class="page hidden">
+
+      <!-- Task List Nav Bar -->
+      <div class="project-top-bar">
+        <div class="project-top-bar-inner">
+          <button class="back-btn" onclick="showProject('king')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            King
+          </button>
+          <span class="project-nav-title">Team Task List</span>
+          <svg class="more-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Task List Hero -->
+      <div class="project-hero">
+        <h1 class="project-hero-name">Team Task List</h1>
+        <span class="project-hero-badge" style="background:rgba(154,103,72,0.08);color:#7a5030;">
+          <span class="hero-badge-dot" style="background:#9a6748;"></span>
+          King Renovation
+        </span>
+      </div>
+
+      <!-- ===== TEAM MEMBERS CARDS ===== -->
+      <div class="ttl-team-cards-wrap">
+        <div class="ttl-team-cards">
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#6b7a2e;">LJ</div>
+            <div class="ttl-mc-name">Luciano Junqueira</div>
+          </div>
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#4a5564;">NB</div>
+            <div class="ttl-mc-name">Nalu Brady Jr.</div>
+          </div>
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#2d3325;">SG</div>
+            <div class="ttl-mc-name">Santo Giorgio</div>
+          </div>
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:var(--gold);">EE</div>
+            <div class="ttl-mc-name">Eric Einstein</div>
+          </div>
+          <div class="ttl-member-card">
+            <div class="ttl-mc-avatar" style="background:#3a8e8e;">JJ</div>
+            <div class="ttl-mc-name">Jared Jones</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Summary Bar -->
+      <div class="ttl-summary-bar">
+        <div class="ttl-summary-stat">
+          <span class="ttl-summary-number" id="kg-ttl-total-tasks">0</span>
+          <span class="ttl-summary-label">Total</span>
+        </div>
+        <div class="ttl-summary-stat">
+          <span class="ttl-summary-number ttl-open" id="kg-ttl-open-tasks">0</span>
+          <span class="ttl-summary-label">Open</span>
+        </div>
+        <div class="ttl-summary-stat">
+          <span class="ttl-summary-number ttl-done" id="kg-ttl-done-tasks">0</span>
+          <span class="ttl-summary-label">Done</span>
+        </div>
+        <div class="ttl-summary-progress">
+          <div class="ttl-progress-bar">
+            <div class="ttl-progress-fill" id="kg-ttl-progress-fill" style="width:0%"></div>
+          </div>
+          <span class="ttl-progress-pct" id="kg-ttl-progress-pct">0%</span>
+        </div>
+      </div>
+
+      <!-- Person Task Sections -->
+      <div class="project-content" style="padding-bottom:120px;">
+
+        <!-- Luciano's Tasks -->
+        <div class="ttl-person-section" id="kg-ttl-luciano-section">
+          <div class="ttl-person-header" onclick="toggleKGSection('luciano')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#6b7a2e;">LJ</div>
+              <div>
+                <div class="ttl-person-name">Luciano</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="kg-ttl-luciano-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="kg-ttl-luciano-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="kg-ttl-luciano-count">0/0</span>
+              <svg class="ttl-chevron" id="kg-ttl-luciano-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="kg-ttl-luciano-body">
+            <div class="ttl-tasks" id="kg-ttl-luciano-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="kg-ttl-luciano-input" placeholder="Add a task for Luciano..." onkeydown="if(event.key==='Enter')addTTLTask('luciano','king')">
+              <button class="ttl-add-btn" onclick="addTTLTask('luciano','king')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="kg-ttl-luciano-extras">
+              <button class="ttl-add-cat-btn" id="kg-ttl-luciano-cat-btn" onclick="showAddTagPicker('luciano','kg-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="kg-ttl-luciano-due">
+            </div>
+          </div>
+        </div>
+
+        <!-- Nalu's Tasks -->
+        <div class="ttl-person-section" id="kg-ttl-nalu-section">
+          <div class="ttl-person-header" onclick="toggleKGSection('nalu')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#4a5564;">NB</div>
+              <div>
+                <div class="ttl-person-name">Nalu</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="kg-ttl-nalu-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="kg-ttl-nalu-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="kg-ttl-nalu-count">0/0</span>
+              <svg class="ttl-chevron" id="kg-ttl-nalu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="kg-ttl-nalu-body">
+            <div class="ttl-tasks" id="kg-ttl-nalu-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="kg-ttl-nalu-input" placeholder="Add a task for Nalu..." onkeydown="if(event.key==='Enter')addTTLTask('nalu','king')">
+              <button class="ttl-add-btn" onclick="addTTLTask('nalu','king')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="kg-ttl-nalu-extras">
+              <button class="ttl-add-cat-btn" id="kg-ttl-nalu-cat-btn" onclick="showAddTagPicker('nalu','kg-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="kg-ttl-nalu-due">
+            </div>
+          </div>
+        </div>
+
+        <!-- Santo's Tasks -->
+        <div class="ttl-person-section" id="kg-ttl-santo-section">
+          <div class="ttl-person-header" onclick="toggleKGSection('santo')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#2d3325;">SG</div>
+              <div>
+                <div class="ttl-person-name">Santo</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="kg-ttl-santo-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="kg-ttl-santo-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="kg-ttl-santo-count">0/0</span>
+              <svg class="ttl-chevron" id="kg-ttl-santo-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="kg-ttl-santo-body">
+            <div class="ttl-tasks" id="kg-ttl-santo-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="kg-ttl-santo-input" placeholder="Add a task for Santo..." onkeydown="if(event.key==='Enter')addTTLTask('santo','king')">
+              <button class="ttl-add-btn" onclick="addTTLTask('santo','king')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="kg-ttl-santo-extras">
+              <button class="ttl-add-cat-btn" id="kg-ttl-santo-cat-btn" onclick="showAddTagPicker('santo','kg-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="kg-ttl-santo-due">
+            </div>
+          </div>
+        </div>
+
+        <!-- Eric's Tasks -->
+        <div class="ttl-person-section" id="kg-ttl-eric-section">
+          <div class="ttl-person-header" onclick="toggleKGSection('eric')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:var(--gold);">EE</div>
+              <div>
+                <div class="ttl-person-name">Eric</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="kg-ttl-eric-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="kg-ttl-eric-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="kg-ttl-eric-count">0/0</span>
+              <svg class="ttl-chevron" id="kg-ttl-eric-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="kg-ttl-eric-body">
+            <div class="ttl-tasks" id="kg-ttl-eric-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="kg-ttl-eric-input" placeholder="Add a task for Eric..." onkeydown="if(event.key==='Enter')addTTLTask('eric','king')">
+              <button class="ttl-add-btn" onclick="addTTLTask('eric','king')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="kg-ttl-eric-extras">
+              <button class="ttl-add-cat-btn" id="kg-ttl-eric-cat-btn" onclick="showAddTagPicker('eric','kg-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="kg-ttl-eric-due">
+            </div>
+          </div>
+        </div>
+
+        <!-- Jared's Tasks -->
+        <div class="ttl-person-section" id="kg-ttl-jared-section">
+          <div class="ttl-person-header" onclick="toggleKGSection('jared')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#3a8e8e;">JJ</div>
+              <div>
+                <div class="ttl-person-name">Jared</div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <div class="ttl-mini-ring" id="kg-ttl-jared-ring">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-fill" id="kg-ttl-jared-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+              </div>
+              <span class="ttl-person-count" id="kg-ttl-jared-count">0/0</span>
+              <svg class="ttl-chevron" id="kg-ttl-jared-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="kg-ttl-jared-body">
+            <div class="ttl-tasks" id="kg-ttl-jared-tasks"></div>
+            <div class="ttl-add-row">
+              <input type="text" class="ttl-add-input" id="kg-ttl-jared-input" placeholder="Add a task for Jared..." onkeydown="if(event.key==='Enter')addTTLTask('jared','king')">
+              <button class="ttl-add-btn" onclick="addTTLTask('jared','king')">+ Add</button>
+            </div>
+            <div class="ttl-add-extras" id="kg-ttl-jared-extras">
+              <button class="ttl-add-cat-btn" id="kg-ttl-jared-cat-btn" onclick="showAddTagPicker('jared','kg-ttl')">+ Category</button>
+              <input type="date" class="ttl-add-due" id="kg-ttl-jared-due">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Tab Bar -->
+      <div class="tab-bar">
+        <button class="tab-item active" onclick="showHome()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          </svg>
+          <span>Projects</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span>Schedule</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Messages</span>
+        </button>
+        <button class="tab-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+          <span>More</span>
+        </button>
+      </div>
+    </div>
+
     <!-- ============ THE LEEWARD PROJECT PAGE ============ -->
     <div id="leeward-project-page" class="page hidden">
 
@@ -8030,6 +8451,7 @@ Finish: TBD</span></div>
                 <option value="hazen">Hazen House</option>
                 <option value="beck">Beck Attic</option>
                 <option value="leeward">The Leeward</option>
+                <option value="king">King Reno</option>
               </select>
               <button class="ttl-add-cat-btn" id="dc-ttl-jordan-cat-btn" onclick="showAddTagPicker('jordan','dc-ttl')">+ Category</button>
               <input type="date" class="ttl-add-due" id="dc-ttl-jordan-due">
@@ -8070,6 +8492,7 @@ Finish: TBD</span></div>
                 <option value="hazen">Hazen House</option>
                 <option value="beck">Beck Attic</option>
                 <option value="leeward">The Leeward</option>
+                <option value="king">King Reno</option>
               </select>
               <button class="ttl-add-cat-btn" id="dc-ttl-santo-cat-btn" onclick="showAddTagPicker('santo','dc-ttl')">+ Category</button>
               <input type="date" class="ttl-add-due" id="dc-ttl-santo-due">
@@ -8110,6 +8533,7 @@ Finish: TBD</span></div>
                 <option value="hazen">Hazen House</option>
                 <option value="beck">Beck Attic</option>
                 <option value="leeward">The Leeward</option>
+                <option value="king">King Reno</option>
               </select>
               <button class="ttl-add-cat-btn" id="dc-ttl-eric-cat-btn" onclick="showAddTagPicker('eric','dc-ttl')">+ Category</button>
               <input type="date" class="ttl-add-due" id="dc-ttl-eric-due">
@@ -8150,6 +8574,7 @@ Finish: TBD</span></div>
                 <option value="hazen">Hazen House</option>
                 <option value="beck">Beck Attic</option>
                 <option value="leeward">The Leeward</option>
+                <option value="king">King Reno</option>
               </select>
               <button class="ttl-add-cat-btn" id="dc-ttl-nalu-cat-btn" onclick="showAddTagPicker('nalu','dc-ttl')">+ Category</button>
               <input type="date" class="ttl-add-due" id="dc-ttl-nalu-due">
@@ -8190,6 +8615,7 @@ Finish: TBD</span></div>
                 <option value="hazen">Hazen House</option>
                 <option value="beck">Beck Attic</option>
                 <option value="leeward">The Leeward</option>
+                <option value="king">King Reno</option>
               </select>
               <button class="ttl-add-cat-btn" id="dc-ttl-jared-cat-btn" onclick="showAddTagPicker('jared','dc-ttl')">+ Category</button>
               <input type="date" class="ttl-add-due" id="dc-ttl-jared-due">
@@ -8230,6 +8656,7 @@ Finish: TBD</span></div>
                 <option value="hazen">Hazen House</option>
                 <option value="beck">Beck Attic</option>
                 <option value="leeward">The Leeward</option>
+                <option value="king">King Reno</option>
               </select>
               <button class="ttl-add-cat-btn" id="dc-ttl-luciano-cat-btn" onclick="showAddTagPicker('luciano','dc-ttl')">+ Category</button>
               <input type="date" class="ttl-add-due" id="dc-ttl-luciano-due">
@@ -8376,7 +8803,7 @@ Finish: TBD</span></div>
     }
 
     function hideAllPages() {
-      ['home-page','project-page','construction-page','architecture-page','materials-page','plans-page','tasklist-page','beck-project-page','beck-tasklist-page','leeward-project-page','leeward-tasklist-page','dc-team-page'].forEach(id => {
+      ['home-page','project-page','construction-page','architecture-page','materials-page','plans-page','tasklist-page','beck-project-page','beck-tasklist-page','leeward-project-page','leeward-tasklist-page','king-project-page','king-tasklist-page','dc-team-page'].forEach(id => {
         document.getElementById(id).classList.add('hidden');
       });
     }
@@ -8397,11 +8824,29 @@ Finish: TBD</span></div>
         showPage('beck-project-page');
       } else if (projectId === 'leeward') {
         showPage('leeward-project-page');
+      } else if (projectId === 'king') {
+        showPage('king-project-page');
       }
     }
 
     function showBeckTaskList() {
       showPage('beck-tasklist-page');
+    }
+
+    function showKingTaskList() {
+      showPage('king-tasklist-page');
+    }
+
+    function toggleKGSection(person) {
+      const body = document.getElementById('kg-ttl-' + person + '-body');
+      const chevron = document.getElementById('kg-ttl-' + person + '-chevron');
+      if (body.classList.contains('collapsed')) {
+        body.classList.remove('collapsed');
+        chevron.classList.remove('collapsed');
+      } else {
+        body.classList.add('collapsed');
+        chevron.classList.add('collapsed');
+      }
     }
 
     function showLeewardTaskList() {
@@ -8594,6 +9039,7 @@ Finish: TBD</span></div>
       let pageId = 'tasklist-page';
       if (prefix === 'beck-ttl') pageId = 'beck-tasklist-page';
       else if (prefix === 'lw-ttl') pageId = 'leeward-tasklist-page';
+      else if (prefix === 'kg-ttl') pageId = 'king-tasklist-page';
       else if (prefix === 'dc-ttl') pageId = 'dc-team-page';
 
       const allTasks = document.querySelectorAll('#' + pageId + ' .ttl-task');
@@ -8627,6 +9073,7 @@ Finish: TBD</span></div>
       let peopleList = ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim'];
       if (prefix === 'beck-ttl') peopleList = ['santo', 'eric', 'nalu'];
       else if (prefix === 'lw-ttl') peopleList = ['eric', 'santo', 'nalu'];
+      else if (prefix === 'kg-ttl') peopleList = ['luciano', 'nalu', 'santo', 'eric', 'jared'];
       else if (prefix === 'dc-ttl') peopleList = DC_TEAM_PEOPLE;
 
       peopleList.forEach(person => {
@@ -8666,6 +9113,13 @@ Finish: TBD</span></div>
         location: 'Majuro Atoll, Marshall Islands',
         color: '#3d4f5f',
         people: ['eric', 'santo', 'nalu']
+      },
+      king: {
+        name: 'King Renovation',
+        shortName: 'King',
+        location: 'Koloa, HI',
+        color: '#9a6748',
+        people: ['luciano', 'nalu', 'santo', 'eric', 'jared']
       }
     };
 
@@ -8727,7 +9181,7 @@ Finish: TBD</span></div>
       let projectBadgeHtml = '';
       const projConfig = PROJECTS[projectId];
       if (projConfig) {
-        const badgeClass = projectId === 'beck' ? 'beck-badge' : projectId === 'leeward' ? 'leeward-badge' : '';
+        const badgeClass = projectId === 'beck' ? 'beck-badge' : projectId === 'leeward' ? 'leeward-badge' : projectId === 'king' ? 'king-badge' : '';
         projectBadgeHtml = '<span class="ttl-project-badge ' + badgeClass + '">' + projConfig.shortName + '</span>';
       }
 
@@ -8935,7 +9389,7 @@ Finish: TBD</span></div>
       let projectBadgeHtml = '';
       const projConfig = PROJECTS[projectId];
       if (projConfig) {
-        const badgeClass = projectId === 'beck' ? 'beck-badge' : projectId === 'leeward' ? 'leeward-badge' : '';
+        const badgeClass = projectId === 'beck' ? 'beck-badge' : projectId === 'leeward' ? 'leeward-badge' : projectId === 'king' ? 'king-badge' : '';
         projectBadgeHtml = '<span class="ttl-project-badge ' + badgeClass + '">' + projConfig.shortName + '</span>';
       }
 
@@ -9083,7 +9537,7 @@ Finish: TBD</span></div>
     // ===== ADD TASK (writes to Firebase — real-time listener renders it) =====
     function addTTLTask(person, projectId = 'hazen') {
       // Determine prefix based on projectId
-      const prefix = projectId === 'hazen' ? 'ttl-' : projectId === 'beck' ? 'beck-ttl-' : projectId === 'leeward' ? 'lw-ttl-' : 'ttl-';
+      const prefix = projectId === 'hazen' ? 'ttl-' : projectId === 'beck' ? 'beck-ttl-' : projectId === 'leeward' ? 'lw-ttl-' : projectId === 'king' ? 'kg-ttl-' : 'ttl-';
 
       const input = document.getElementById(prefix + person + '-input');
       if (!input) return;
@@ -9170,6 +9624,7 @@ Finish: TBD</span></div>
     initFirebaseTasks('hazen', 'ttl');
     initFirebaseTasks('beck', 'beck-ttl');
     initFirebaseTasks('leeward', 'lw-ttl');
+    initFirebaseTasks('king', 'kg-ttl');
 
     // ========== SCHEDULE / GANTT FUNCTIONS ==========
 
