@@ -9400,7 +9400,7 @@ Finish: TBD</span></div>
               <option value="180">3 hours</option>
               <option value="0">All day</option>
             </select>
-            <select id="mtg-project" style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--grey-50);color:var(--grey-800);">
+            <select id="mtg-project" onchange="updateMtgLocationOptions()" style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--grey-50);color:var(--grey-800);">
               <option value="">No project</option>
               <option value="hazen">Hazen House</option>
               <option value="beck">Beck Attic</option>
@@ -9410,10 +9410,6 @@ Finish: TBD</span></div>
           </div>
           <select id="mtg-location-select" onchange="handleMtgLocationChange()" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;margin-bottom:8px;background:var(--grey-50);color:var(--grey-800);">
             <option value="">No location</option>
-            <option value="onsite-hazen">On-Site (Hazen House, Kauai, HI)</option>
-            <option value="onsite-beck">On-Site (4585 Kuawa Rd, Kilauea, HI)</option>
-            <option value="onsite-leeward">On-Site (Majuro Atoll, Marshall Islands)</option>
-            <option value="onsite-king">On-Site (4792 Lawai Rd, Koloa, HI)</option>
             <option value="office">Office</option>
             <option value="zoom">Zoom</option>
             <option value="other">Other...</option>
@@ -10541,7 +10537,9 @@ Finish: TBD</span></div>
         document.getElementById('mtg-time').value = m.time || '09:00';
         document.getElementById('mtg-duration').value = m.duration != null ? m.duration : 60;
         document.getElementById('mtg-project').value = m.project || '';
-        // Set location dropdown
+        // Set location dropdown — first update options based on project
+        updateMtgLocationOptions();
+
         var locVal = m.location || '';
         var locSelect = document.getElementById('mtg-location-select');
         var locCustom = document.getElementById('mtg-location-custom');
@@ -10549,14 +10547,15 @@ Finish: TBD</span></div>
         locHidden.value = locVal;
 
         // Try to match to a dropdown option
-        var matchedOption = '';
-        Object.keys(MTG_LOCATION_MAP).forEach(function(key) {
-          if (MTG_LOCATION_MAP[key] === locVal) matchedOption = key;
-        });
-        if (matchedOption) {
-          locSelect.value = matchedOption;
+        if (locVal === 'Office') {
+          locSelect.value = 'office';
           locCustom.style.display = 'none';
-          locCustom.value = '';
+        } else if (locVal === 'Zoom') {
+          locSelect.value = 'zoom';
+          locCustom.style.display = 'none';
+        } else if (locVal.indexOf('On-Site') === 0) {
+          locSelect.value = 'onsite';
+          locCustom.style.display = 'none';
         } else if (locVal) {
           locSelect.value = 'other';
           locCustom.style.display = '';
@@ -10564,7 +10563,6 @@ Finish: TBD</span></div>
         } else {
           locSelect.value = '';
           locCustom.style.display = 'none';
-          locCustom.value = '';
         }
 
         // Set attendees with colors
@@ -10665,13 +10663,44 @@ Finish: TBD</span></div>
       }
     }
 
-    // Location dropdown logic
+    // Location dropdown logic — dynamically updates based on selected project
+    function updateMtgLocationOptions() {
+      var projSel = document.getElementById('mtg-project');
+      var locSel = document.getElementById('mtg-location-select');
+      var projId = projSel.value;
+
+      // Remove any existing on-site option
+      var existing = locSel.querySelector('option[value="onsite"]');
+      if (existing) existing.remove();
+
+      // Add on-site option for the selected project
+      if (projId && PROJECTS[projId]) {
+        var addr = PROJECTS[projId].address || PROJECTS[projId].location;
+        var opt = document.createElement('option');
+        opt.value = 'onsite';
+        opt.textContent = 'On-Site (' + addr + ')';
+        // Insert after "No location" (first option)
+        locSel.insertBefore(opt, locSel.options[1]);
+      }
+
+      // Reset location selection
+      locSel.value = '';
+      document.getElementById('mtg-location').value = '';
+      document.getElementById('mtg-location-custom').style.display = 'none';
+      document.getElementById('mtg-location-custom').value = '';
+    }
+
+    function getOnsiteLabel() {
+      var projId = document.getElementById('mtg-project').value;
+      if (projId && PROJECTS[projId]) {
+        var addr = PROJECTS[projId].address || PROJECTS[projId].location;
+        return 'On-Site (' + addr + ')';
+      }
+      return 'On-Site';
+    }
+
     var MTG_LOCATION_MAP = {
       '': '',
-      'onsite-hazen': 'On-Site (Hazen House, Kauai, HI)',
-      'onsite-beck': 'On-Site (4585 Kuawa Rd, Kilauea, HI)',
-      'onsite-leeward': 'On-Site (Majuro Atoll, Marshall Islands)',
-      'onsite-king': 'On-Site (4792 Lawai Rd, Koloa, HI)',
       'office': 'Office',
       'zoom': 'Zoom'
     };
@@ -10686,6 +10715,10 @@ Finish: TBD</span></div>
         custom.focus();
         hidden.value = custom.value;
         custom.oninput = function() { hidden.value = custom.value; };
+      } else if (sel.value === 'onsite') {
+        custom.style.display = 'none';
+        custom.value = '';
+        hidden.value = getOnsiteLabel();
       } else {
         custom.style.display = 'none';
         custom.value = '';
