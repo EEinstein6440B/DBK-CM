@@ -3423,6 +3423,18 @@
 
   <div id="app" style="display:none;">
 
+    <!-- Global Tag Picker (floating, app-level so accessible from all pages) -->
+    <div class="ttl-tag-picker hidden" id="ttl-global-tag-picker" style="z-index:9999;">
+      <button class="ttl-tag-option cat-bidding" onclick="applyTag('bidding','Bidding')">Bidding</button>
+      <button class="ttl-tag-option cat-permits" onclick="applyTag('permits','Permits')">Permits</button>
+      <button class="ttl-tag-option cat-design" onclick="applyTag('design','Design')">Design</button>
+      <button class="ttl-tag-option cat-budget" onclick="applyTag('budget','Budget')">Budget</button>
+      <button class="ttl-tag-option cat-procurement" onclick="applyTag('procurement','Procurement')">Procurement</button>
+      <button class="ttl-tag-option cat-schedule" onclick="applyTag('schedule','Schedule')">Schedule</button>
+      <button class="ttl-tag-option cat-contracts" onclick="applyTag('contracts','Contracts')">Contracts</button>
+      <button class="ttl-tag-option cat-site" onclick="applyTag('site','Site')">Site</button>
+    </div>
+
     <!-- ============ HOME PAGE ============ -->
     <div id="home-page" class="page">
 
@@ -7088,18 +7100,6 @@ Finish: TBD</span></div>
 
       </div>
 
-      <!-- Global Tag Picker (floating, repositioned by JS) -->
-      <div class="ttl-tag-picker hidden" id="ttl-global-tag-picker">
-        <button class="ttl-tag-option cat-bidding" onclick="applyTag('bidding','Bidding')">Bidding</button>
-        <button class="ttl-tag-option cat-permits" onclick="applyTag('permits','Permits')">Permits</button>
-        <button class="ttl-tag-option cat-design" onclick="applyTag('design','Design')">Design</button>
-        <button class="ttl-tag-option cat-budget" onclick="applyTag('budget','Budget')">Budget</button>
-        <button class="ttl-tag-option cat-procurement" onclick="applyTag('procurement','Procurement')">Procurement</button>
-        <button class="ttl-tag-option cat-schedule" onclick="applyTag('schedule','Schedule')">Schedule</button>
-        <button class="ttl-tag-option cat-contracts" onclick="applyTag('contracts','Contracts')">Contracts</button>
-        <button class="ttl-tag-option cat-site" onclick="applyTag('site','Site')">Site</button>
-      </div>
-
       <!-- Bottom Tab Bar -->
       <div class="tab-bar">
         <button class="tab-item active">
@@ -7442,18 +7442,6 @@ Finish: TBD</span></div>
           </div>
         </div>
 
-      </div>
-
-      <!-- Global Tag Picker (floating, repositioned by JS) -->
-      <div class="ttl-tag-picker hidden" id="ttl-global-tag-picker">
-        <button class="ttl-tag-option cat-bidding" onclick="applyTag('bidding','Bidding')">Bidding</button>
-        <button class="ttl-tag-option cat-permits" onclick="applyTag('permits','Permits')">Permits</button>
-        <button class="ttl-tag-option cat-design" onclick="applyTag('design','Design')">Design</button>
-        <button class="ttl-tag-option cat-budget" onclick="applyTag('budget','Budget')">Budget</button>
-        <button class="ttl-tag-option cat-procurement" onclick="applyTag('procurement','Procurement')">Procurement</button>
-        <button class="ttl-tag-option cat-schedule" onclick="applyTag('schedule','Schedule')">Schedule</button>
-        <button class="ttl-tag-option cat-contracts" onclick="applyTag('contracts','Contracts')">Contracts</button>
-        <button class="ttl-tag-option cat-site" onclick="applyTag('site','Site')">Site</button>
       </div>
 
       <!-- Bottom Tab Bar -->
