@@ -9408,15 +9408,26 @@ Finish: TBD</span></div>
               <option value="king">King Reno</option>
             </select>
           </div>
-          <input type="text" id="mtg-location" placeholder="Location (optional)" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-bottom:8px;background:var(--grey-50);color:var(--grey-800);">
+          <select id="mtg-location-select" onchange="handleMtgLocationChange()" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;margin-bottom:8px;background:var(--grey-50);color:var(--grey-800);">
+            <option value="">No location</option>
+            <option value="onsite-hazen">On-Site (Hazen House, Kauai, HI)</option>
+            <option value="onsite-beck">On-Site (4585 Kuawa Rd, Kilauea, HI)</option>
+            <option value="onsite-leeward">On-Site (Majuro Atoll, Marshall Islands)</option>
+            <option value="onsite-king">On-Site (4792 Lawai Rd, Koloa, HI)</option>
+            <option value="office">Office</option>
+            <option value="zoom">Zoom</option>
+            <option value="other">Other...</option>
+          </select>
+          <input type="text" id="mtg-location-custom" placeholder="Enter location..." style="display:none;width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-bottom:8px;background:var(--grey-50);color:var(--grey-800);">
+          <input type="hidden" id="mtg-location" value="">
           <div style="font-size:12px;font-weight:600;color:var(--grey-500);margin-bottom:6px;">Attendees</div>
           <div id="mtg-attendees" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
-            <div class="dc-meeting-attendee-chip" data-person="jordan" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">JG Jordan</div>
-            <div class="dc-meeting-attendee-chip" data-person="santo" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">SG Santo</div>
-            <div class="dc-meeting-attendee-chip" data-person="eric" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">EE Eric</div>
-            <div class="dc-meeting-attendee-chip" data-person="nalu" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">NB Nalu</div>
-            <div class="dc-meeting-attendee-chip" data-person="jared" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">JJ Jared</div>
-            <div class="dc-meeting-attendee-chip" data-person="luciano" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">LJ Luciano</div>
+            <div class="dc-meeting-attendee-chip" data-person="jordan" data-color="#c0664e" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">JG Jordan</div>
+            <div class="dc-meeting-attendee-chip" data-person="santo" data-color="#2d3325" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">SG Santo</div>
+            <div class="dc-meeting-attendee-chip" data-person="eric" data-color="#c9a84c" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">EE Eric</div>
+            <div class="dc-meeting-attendee-chip" data-person="nalu" data-color="#4a5564" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">NB Nalu</div>
+            <div class="dc-meeting-attendee-chip" data-person="jared" data-color="#3a8e8e" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">JJ Jared</div>
+            <div class="dc-meeting-attendee-chip" data-person="luciano" data-color="#6b7a2e" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">LJ Luciano</div>
           </div>
           <div style="display:flex;gap:8px;">
             <button id="mtg-create-btn" onclick="createMeeting()" style="flex:1;padding:12px;background:var(--gold);color:var(--white);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">Create Meeting</button>
@@ -9980,6 +9991,7 @@ Finish: TBD</span></div>
         name: 'Hazen House',
         shortName: 'Hazen',
         location: 'Kauai, HI',
+        address: 'Hazen House, Kauai, HI',
         color: '#c9a84c',
         people: ['cc', 'santo', 'eric', 'nalu', 'jared', 'jim']
       },
@@ -9987,6 +9999,7 @@ Finish: TBD</span></div>
         name: 'Beck Attic Renovation',
         shortName: 'Beck',
         location: 'Kilauea, HI',
+        address: '4585 Kuawa Rd, Kilauea, HI 96754',
         color: '#3a8e8e',
         people: ['santo', 'eric', 'nalu']
       },
@@ -9994,6 +10007,7 @@ Finish: TBD</span></div>
         name: 'The Leeward',
         shortName: 'Leeward',
         location: 'Majuro Atoll, Marshall Islands',
+        address: 'Majuro Atoll, Republic of the Marshall Islands',
         color: '#3d4f5f',
         people: ['eric', 'santo', 'nalu']
       },
@@ -10001,6 +10015,7 @@ Finish: TBD</span></div>
         name: 'King Renovation',
         shortName: 'King',
         location: 'Koloa, HI',
+        address: '4792 Lawai Rd, Koloa, HI',
         color: '#9a6748',
         people: ['luciano', 'nalu', 'santo', 'eric', 'jared']
       }
@@ -10526,15 +10541,46 @@ Finish: TBD</span></div>
         document.getElementById('mtg-time').value = m.time || '09:00';
         document.getElementById('mtg-duration').value = m.duration != null ? m.duration : 60;
         document.getElementById('mtg-project').value = m.project || '';
-        document.getElementById('mtg-location').value = m.location || '';
+        // Set location dropdown
+        var locVal = m.location || '';
+        var locSelect = document.getElementById('mtg-location-select');
+        var locCustom = document.getElementById('mtg-location-custom');
+        var locHidden = document.getElementById('mtg-location');
+        locHidden.value = locVal;
 
-        // Set attendees
+        // Try to match to a dropdown option
+        var matchedOption = '';
+        Object.keys(MTG_LOCATION_MAP).forEach(function(key) {
+          if (MTG_LOCATION_MAP[key] === locVal) matchedOption = key;
+        });
+        if (matchedOption) {
+          locSelect.value = matchedOption;
+          locCustom.style.display = 'none';
+          locCustom.value = '';
+        } else if (locVal) {
+          locSelect.value = 'other';
+          locCustom.style.display = '';
+          locCustom.value = locVal;
+        } else {
+          locSelect.value = '';
+          locCustom.style.display = 'none';
+          locCustom.value = '';
+        }
+
+        // Set attendees with colors
         document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip').forEach(function(chip) {
           var person = chip.getAttribute('data-person');
+          var color = chip.getAttribute('data-color');
           if (m.attendees && m.attendees.indexOf(person) >= 0) {
             chip.classList.add('selected');
+            chip.style.background = color;
+            chip.style.color = '#fff';
+            chip.style.borderColor = color;
           } else {
             chip.classList.remove('selected');
+            chip.style.background = 'var(--grey-50)';
+            chip.style.color = 'var(--grey-600)';
+            chip.style.borderColor = 'var(--border)';
           }
         });
 
@@ -10565,7 +10611,15 @@ Finish: TBD</span></div>
       document.getElementById('mtg-duration').value = '60';
       document.getElementById('mtg-project').value = '';
       document.getElementById('mtg-location').value = '';
-      document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip.selected').forEach(function(c) { c.classList.remove('selected'); });
+      document.getElementById('mtg-location-select').value = '';
+      document.getElementById('mtg-location-custom').style.display = 'none';
+      document.getElementById('mtg-location-custom').value = '';
+      document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip.selected').forEach(function(c) {
+        c.classList.remove('selected');
+        c.style.background = 'var(--grey-50)';
+        c.style.color = 'var(--grey-600)';
+        c.style.borderColor = 'var(--border)';
+      });
 
       // Reset button
       var btn = document.getElementById('mtg-create-btn');
@@ -10599,6 +10653,44 @@ Finish: TBD</span></div>
 
     function toggleMtgAttendee(chip) {
       chip.classList.toggle('selected');
+      var color = chip.getAttribute('data-color');
+      if (chip.classList.contains('selected')) {
+        chip.style.background = color;
+        chip.style.color = '#fff';
+        chip.style.borderColor = color;
+      } else {
+        chip.style.background = 'var(--grey-50)';
+        chip.style.color = 'var(--grey-600)';
+        chip.style.borderColor = 'var(--border)';
+      }
+    }
+
+    // Location dropdown logic
+    var MTG_LOCATION_MAP = {
+      '': '',
+      'onsite-hazen': 'On-Site (Hazen House, Kauai, HI)',
+      'onsite-beck': 'On-Site (4585 Kuawa Rd, Kilauea, HI)',
+      'onsite-leeward': 'On-Site (Majuro Atoll, Marshall Islands)',
+      'onsite-king': 'On-Site (4792 Lawai Rd, Koloa, HI)',
+      'office': 'Office',
+      'zoom': 'Zoom'
+    };
+
+    function handleMtgLocationChange() {
+      var sel = document.getElementById('mtg-location-select');
+      var custom = document.getElementById('mtg-location-custom');
+      var hidden = document.getElementById('mtg-location');
+
+      if (sel.value === 'other') {
+        custom.style.display = '';
+        custom.focus();
+        hidden.value = custom.value;
+        custom.oninput = function() { hidden.value = custom.value; };
+      } else {
+        custom.style.display = 'none';
+        custom.value = '';
+        hidden.value = MTG_LOCATION_MAP[sel.value] || '';
+      }
     }
 
     function createMeeting() {
@@ -10662,7 +10754,15 @@ Finish: TBD</span></div>
       document.getElementById('mtg-duration').value = '60';
       document.getElementById('mtg-project').value = '';
       document.getElementById('mtg-location').value = '';
-      document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip.selected').forEach(c => c.classList.remove('selected'));
+      document.getElementById('mtg-location-select').value = '';
+      document.getElementById('mtg-location-custom').style.display = 'none';
+      document.getElementById('mtg-location-custom').value = '';
+      document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip.selected').forEach(function(c) {
+        c.classList.remove('selected');
+        c.style.background = 'var(--grey-50)';
+        c.style.color = 'var(--grey-600)';
+        c.style.borderColor = 'var(--border)';
+      });
 
       loadUpcomingMeetings();
       loadPersonMeetings();
