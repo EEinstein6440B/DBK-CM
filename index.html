@@ -7694,81 +7694,6 @@ Finish: TBD</span></div>
 
       </div>
 
-      <!-- Calendar View -->
-      <div id="dc-calendar-view" class="dc-calendar-view">
-
-        <!-- Setup Instructions (shown until calendars are connected) -->
-        <div class="dc-cal-setup" id="dc-cal-setup-banner">
-          <div class="dc-cal-setup-title">Connect Google Calendars</div>
-          <div class="dc-cal-setup-text">
-            Each team member needs to share their Google Calendar so events appear here. It takes about 2 minutes per person:
-          </div>
-          <ul class="dc-cal-setup-steps">
-            <li data-step="1.">Open Google Calendar &rarr; Settings (gear icon)</li>
-            <li data-step="2.">Click your calendar under &ldquo;Settings for my calendars&rdquo;</li>
-            <li data-step="3.">Scroll to &ldquo;Integrate calendar&rdquo; &rarr; copy the Calendar ID</li>
-            <li data-step="4.">For team editing: under &ldquo;Share with specific people&rdquo; add team members with &ldquo;Make changes to events&rdquo; permission</li>
-            <li data-step="5.">Send the Calendar ID to Eric to connect it here</li>
-          </ul>
-        </div>
-
-        <!-- Calendar Legend -->
-        <div class="dc-cal-legend" id="dc-cal-legend">
-          <div class="dc-cal-legend-item" data-person="jordan" onclick="toggleCalPerson('jordan')">
-            <div class="dc-cal-legend-dot" style="background:#c0664e;"></div>
-            <span>Jordan G.</span>
-          </div>
-          <div class="dc-cal-legend-item" data-person="santo" onclick="toggleCalPerson('santo')">
-            <div class="dc-cal-legend-dot" style="background:#2d3325;"></div>
-            <span>Santo G.</span>
-          </div>
-          <div class="dc-cal-legend-item" data-person="jared" onclick="toggleCalPerson('jared')">
-            <div class="dc-cal-legend-dot" style="background:#3a8e8e;"></div>
-            <span>Jared J.</span>
-          </div>
-          <div class="dc-cal-legend-item" data-person="luciano" onclick="toggleCalPerson('luciano')">
-            <div class="dc-cal-legend-dot" style="background:#6b7a2e;"></div>
-            <span>Luciano J.</span>
-          </div>
-          <div class="dc-cal-legend-item" data-person="nalu" onclick="toggleCalPerson('nalu')">
-            <div class="dc-cal-legend-dot" style="background:#4a5564;"></div>
-            <span>Nalu B.</span>
-          </div>
-          <div class="dc-cal-legend-item" data-person="eric" onclick="toggleCalPerson('eric')">
-            <div class="dc-cal-legend-dot" style="background:#c9a84c;"></div>
-            <span>Eric E.</span>
-          </div>
-        </div>
-
-        <!-- Calendar Navigation -->
-        <div class="dc-cal-controls">
-          <div class="dc-cal-nav">
-            <button class="dc-cal-nav-btn" onclick="calNavPrev()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <span class="dc-cal-title" id="dc-cal-month-title"></span>
-            <button class="dc-cal-nav-btn" onclick="calNavNext()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-          </div>
-          <button class="dc-cal-today-btn" onclick="calGoToday()">Today</button>
-        </div>
-
-        <!-- Calendar Grid -->
-        <div class="dc-cal-grid">
-          <div class="dc-cal-header-row">
-            <div class="dc-cal-header-cell">Sun</div>
-            <div class="dc-cal-header-cell">Mon</div>
-            <div class="dc-cal-header-cell">Tue</div>
-            <div class="dc-cal-header-cell">Wed</div>
-            <div class="dc-cal-header-cell">Thu</div>
-            <div class="dc-cal-header-cell">Fri</div>
-            <div class="dc-cal-header-cell">Sat</div>
-          </div>
-          <div class="dc-cal-body" id="dc-cal-body"></div>
-        </div>
-
-      </div>
 
       <!-- Bottom Tab Bar -->
       <div class="tab-bar">
@@ -9006,6 +8931,83 @@ Finish: TBD</span></div>
         </div>
 
       </div>
+
+      <!-- Calendar View -->
+      <div id="dc-calendar-view" class="dc-calendar-view">
+
+        <!-- Setup Instructions (shown until calendars are connected) -->
+        <div class="dc-cal-setup" id="dc-cal-setup-banner">
+          <div class="dc-cal-setup-title">Connect Google Calendars</div>
+          <div class="dc-cal-setup-text">
+            Each team member needs to share their Google Calendar so events appear here. It takes about 2 minutes per person:
+          </div>
+          <ul class="dc-cal-setup-steps">
+            <li data-step="1.">Open Google Calendar &rarr; Settings (gear icon)</li>
+            <li data-step="2.">Click your calendar under &ldquo;Settings for my calendars&rdquo;</li>
+            <li data-step="3.">Scroll to &ldquo;Integrate calendar&rdquo; &rarr; copy the Calendar ID</li>
+            <li data-step="4.">For team editing: under &ldquo;Share with specific people&rdquo; add team members with &ldquo;Make changes to events&rdquo; permission</li>
+            <li data-step="5.">Send the Calendar ID to Eric to connect it here</li>
+          </ul>
+        </div>
+
+        <!-- Calendar Legend -->
+        <div class="dc-cal-legend" id="dc-cal-legend">
+          <div class="dc-cal-legend-item" data-person="jordan" onclick="toggleCalPerson('jordan')">
+            <div class="dc-cal-legend-dot" style="background:#c0664e;"></div>
+            <span>Jordan G.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="santo" onclick="toggleCalPerson('santo')">
+            <div class="dc-cal-legend-dot" style="background:#2d3325;"></div>
+            <span>Santo G.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="jared" onclick="toggleCalPerson('jared')">
+            <div class="dc-cal-legend-dot" style="background:#3a8e8e;"></div>
+            <span>Jared J.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="luciano" onclick="toggleCalPerson('luciano')">
+            <div class="dc-cal-legend-dot" style="background:#6b7a2e;"></div>
+            <span>Luciano J.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="nalu" onclick="toggleCalPerson('nalu')">
+            <div class="dc-cal-legend-dot" style="background:#4a5564;"></div>
+            <span>Nalu B.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="eric" onclick="toggleCalPerson('eric')">
+            <div class="dc-cal-legend-dot" style="background:#c9a84c;"></div>
+            <span>Eric E.</span>
+          </div>
+        </div>
+
+        <!-- Calendar Navigation -->
+        <div class="dc-cal-controls">
+          <div class="dc-cal-nav">
+            <button class="dc-cal-nav-btn" onclick="calNavPrev()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="dc-cal-title" id="dc-cal-month-title"></span>
+            <button class="dc-cal-nav-btn" onclick="calNavNext()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+          <button class="dc-cal-today-btn" onclick="calGoToday()">Today</button>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="dc-cal-grid">
+          <div class="dc-cal-header-row">
+            <div class="dc-cal-header-cell">Sun</div>
+            <div class="dc-cal-header-cell">Mon</div>
+            <div class="dc-cal-header-cell">Tue</div>
+            <div class="dc-cal-header-cell">Wed</div>
+            <div class="dc-cal-header-cell">Thu</div>
+            <div class="dc-cal-header-cell">Fri</div>
+            <div class="dc-cal-header-cell">Sat</div>
+          </div>
+          <div class="dc-cal-body" id="dc-cal-body"></div>
+        </div>
+
+      </div>
+
 
       <!-- Bottom Tab Bar -->
       <div class="tab-bar">
