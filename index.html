@@ -2867,6 +2867,256 @@
       color: #7a5030;
     }
 
+    /* DC Team View Tabs */
+    .dc-view-tabs {
+      display: flex;
+      gap: 0;
+      margin: 0 16px;
+      background: var(--grey-100);
+      border-radius: 10px;
+      padding: 3px;
+    }
+    .dc-view-tab {
+      flex: 1;
+      padding: 8px 16px;
+      border: none;
+      background: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--grey-500);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dc-view-tab.active {
+      background: var(--white);
+      color: var(--grey-800);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* Calendar View */
+    .dc-calendar-view {
+      display: none;
+      padding: 16px;
+      padding-bottom: 120px;
+    }
+    .dc-calendar-view.active {
+      display: block;
+    }
+    .dc-cal-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .dc-cal-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dc-cal-nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--grey-200);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--grey-600);
+    }
+    .dc-cal-nav-btn:hover {
+      background: var(--grey-100);
+    }
+    .dc-cal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+    .dc-cal-today-btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--grey-200);
+      background: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--grey-600);
+      cursor: pointer;
+    }
+    .dc-cal-today-btn:hover {
+      background: var(--grey-100);
+    }
+    .dc-cal-view-toggle {
+      display: flex;
+      gap: 0;
+      background: var(--grey-100);
+      border-radius: 8px;
+      padding: 2px;
+    }
+    .dc-cal-view-btn {
+      padding: 5px 12px;
+      border: none;
+      background: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--grey-500);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .dc-cal-view-btn.active {
+      background: var(--white);
+      color: var(--grey-800);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    /* Calendar Grid */
+    .dc-cal-grid {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--grey-200);
+      overflow: hidden;
+    }
+    .dc-cal-header-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-bottom: 1px solid var(--grey-200);
+    }
+    .dc-cal-header-cell {
+      padding: 8px 4px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--grey-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .dc-cal-body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+    .dc-cal-cell {
+      min-height: 80px;
+      padding: 4px;
+      border-right: 1px solid var(--grey-100);
+      border-bottom: 1px solid var(--grey-100);
+      position: relative;
+    }
+    .dc-cal-cell:nth-child(7n) {
+      border-right: none;
+    }
+    .dc-cal-date {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--grey-600);
+      padding: 2px 6px;
+      display: inline-block;
+    }
+    .dc-cal-cell.today .dc-cal-date {
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dc-cal-cell.other-month .dc-cal-date {
+      color: var(--grey-300);
+    }
+    .dc-cal-event {
+      font-size: 10px;
+      padding: 2px 4px;
+      border-radius: 3px;
+      margin: 1px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+    .dc-cal-event:hover {
+      opacity: 0.8;
+    }
+
+    /* Person calendar colors */
+    .dc-cal-event.cal-jordan { background: rgba(192,102,78,0.15); color: #c0664e; }
+    .dc-cal-event.cal-santo { background: rgba(45,51,37,0.12); color: #2d3325; }
+    .dc-cal-event.cal-jared { background: rgba(58,142,142,0.12); color: #2a7a7a; }
+    .dc-cal-event.cal-luciano { background: rgba(107,122,46,0.12); color: #6b7a2e; }
+    .dc-cal-event.cal-nalu { background: rgba(74,85,100,0.12); color: #4a5564; }
+    .dc-cal-event.cal-eric { background: rgba(201,168,76,0.15); color: var(--gold-dark); }
+
+    /* Calendar legend */
+    .dc-cal-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px 0;
+      margin-bottom: 12px;
+    }
+    .dc-cal-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--grey-600);
+      cursor: pointer;
+    }
+    .dc-cal-legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .dc-cal-legend-item.dimmed {
+      opacity: 0.3;
+    }
+    .dc-cal-legend-item.dimmed .dc-cal-legend-dot {
+      opacity: 0.3;
+    }
+
+    /* Calendar setup banner */
+    .dc-cal-setup {
+      background: var(--gold-bg);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .dc-cal-setup-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-800);
+      margin-bottom: 6px;
+    }
+    .dc-cal-setup-text {
+      font-size: 12px;
+      color: var(--grey-600);
+      line-height: 1.5;
+    }
+    .dc-cal-setup-steps {
+      margin-top: 10px;
+      padding-left: 0;
+      list-style: none;
+    }
+    .dc-cal-setup-steps li {
+      font-size: 12px;
+      color: var(--grey-600);
+      padding: 4px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .dc-cal-setup-steps li::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      font-weight: 600;
+      color: var(--gold-dark);
+    }
+
     /* Tag picker dropdown */
     .ttl-tag-picker {
       position: absolute;
@@ -7444,6 +7694,82 @@ Finish: TBD</span></div>
 
       </div>
 
+      <!-- Calendar View -->
+      <div id="dc-calendar-view" class="dc-calendar-view">
+
+        <!-- Setup Instructions (shown until calendars are connected) -->
+        <div class="dc-cal-setup" id="dc-cal-setup-banner">
+          <div class="dc-cal-setup-title">Connect Google Calendars</div>
+          <div class="dc-cal-setup-text">
+            Each team member needs to share their Google Calendar so events appear here. It takes about 2 minutes per person:
+          </div>
+          <ul class="dc-cal-setup-steps">
+            <li data-step="1.">Open Google Calendar &rarr; Settings (gear icon)</li>
+            <li data-step="2.">Click your calendar under &ldquo;Settings for my calendars&rdquo;</li>
+            <li data-step="3.">Scroll to &ldquo;Integrate calendar&rdquo; &rarr; copy the Calendar ID</li>
+            <li data-step="4.">For team editing: under &ldquo;Share with specific people&rdquo; add team members with &ldquo;Make changes to events&rdquo; permission</li>
+            <li data-step="5.">Send the Calendar ID to Eric to connect it here</li>
+          </ul>
+        </div>
+
+        <!-- Calendar Legend -->
+        <div class="dc-cal-legend" id="dc-cal-legend">
+          <div class="dc-cal-legend-item" data-person="jordan" onclick="toggleCalPerson('jordan')">
+            <div class="dc-cal-legend-dot" style="background:#c0664e;"></div>
+            <span>Jordan G.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="santo" onclick="toggleCalPerson('santo')">
+            <div class="dc-cal-legend-dot" style="background:#2d3325;"></div>
+            <span>Santo G.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="jared" onclick="toggleCalPerson('jared')">
+            <div class="dc-cal-legend-dot" style="background:#3a8e8e;"></div>
+            <span>Jared J.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="luciano" onclick="toggleCalPerson('luciano')">
+            <div class="dc-cal-legend-dot" style="background:#6b7a2e;"></div>
+            <span>Luciano J.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="nalu" onclick="toggleCalPerson('nalu')">
+            <div class="dc-cal-legend-dot" style="background:#4a5564;"></div>
+            <span>Nalu B.</span>
+          </div>
+          <div class="dc-cal-legend-item" data-person="eric" onclick="toggleCalPerson('eric')">
+            <div class="dc-cal-legend-dot" style="background:#c9a84c;"></div>
+            <span>Eric E.</span>
+          </div>
+        </div>
+
+        <!-- Calendar Navigation -->
+        <div class="dc-cal-controls">
+          <div class="dc-cal-nav">
+            <button class="dc-cal-nav-btn" onclick="calNavPrev()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="dc-cal-title" id="dc-cal-month-title"></span>
+            <button class="dc-cal-nav-btn" onclick="calNavNext()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+          <button class="dc-cal-today-btn" onclick="calGoToday()">Today</button>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="dc-cal-grid">
+          <div class="dc-cal-header-row">
+            <div class="dc-cal-header-cell">Sun</div>
+            <div class="dc-cal-header-cell">Mon</div>
+            <div class="dc-cal-header-cell">Tue</div>
+            <div class="dc-cal-header-cell">Wed</div>
+            <div class="dc-cal-header-cell">Thu</div>
+            <div class="dc-cal-header-cell">Fri</div>
+            <div class="dc-cal-header-cell">Sat</div>
+          </div>
+          <div class="dc-cal-body" id="dc-cal-body"></div>
+        </div>
+
+      </div>
+
       <!-- Bottom Tab Bar -->
       <div class="tab-bar">
         <button class="tab-item active">
@@ -8403,8 +8729,14 @@ Finish: TBD</span></div>
         </div>
       </div>
 
+      <!-- View Tabs: Tasks | Calendar -->
+      <div class="dc-view-tabs">
+        <button class="dc-view-tab active" onclick="switchDCView('tasks')">Tasks</button>
+        <button class="dc-view-tab" onclick="switchDCView('calendar')">Calendar</button>
+      </div>
+
       <!-- Person Task Sections (all 6 people aggregated) -->
-      <div class="project-content" style="padding-bottom:120px;">
+      <div id="dc-tasks-view" class="project-content" style="padding-bottom:120px;">
 
         <!-- Jordan Tasks -->
         <div class="ttl-person-section" id="dc-ttl-jordan-section">
@@ -9605,6 +9937,186 @@ Finish: TBD</span></div>
       const projectId = task.getAttribute('data-project') || 'hazen';
       // Remove from Firebase — the child_removed listener handles the animation
       db.ref('tasks/' + projectId + '/' + person + '/' + id).remove();
+    }
+
+
+    // ========== DC TEAM CALENDAR ==========
+
+    // Google Calendar IDs — replace with real Calendar IDs once team shares them
+    // Each person's Calendar ID is their Gmail or the calendar's integration ID
+    const DC_CALENDAR_IDS = {
+      jordan: '', // e.g. 'jordan@gmail.com' or calendar integration ID
+      santo: '',
+      jared: '',
+      luciano: '',
+      nalu: '',
+      eric: ''
+    };
+
+    // Calendar state
+    let calCurrentDate = new Date();
+    let calHiddenPeople = {};
+    let calEvents = {}; // { 'person': [ { title, start, end } ] }
+
+    // Task-based events — pull due dates from Firebase tasks
+    function loadTaskDueDates() {
+      calEvents = {};
+      DC_TEAM_PEOPLE.forEach(p => { calEvents[p] = []; });
+
+      // Gather due dates from all projects
+      const projectIds = ['hazen', 'beck', 'leeward', 'king'];
+      let loadCount = 0;
+      const totalLoads = projectIds.length * DC_TEAM_PEOPLE.length;
+
+      projectIds.forEach(projId => {
+        DC_TEAM_PEOPLE.forEach(person => {
+          db.ref('tasks/' + projId + '/' + person).once('value', snap => {
+            const tasks = snap.val() || {};
+            Object.keys(tasks).forEach(taskId => {
+              const t = tasks[taskId];
+              if (t.due) {
+                calEvents[person].push({
+                  title: t.text || 'Untitled',
+                  date: t.due,
+                  project: projId,
+                  cat: t.cat || ''
+                });
+              }
+            });
+            loadCount++;
+            if (loadCount >= totalLoads) {
+              renderCalendar();
+            }
+          });
+        });
+      });
+    }
+
+    function switchDCView(view) {
+      const tabs = document.querySelectorAll('.dc-view-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const tasksView = document.getElementById('dc-tasks-view');
+      const calView = document.getElementById('dc-calendar-view');
+
+      if (view === 'tasks') {
+        tasksView.style.display = '';
+        calView.classList.remove('active');
+      } else {
+        tasksView.style.display = 'none';
+        calView.classList.add('active');
+        loadTaskDueDates();
+      }
+    }
+
+    function toggleCalPerson(person) {
+      const item = document.querySelector('.dc-cal-legend-item[data-person="' + person + '"]');
+      if (calHiddenPeople[person]) {
+        delete calHiddenPeople[person];
+        item.classList.remove('dimmed');
+      } else {
+        calHiddenPeople[person] = true;
+        item.classList.add('dimmed');
+      }
+      renderCalendar();
+    }
+
+    function calNavPrev() {
+      calCurrentDate.setMonth(calCurrentDate.getMonth() - 1);
+      loadTaskDueDates();
+    }
+
+    function calNavNext() {
+      calCurrentDate.setMonth(calCurrentDate.getMonth() + 1);
+      loadTaskDueDates();
+    }
+
+    function calGoToday() {
+      calCurrentDate = new Date();
+      loadTaskDueDates();
+    }
+
+    function renderCalendar() {
+      const year = calCurrentDate.getFullYear();
+      const month = calCurrentDate.getMonth();
+
+      // Update title
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const titleEl = document.getElementById('dc-cal-month-title');
+      if (titleEl) titleEl.textContent = months[month] + ' ' + year;
+
+      const body = document.getElementById('dc-cal-body');
+      if (!body) return;
+      body.innerHTML = '';
+
+      // First day of month
+      const firstDay = new Date(year, month, 1);
+      const startDay = firstDay.getDay(); // 0=Sun
+
+      // Last day of month
+      const lastDay = new Date(year, month + 1, 0);
+      const totalDays = lastDay.getDate();
+
+      // Previous month days to fill
+      const prevMonthLast = new Date(year, month, 0);
+      const prevDays = prevMonthLast.getDate();
+
+      const today = new Date();
+      const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+
+      // Total cells needed (6 rows max)
+      const totalCells = Math.ceil((startDay + totalDays) / 7) * 7;
+
+      for (let i = 0; i < totalCells; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'dc-cal-cell';
+
+        let dayNum, dateStr, isOtherMonth = false;
+
+        if (i < startDay) {
+          // Previous month
+          dayNum = prevDays - startDay + i + 1;
+          const pm = month === 0 ? 12 : month;
+          const py = month === 0 ? year - 1 : year;
+          dateStr = py + '-' + String(pm).padStart(2,'0') + '-' + String(dayNum).padStart(2,'0');
+          isOtherMonth = true;
+        } else if (i >= startDay + totalDays) {
+          // Next month
+          dayNum = i - startDay - totalDays + 1;
+          const nm = month + 2 > 12 ? 1 : month + 2;
+          const ny = month + 2 > 12 ? year + 1 : year;
+          dateStr = ny + '-' + String(nm).padStart(2,'0') + '-' + String(dayNum).padStart(2,'0');
+          isOtherMonth = true;
+        } else {
+          dayNum = i - startDay + 1;
+          dateStr = year + '-' + String(month+1).padStart(2,'0') + '-' + String(dayNum).padStart(2,'0');
+        }
+
+        if (isOtherMonth) cell.classList.add('other-month');
+        if (dateStr === todayStr) cell.classList.add('today');
+
+        const dateLabel = document.createElement('div');
+        dateLabel.className = 'dc-cal-date';
+        dateLabel.textContent = dayNum;
+        cell.appendChild(dateLabel);
+
+        // Add events for this date
+        DC_TEAM_PEOPLE.forEach(person => {
+          if (calHiddenPeople[person]) return;
+          const events = (calEvents[person] || []).filter(e => e.date === dateStr);
+          events.forEach(ev => {
+            const evEl = document.createElement('div');
+            evEl.className = 'dc-cal-event cal-' + person;
+            const projLabel = PROJECTS[ev.project] ? PROJECTS[ev.project].shortName : ev.project;
+            evEl.textContent = ev.title;
+            evEl.title = person.charAt(0).toUpperCase() + person.slice(1) + ' · ' + projLabel + ': ' + ev.title;
+            cell.appendChild(evEl);
+          });
+        });
+
+        body.appendChild(cell);
+      }
     }
 
     // ===== INIT: seed + listen =====
