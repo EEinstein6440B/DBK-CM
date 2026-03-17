@@ -2999,47 +2999,134 @@
       grid-template-columns: repeat(7, 1fr);
     }
     .dc-cal-cell {
-      min-height: 80px;
-      padding: 4px;
+      min-height: 48px;
+      padding: 4px 2px;
       border-right: 1px solid var(--grey-100);
       border-bottom: 1px solid var(--grey-100);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.15s;
     }
     .dc-cal-cell:nth-child(7n) {
       border-right: none;
     }
+    .dc-cal-cell.selected {
+      background: rgba(201,168,76,0.06);
+    }
     .dc-cal-date {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
       color: var(--grey-600);
-      padding: 2px 6px;
-      display: inline-block;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
     }
     .dc-cal-cell.today .dc-cal-date {
       background: var(--gold);
       color: var(--white);
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-weight: 600;
+    }
+    .dc-cal-cell.selected .dc-cal-date {
+      background: var(--grey-800);
+      color: var(--white);
+    }
+    .dc-cal-cell.today.selected .dc-cal-date {
+      background: var(--gold);
+      color: var(--white);
     }
     .dc-cal-cell.other-month .dc-cal-date {
       color: var(--grey-300);
     }
-    .dc-cal-event {
-      font-size: 10px;
-      padding: 2px 4px;
-      border-radius: 3px;
-      margin: 1px 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      cursor: pointer;
+    .dc-cal-dots {
+      display: flex;
+      gap: 2px;
+      margin-top: 2px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 100%;
     }
-    .dc-cal-event:hover {
-      opacity: 0.8;
+    .dc-cal-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+    .dc-cal-dot.dot-jordan { background: #c0664e; }
+    .dc-cal-dot.dot-santo { background: #2d3325; }
+    .dc-cal-dot.dot-jared { background: #3a8e8e; }
+    .dc-cal-dot.dot-luciano { background: #6b7a2e; }
+    .dc-cal-dot.dot-nalu { background: #4a5564; }
+    .dc-cal-dot.dot-eric { background: #c9a84c; }
+
+    /* Day detail panel (shown when a day is tapped) */
+    .dc-cal-day-detail {
+      display: none;
+      margin-top: 12px;
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--grey-200);
+      overflow: hidden;
+    }
+    .dc-cal-day-detail.active {
+      display: block;
+    }
+    .dc-cal-day-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--grey-100);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+    .dc-cal-day-events {
+      padding: 8px 0;
+    }
+    .dc-cal-day-empty {
+      padding: 20px 16px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--grey-400);
+    }
+    .dc-cal-event {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--grey-50);
+    }
+    .dc-cal-event:last-child {
+      border-bottom: none;
+    }
+    .dc-cal-event-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .dc-cal-event-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .dc-cal-event-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--grey-800);
+      line-height: 1.3;
+    }
+    .dc-cal-event-meta {
+      font-size: 11px;
+      color: var(--grey-500);
+      margin-top: 2px;
     }
 
     /* Person calendar colors */
@@ -3115,6 +3202,247 @@
       left: 0;
       font-weight: 600;
       color: var(--gold-dark);
+    }
+
+    /* Meetings View */
+    .dc-meetings-view {
+      display: none;
+      padding: 16px;
+      padding-bottom: 120px;
+    }
+    .dc-meetings-view.active {
+      display: block;
+    }
+
+    /* Calendar view mode toggle (Events / Tasks / Both) */
+    .dc-cal-mode-toggle {
+      display: flex;
+      gap: 0;
+      background: var(--grey-100);
+      border-radius: 8px;
+      padding: 2px;
+      margin-bottom: 12px;
+    }
+    .dc-cal-mode-btn {
+      flex: 1;
+      padding: 6px 10px;
+      border: none;
+      background: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--grey-500);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .dc-cal-mode-btn.active {
+      background: var(--white);
+      color: var(--grey-800);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    /* Meeting/Event items in calendar */
+    .dc-cal-dot.dot-meeting {
+      background: var(--gold);
+      width: 5px;
+      height: 5px;
+      border-radius: 2px;
+    }
+    .dc-cal-event-type-badge {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .dc-cal-event-type-badge.type-task {
+      background: rgba(74,85,100,0.08);
+      color: var(--grey-500);
+    }
+    .dc-cal-event-type-badge.type-meeting {
+      background: rgba(201,168,76,0.12);
+      color: var(--gold-dark);
+    }
+
+    /* Add Meeting Form */
+    .dc-meeting-form {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--grey-200);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .dc-meeting-form-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-800);
+      margin-bottom: 12px;
+    }
+    .dc-meeting-field {
+      margin-bottom: 10px;
+    }
+    .dc-meeting-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--grey-500);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .dc-meeting-input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--grey-200);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--grey-800);
+      box-sizing: border-box;
+    }
+    .dc-meeting-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .dc-meeting-row {
+      display: flex;
+      gap: 10px;
+    }
+    .dc-meeting-row .dc-meeting-field {
+      flex: 1;
+    }
+    .dc-meeting-attendees {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .dc-meeting-attendee-chip {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1.5px solid var(--grey-200);
+      background: var(--white);
+      color: var(--grey-600);
+      transition: all 0.15s;
+    }
+    .dc-meeting-attendee-chip.selected {
+      border-color: var(--gold);
+      background: var(--gold-bg);
+      color: var(--gold-dark);
+    }
+    .dc-meeting-attendee-chip .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .dc-meeting-submit {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: var(--gold);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .dc-meeting-submit:hover {
+      opacity: 0.9;
+    }
+    .dc-meeting-select {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--grey-200);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--grey-800);
+      background: var(--white);
+      box-sizing: border-box;
+      appearance: auto;
+    }
+    .dc-meeting-select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    /* Upcoming meetings list */
+    .dc-upcoming-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .dc-meeting-card {
+      background: var(--white);
+      border-radius: 10px;
+      border: 1px solid var(--grey-200);
+      padding: 12px 16px;
+      margin-bottom: 8px;
+    }
+    .dc-meeting-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .dc-meeting-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+    .dc-meeting-card-date {
+      font-size: 11px;
+      color: var(--grey-500);
+      flex-shrink: 0;
+    }
+    .dc-meeting-card-meta {
+      font-size: 12px;
+      color: var(--grey-500);
+      margin-top: 4px;
+    }
+    .dc-meeting-card-attendees {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .dc-meeting-card-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .dc-meeting-card-delete {
+      background: none;
+      border: none;
+      color: var(--grey-400);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+    }
+    .dc-meeting-card-delete:hover {
+      color: #c0664e;
     }
 
     /* Tag picker dropdown */
@@ -8658,6 +8986,7 @@ Finish: TBD</span></div>
       <div class="dc-view-tabs">
         <button class="dc-view-tab active" onclick="switchDCView('tasks')">Tasks</button>
         <button class="dc-view-tab" onclick="switchDCView('calendar')">Calendar</button>
+        <button class="dc-view-tab" onclick="switchDCView('meetings')">Meetings</button>
       </div>
 
       <!-- Person Task Sections (all 6 people aggregated) -->
@@ -8978,6 +9307,13 @@ Finish: TBD</span></div>
           </div>
         </div>
 
+        <!-- View Mode Toggle -->
+        <div class="dc-cal-mode-toggle">
+          <button class="dc-cal-mode-btn active" onclick="setCalMode('both')">Both</button>
+          <button class="dc-cal-mode-btn" onclick="setCalMode('tasks')">Tasks</button>
+          <button class="dc-cal-mode-btn" onclick="setCalMode('events')">Events</button>
+        </div>
+
         <!-- Calendar Navigation -->
         <div class="dc-cal-controls">
           <div class="dc-cal-nav">
@@ -9004,6 +9340,12 @@ Finish: TBD</span></div>
             <div class="dc-cal-header-cell">Sat</div>
           </div>
           <div class="dc-cal-body" id="dc-cal-body"></div>
+        </div>
+
+        <!-- Day Detail Panel -->
+        <div class="dc-cal-day-detail" id="dc-cal-day-detail">
+          <div class="dc-cal-day-header" id="dc-cal-day-header"></div>
+          <div class="dc-cal-day-events" id="dc-cal-day-events"></div>
         </div>
 
       </div>
@@ -9947,6 +10289,155 @@ Finish: TBD</span></div>
     }
 
 
+
+    // ========== MEETINGS / EVENTS ==========
+
+    let calMode = 'both'; // 'tasks', 'events', 'both'
+    let calMeetings = []; // loaded from Firebase
+
+    function setCalMode(mode) {
+      calMode = mode;
+      document.querySelectorAll('.dc-cal-mode-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderCalendar();
+      if (calSelectedDate) showDayDetail(calSelectedDate);
+    }
+
+    function loadCalendarData() {
+      // Load both tasks and meetings, then render
+      calMeetings = [];
+      db.ref('meetings').once('value', snap => {
+        const data = snap.val() || {};
+        Object.keys(data).forEach(id => {
+          calMeetings.push({ id: id, ...data[id] });
+        });
+        loadTaskDueDates(); // this calls renderCalendar when done
+      });
+    }
+
+    function toggleMtgAttendee(chip) {
+      chip.classList.toggle('selected');
+    }
+
+    function createMeeting() {
+      const title = document.getElementById('mtg-title').value.trim();
+      const date = document.getElementById('mtg-date').value;
+      const time = document.getElementById('mtg-time').value;
+      const duration = document.getElementById('mtg-duration').value;
+      const project = document.getElementById('mtg-project').value;
+      const location = document.getElementById('mtg-location').value.trim();
+
+      if (!title || !date) {
+        alert('Please enter a title and date.');
+        return;
+      }
+
+      const attendees = [];
+      document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip.selected').forEach(chip => {
+        attendees.push(chip.getAttribute('data-person'));
+      });
+
+      const meetingData = {
+        title: title,
+        date: date,
+        time: time || '',
+        duration: parseInt(duration) || 60,
+        project: project,
+        location: location,
+        attendees: attendees,
+        createdAt: Date.now(),
+        createdBy: window.currentSignedInUser || 'eric'
+      };
+
+      db.ref('meetings').push(meetingData);
+
+      // Reset form
+      document.getElementById('mtg-title').value = '';
+      document.getElementById('mtg-date').value = '';
+      document.getElementById('mtg-time').value = '09:00';
+      document.getElementById('mtg-duration').value = '60';
+      document.getElementById('mtg-project').value = '';
+      document.getElementById('mtg-location').value = '';
+      document.querySelectorAll('#mtg-attendees .dc-meeting-attendee-chip.selected').forEach(c => c.classList.remove('selected'));
+
+      loadUpcomingMeetings();
+    }
+
+    function loadUpcomingMeetings() {
+      const container = document.getElementById('dc-upcoming-meetings');
+      if (!container) return;
+
+      db.ref('meetings').orderByChild('date').once('value', snap => {
+        const data = snap.val() || {};
+        container.innerHTML = '';
+
+        const today = new Date();
+        const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+
+        // Sort meetings by date
+        const meetings = Object.keys(data).map(id => ({ id, ...data[id] }))
+          .filter(m => m.date >= todayStr)
+          .sort((a, b) => {
+            if (a.date !== b.date) return a.date.localeCompare(b.date);
+            return (a.time || '').localeCompare(b.time || '');
+          });
+
+        if (meetings.length === 0) {
+          container.innerHTML = '<div style="text-align:center;color:var(--grey-400);font-size:13px;padding:20px;">No upcoming meetings</div>';
+          return;
+        }
+
+        meetings.forEach(m => {
+          const d = new Date(m.date + 'T12:00:00');
+          const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+          const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          const dateStr = dayNames[d.getDay()] + ', ' + monthNames[d.getMonth()] + ' ' + d.getDate();
+
+          let timeStr = '';
+          if (m.time) {
+            const [h, min] = m.time.split(':');
+            const hr = parseInt(h);
+            timeStr = (hr > 12 ? hr - 12 : hr) + ':' + min + (hr >= 12 ? ' PM' : ' AM');
+          }
+          if (m.duration === 0) timeStr = 'All day';
+          else if (timeStr && m.duration) timeStr += ' (' + (m.duration >= 60 ? (m.duration/60) + 'hr' : m.duration + 'min') + ')';
+
+          const projLabel = m.project && PROJECTS[m.project] ? PROJECTS[m.project].shortName : '';
+
+          let attendeeHtml = '';
+          if (m.attendees && m.attendees.length > 0) {
+            m.attendees.forEach(person => {
+              const initials = PERSON_INITIALS[person] || person.slice(0,2).toUpperCase();
+              const color = PERSON_COLORS[person] || '#999';
+              attendeeHtml += '<div class="dc-meeting-card-avatar" style="background:' + color + ';" title="' + getPersonDisplayName(person) + '">' + initials + '</div>';
+            });
+          }
+
+          const card = document.createElement('div');
+          card.className = 'dc-meeting-card';
+          card.innerHTML =
+            '<div class="dc-meeting-card-header">' +
+              '<div>' +
+                '<div class="dc-meeting-card-title">' + m.title + '</div>' +
+                '<div class="dc-meeting-card-meta">' + dateStr + (timeStr ? ' · ' + timeStr : '') + (projLabel ? ' · ' + projLabel : '') + '</div>' +
+                (m.location ? '<div class="dc-meeting-card-meta">' + m.location + '</div>' : '') +
+              '</div>' +
+              '<button class="dc-meeting-card-delete" onclick="deleteMeeting(\'' + m.id + '\')" title="Delete">×</button>' +
+            '</div>' +
+            (attendeeHtml ? '<div class="dc-meeting-card-attendees">' + attendeeHtml + '</div>' : '');
+
+          container.appendChild(card);
+        });
+      });
+    }
+
+    function deleteMeeting(meetingId) {
+      if (confirm('Delete this meeting?')) {
+        db.ref('meetings/' + meetingId).remove();
+        loadUpcomingMeetings();
+      }
+    }
+
     // ========== DC TEAM CALENDAR ==========
 
     // Google Calendar IDs — replace with real Calendar IDs once team shares them
@@ -9969,6 +10460,7 @@ Finish: TBD</span></div>
     function loadTaskDueDates() {
       calEvents = {};
       DC_TEAM_PEOPLE.forEach(p => { calEvents[p] = []; });
+      // Note: calMeetings is loaded separately by loadCalendarData
 
       // Gather due dates from all projects
       const projectIds = ['hazen', 'beck', 'leeward', 'king'];
@@ -10006,14 +10498,20 @@ Finish: TBD</span></div>
 
       const tasksView = document.getElementById('dc-tasks-view');
       const calView = document.getElementById('dc-calendar-view');
+      const mtgView = document.getElementById('dc-meetings-view');
+
+      tasksView.style.display = 'none';
+      calView.classList.remove('active');
+      if (mtgView) mtgView.classList.remove('active');
 
       if (view === 'tasks') {
         tasksView.style.display = '';
-        calView.classList.remove('active');
-      } else {
-        tasksView.style.display = 'none';
+      } else if (view === 'calendar') {
         calView.classList.add('active');
-        loadTaskDueDates();
+        loadCalendarData();
+      } else if (view === 'meetings') {
+        if (mtgView) mtgView.classList.add('active');
+        loadUpcomingMeetings();
       }
     }
 
@@ -10044,11 +10542,17 @@ Finish: TBD</span></div>
       loadTaskDueDates();
     }
 
+    let calSelectedDate = null;
+
+    const PERSON_COLORS = {
+      jordan: '#c0664e', santo: '#2d3325', jared: '#3a8e8e',
+      luciano: '#6b7a2e', nalu: '#4a5564', eric: '#c9a84c'
+    };
+
     function renderCalendar() {
       const year = calCurrentDate.getFullYear();
       const month = calCurrentDate.getMonth();
 
-      // Update title
       const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       const titleEl = document.getElementById('dc-cal-month-title');
       if (titleEl) titleEl.textContent = months[month] + ' ' + year;
@@ -10057,22 +10561,16 @@ Finish: TBD</span></div>
       if (!body) return;
       body.innerHTML = '';
 
-      // First day of month
       const firstDay = new Date(year, month, 1);
-      const startDay = firstDay.getDay(); // 0=Sun
-
-      // Last day of month
+      const startDay = firstDay.getDay();
       const lastDay = new Date(year, month + 1, 0);
       const totalDays = lastDay.getDate();
-
-      // Previous month days to fill
       const prevMonthLast = new Date(year, month, 0);
       const prevDays = prevMonthLast.getDate();
 
       const today = new Date();
       const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
 
-      // Total cells needed (6 rows max)
       const totalCells = Math.ceil((startDay + totalDays) / 7) * 7;
 
       for (let i = 0; i < totalCells; i++) {
@@ -10082,14 +10580,12 @@ Finish: TBD</span></div>
         let dayNum, dateStr, isOtherMonth = false;
 
         if (i < startDay) {
-          // Previous month
           dayNum = prevDays - startDay + i + 1;
           const pm = month === 0 ? 12 : month;
           const py = month === 0 ? year - 1 : year;
           dateStr = py + '-' + String(pm).padStart(2,'0') + '-' + String(dayNum).padStart(2,'0');
           isOtherMonth = true;
         } else if (i >= startDay + totalDays) {
-          // Next month
           dayNum = i - startDay - totalDays + 1;
           const nm = month + 2 > 12 ? 1 : month + 2;
           const ny = month + 2 > 12 ? year + 1 : year;
@@ -10102,30 +10598,176 @@ Finish: TBD</span></div>
 
         if (isOtherMonth) cell.classList.add('other-month');
         if (dateStr === todayStr) cell.classList.add('today');
+        if (dateStr === calSelectedDate) cell.classList.add('selected');
+
+        cell.setAttribute('data-date', dateStr);
+        cell.onclick = function() { selectCalDay(dateStr); };
 
         const dateLabel = document.createElement('div');
         dateLabel.className = 'dc-cal-date';
         dateLabel.textContent = dayNum;
         cell.appendChild(dateLabel);
 
-        // Add events for this date
+        // Collect dots for people with events on this date
+        const dotsWrap = document.createElement('div');
+        dotsWrap.className = 'dc-cal-dots';
+        let hasDots = false;
+
         DC_TEAM_PEOPLE.forEach(person => {
           if (calHiddenPeople[person]) return;
           const events = (calEvents[person] || []).filter(e => e.date === dateStr);
-          events.forEach(ev => {
-            const evEl = document.createElement('div');
-            evEl.className = 'dc-cal-event cal-' + person;
-            const projLabel = PROJECTS[ev.project] ? PROJECTS[ev.project].shortName : ev.project;
-            const initials = PERSON_INITIALS[person] || person.slice(0,2).toUpperCase();
-            evEl.innerHTML = '<strong>' + initials + '</strong> ' + (ev.title || 'Untitled');
-            evEl.title = person.charAt(0).toUpperCase() + person.slice(1) + ' · ' + projLabel + ': ' + ev.title;
-            cell.appendChild(evEl);
-          });
+          if (events.length > 0) {
+            const dot = document.createElement('div');
+            dot.className = 'dc-cal-dot dot-' + person;
+            dotsWrap.appendChild(dot);
+            hasDots = true;
+          }
         });
 
+        // Add meeting dots
+        if (calMode === 'events' || calMode === 'both') {
+          const mtgsForDay = calMeetings.filter(m => m.date === dateStr);
+          if (mtgsForDay.length > 0) {
+            const dot = document.createElement('div');
+            dot.className = 'dc-cal-dot dot-meeting';
+            dot.style.borderRadius = '2px';
+            dotsWrap.appendChild(dot);
+            hasDots = true;
+          }
+        }
+
+        // Hide task dots if mode is events-only
+        if (calMode === 'events') {
+          dotsWrap.querySelectorAll('.dc-cal-dot:not(.dot-meeting)').forEach(d => d.style.display = 'none');
+        }
+
+        if (hasDots) cell.appendChild(dotsWrap);
         body.appendChild(cell);
       }
+
+      // Auto-select today if no date selected yet
+      if (!calSelectedDate) {
+        selectCalDay(todayStr);
+      } else {
+        showDayDetail(calSelectedDate);
+      }
     }
+
+    function selectCalDay(dateStr) {
+      calSelectedDate = dateStr;
+
+      // Update selected cell styling
+      document.querySelectorAll('.dc-cal-cell.selected').forEach(c => c.classList.remove('selected'));
+      const cell = document.querySelector('.dc-cal-cell[data-date="' + dateStr + '"]');
+      if (cell) cell.classList.add('selected');
+
+      showDayDetail(dateStr);
+    }
+
+    function showDayDetail(dateStr) {
+      const panel = document.getElementById('dc-cal-day-detail');
+      const header = document.getElementById('dc-cal-day-header');
+      const eventsContainer = document.getElementById('dc-cal-day-events');
+
+      if (!panel || !header || !eventsContainer) return;
+
+      // Format date for header
+      const d = new Date(dateStr + 'T12:00:00');
+      const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      header.textContent = dayNames[d.getDay()] + ', ' + monthNames[d.getMonth()] + ' ' + d.getDate();
+
+      eventsContainer.innerHTML = '';
+
+      // Gather all events for this date
+      let allEvents = [];
+      DC_TEAM_PEOPLE.forEach(person => {
+        if (calHiddenPeople[person]) return;
+        const events = (calEvents[person] || []).filter(e => e.date === dateStr);
+        events.forEach(ev => {
+          allEvents.push({ ...ev, person: person });
+        });
+      });
+
+      // Add meetings for this date
+      let allMeetings = [];
+      if (calMode === 'events' || calMode === 'both') {
+        allMeetings = calMeetings.filter(m => m.date === dateStr);
+      }
+
+      // Filter tasks based on mode
+      if (calMode === 'events') {
+        allEvents = [];
+      }
+
+      const totalItems = allEvents.length + allMeetings.length;
+
+      if (totalItems === 0) {
+        eventsContainer.innerHTML = '<div class="dc-cal-day-empty">Nothing scheduled for this day</div>';
+      } else {
+        // Render meetings first
+        allMeetings.forEach(m => {
+          let timeStr = '';
+          if (m.time) {
+            const [h, min] = m.time.split(':');
+            const hr = parseInt(h);
+            timeStr = (hr > 12 ? hr - 12 : hr) + ':' + min + (hr >= 12 ? ' PM' : ' AM');
+          }
+          if (m.duration === 0) timeStr = 'All day';
+
+          const projLabel = m.project && PROJECTS[m.project] ? PROJECTS[m.project].shortName : '';
+          const attendeeNames = (m.attendees || []).map(p => PERSON_INITIALS[p] || p).join(', ');
+
+          const evEl = document.createElement('div');
+          evEl.className = 'dc-cal-event';
+          evEl.innerHTML =
+            '<div class="dc-cal-event-avatar" style="background:var(--gold);">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+            '</div>' +
+            '<div class="dc-cal-event-info">' +
+              '<div class="dc-cal-event-title">' + (m.title || 'Untitled') + '</div>' +
+              '<div class="dc-cal-event-meta">' + (timeStr ? timeStr + ' · ' : '') + (projLabel ? projLabel + ' · ' : '') + (attendeeNames || '') + '</div>' +
+              (m.location ? '<div class="dc-cal-event-meta">' + m.location + '</div>' : '') +
+            '</div>' +
+            '<span class="dc-cal-event-type-badge type-meeting">Meeting</span>';
+          eventsContainer.appendChild(evEl);
+        });
+
+        // Render tasks
+        allEvents.forEach(ev => {
+          const initials = PERSON_INITIALS[ev.person] || ev.person.slice(0,2).toUpperCase();
+          const color = PERSON_COLORS[ev.person] || '#999';
+          const projConfig = PROJECTS[ev.project];
+          const projName = projConfig ? projConfig.shortName : ev.project;
+          const catLabel = ev.cat ? ev.cat.charAt(0).toUpperCase() + ev.cat.slice(1) : '';
+
+          const evEl = document.createElement('div');
+          evEl.className = 'dc-cal-event';
+          evEl.innerHTML =
+            '<div class="dc-cal-event-avatar" style="background:' + color + ';">' + initials + '</div>' +
+            '<div class="dc-cal-event-info">' +
+              '<div class="dc-cal-event-title">' + (ev.title || 'Untitled') + '</div>' +
+              '<div class="dc-cal-event-meta">' + getPersonDisplayName(ev.person) + ' &middot; ' + projName + (catLabel ? ' &middot; ' + catLabel : '') + '</div>' +
+            '</div>' +
+            '<span class="dc-cal-event-type-badge type-task">Task</span>';
+          eventsContainer.appendChild(evEl);
+        });
+      }
+
+      panel.classList.add('active');
+    }
+
+    // ===== INIT: meetings real-time listener =====
+    db.ref('meetings').on('child_added', function() {
+      if (document.getElementById('dc-meetings-view') && document.getElementById('dc-meetings-view').classList.contains('active')) {
+        loadUpcomingMeetings();
+      }
+    });
+    db.ref('meetings').on('child_removed', function() {
+      if (document.getElementById('dc-meetings-view') && document.getElementById('dc-meetings-view').classList.contains('active')) {
+        loadUpcomingMeetings();
+      }
+    });
 
     // ===== INIT: seed + listen =====
     seedInitialTasks();
