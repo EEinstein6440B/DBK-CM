@@ -9335,6 +9335,12 @@ Finish: TBD</span></div>
           </div>
         </div>
 
+        <!-- Day Detail Panel (shown above calendar) -->
+        <div class="dc-cal-day-detail active" id="dc-cal-day-detail">
+          <div class="dc-cal-day-header" id="dc-cal-day-header"></div>
+          <div class="dc-cal-day-events" id="dc-cal-day-events"></div>
+        </div>
+
         <!-- View Mode Toggle -->
         <div class="dc-cal-mode-toggle">
           <button class="dc-cal-mode-btn active" onclick="setCalMode('both')">Both</button>
@@ -9370,14 +9376,191 @@ Finish: TBD</span></div>
           <div class="dc-cal-body" id="dc-cal-body"></div>
         </div>
 
-        <!-- Day Detail Panel -->
-        <div class="dc-cal-day-detail" id="dc-cal-day-detail">
-          <div class="dc-cal-day-header" id="dc-cal-day-header"></div>
-          <div class="dc-cal-day-events" id="dc-cal-day-events"></div>
-        </div>
-
       </div>
 
+
+
+      <!-- Meetings View -->
+      <div id="dc-meetings-view" class="dc-meetings-view">
+
+        <!-- Schedule a Meeting -->
+        <div class="dc-meeting-form" style="margin-bottom:20px;">
+          <div style="font-size:15px;font-weight:700;color:var(--grey-800);margin-bottom:12px;">Schedule a Meeting</div>
+          <input type="text" id="mtg-title" placeholder="Meeting title" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-bottom:8px;background:var(--grey-50);color:var(--grey-800);">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+            <input type="date" id="mtg-date" style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--grey-50);color:var(--grey-800);">
+            <input type="time" id="mtg-time" value="09:00" style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--grey-50);color:var(--grey-800);">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+            <select id="mtg-duration" style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--grey-50);color:var(--grey-800);">
+              <option value="30">30 min</option>
+              <option value="60" selected>1 hour</option>
+              <option value="90">1.5 hours</option>
+              <option value="120">2 hours</option>
+              <option value="180">3 hours</option>
+              <option value="0">All day</option>
+            </select>
+            <select id="mtg-project" style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--grey-50);color:var(--grey-800);">
+              <option value="">No project</option>
+              <option value="hazen">Hazen House</option>
+              <option value="beck">Beck Attic</option>
+              <option value="leeward">The Leeward</option>
+              <option value="king">King Reno</option>
+            </select>
+          </div>
+          <input type="text" id="mtg-location" placeholder="Location (optional)" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-bottom:8px;background:var(--grey-50);color:var(--grey-800);">
+          <div style="font-size:12px;font-weight:600;color:var(--grey-500);margin-bottom:6px;">Attendees</div>
+          <div id="mtg-attendees" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+            <div class="dc-meeting-attendee-chip" data-person="jordan" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">JG Jordan</div>
+            <div class="dc-meeting-attendee-chip" data-person="santo" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">SG Santo</div>
+            <div class="dc-meeting-attendee-chip" data-person="eric" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">EE Eric</div>
+            <div class="dc-meeting-attendee-chip" data-person="nalu" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">NB Nalu</div>
+            <div class="dc-meeting-attendee-chip" data-person="jared" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">JJ Jared</div>
+            <div class="dc-meeting-attendee-chip" data-person="luciano" onclick="toggleMtgAttendee(this)" style="display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:var(--grey-50);color:var(--grey-600);transition:all 0.2s;">LJ Luciano</div>
+          </div>
+          <button onclick="createMeeting()" style="width:100%;padding:12px;background:var(--gold);color:var(--white);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">Create Meeting</button>
+        </div>
+
+        <!-- Per-Person Meeting Sections -->
+        <div style="font-size:15px;font-weight:700;color:var(--grey-800);margin-bottom:12px;">Team Events</div>
+
+        <!-- Jordan Gromiak Meetings -->
+        <div class="ttl-person-section" id="dc-mtg-jordan-section">
+          <div class="ttl-person-header" onclick="toggleMtgSection('jordan')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#c0664e;">JG</div>
+              <div>
+                <div class="ttl-person-name">Jordan Gromiak</div>
+                <div class="ttl-person-subtitle" id="dc-mtg-jordan-subtitle" style="font-size:11px;color:var(--grey-400);"></div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <span class="ttl-person-count" id="dc-mtg-jordan-count">0</span>
+              <svg class="ttl-chevron" id="dc-mtg-jordan-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-mtg-jordan-body">
+            <div class="dc-mtg-person-events" id="dc-mtg-jordan-events"></div>
+          </div>
+        </div>
+
+        <!-- Santo Giorgio Meetings -->
+        <div class="ttl-person-section" id="dc-mtg-santo-section">
+          <div class="ttl-person-header" onclick="toggleMtgSection('santo')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#2d3325;">SG</div>
+              <div>
+                <div class="ttl-person-name">Santo Giorgio</div>
+                <div class="ttl-person-subtitle" id="dc-mtg-santo-subtitle" style="font-size:11px;color:var(--grey-400);"></div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <span class="ttl-person-count" id="dc-mtg-santo-count">0</span>
+              <svg class="ttl-chevron" id="dc-mtg-santo-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-mtg-santo-body">
+            <div class="dc-mtg-person-events" id="dc-mtg-santo-events"></div>
+          </div>
+        </div>
+
+        <!-- Eric Einstein Meetings -->
+        <div class="ttl-person-section" id="dc-mtg-eric-section">
+          <div class="ttl-person-header" onclick="toggleMtgSection('eric')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#c9a84c;">EE</div>
+              <div>
+                <div class="ttl-person-name">Eric Einstein</div>
+                <div class="ttl-person-subtitle" id="dc-mtg-eric-subtitle" style="font-size:11px;color:var(--grey-400);"></div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <span class="ttl-person-count" id="dc-mtg-eric-count">0</span>
+              <svg class="ttl-chevron" id="dc-mtg-eric-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-mtg-eric-body">
+            <div class="dc-mtg-person-events" id="dc-mtg-eric-events"></div>
+          </div>
+        </div>
+
+        <!-- Nalu Bernardi Meetings -->
+        <div class="ttl-person-section" id="dc-mtg-nalu-section">
+          <div class="ttl-person-header" onclick="toggleMtgSection('nalu')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#4a5564;">NB</div>
+              <div>
+                <div class="ttl-person-name">Nalu Bernardi</div>
+                <div class="ttl-person-subtitle" id="dc-mtg-nalu-subtitle" style="font-size:11px;color:var(--grey-400);"></div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <span class="ttl-person-count" id="dc-mtg-nalu-count">0</span>
+              <svg class="ttl-chevron" id="dc-mtg-nalu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-mtg-nalu-body">
+            <div class="dc-mtg-person-events" id="dc-mtg-nalu-events"></div>
+          </div>
+        </div>
+
+        <!-- Jared Jensen Meetings -->
+        <div class="ttl-person-section" id="dc-mtg-jared-section">
+          <div class="ttl-person-header" onclick="toggleMtgSection('jared')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#3a8e8e;">JJ</div>
+              <div>
+                <div class="ttl-person-name">Jared Jensen</div>
+                <div class="ttl-person-subtitle" id="dc-mtg-jared-subtitle" style="font-size:11px;color:var(--grey-400);"></div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <span class="ttl-person-count" id="dc-mtg-jared-count">0</span>
+              <svg class="ttl-chevron" id="dc-mtg-jared-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-mtg-jared-body">
+            <div class="dc-mtg-person-events" id="dc-mtg-jared-events"></div>
+          </div>
+        </div>
+
+        <!-- Luciano Jensen Meetings -->
+        <div class="ttl-person-section" id="dc-mtg-luciano-section">
+          <div class="ttl-person-header" onclick="toggleMtgSection('luciano')">
+            <div class="ttl-person-left">
+              <div class="ttl-avatar" style="background:#6b7a2e;">LJ</div>
+              <div>
+                <div class="ttl-person-name">Luciano Jensen</div>
+                <div class="ttl-person-subtitle" id="dc-mtg-luciano-subtitle" style="font-size:11px;color:var(--grey-400);"></div>
+              </div>
+            </div>
+            <div class="ttl-person-right">
+              <span class="ttl-person-count" id="dc-mtg-luciano-count">0</span>
+              <svg class="ttl-chevron" id="dc-mtg-luciano-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ttl-person-body" id="dc-mtg-luciano-body">
+            <div class="dc-mtg-person-events" id="dc-mtg-luciano-events"></div>
+          </div>
+        </div>
+
+        <!-- All Upcoming Meetings -->
+        <div style="font-size:15px;font-weight:700;color:var(--grey-800);margin:20px 0 12px;">All Upcoming</div>
+        <div id="dc-upcoming-meetings"></div>
+
+      </div>
 
       <!-- Bottom Tab Bar -->
       <div class="tab-bar">
@@ -10397,6 +10580,89 @@ Finish: TBD</span></div>
       loadUpcomingMeetings();
     }
 
+
+    function toggleMtgSection(person) {
+      const body = document.getElementById('dc-mtg-' + person + '-body');
+      const chevron = document.getElementById('dc-mtg-' + person + '-chevron');
+      if (body.classList.contains('collapsed')) {
+        body.classList.remove('collapsed');
+        chevron.classList.remove('collapsed');
+      } else {
+        body.classList.add('collapsed');
+        chevron.classList.add('collapsed');
+      }
+    }
+
+    function loadPersonMeetings() {
+      const today = new Date();
+      const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+
+      db.ref('meetings').once('value', function(snap) {
+        const data = snap.val() || {};
+        const allMeetings = Object.keys(data).map(function(id) { return Object.assign({ id: id }, data[id]); })
+          .filter(function(m) { return m.date >= todayStr; })
+          .sort(function(a, b) {
+            if (a.date !== b.date) return a.date.localeCompare(b.date);
+            return (a.time || '').localeCompare(b.time || '');
+          });
+
+        var DC_MTG_PEOPLE = ['jordan', 'santo', 'eric', 'nalu', 'jared', 'luciano'];
+        DC_MTG_PEOPLE.forEach(function(person) {
+          var container = document.getElementById('dc-mtg-' + person + '-events');
+          var countEl = document.getElementById('dc-mtg-' + person + '-count');
+          var subtitleEl = document.getElementById('dc-mtg-' + person + '-subtitle');
+          if (!container) return;
+
+          var personMtgs = allMeetings.filter(function(m) {
+            return m.attendees && m.attendees.indexOf(person) >= 0;
+          });
+
+          countEl.textContent = personMtgs.length;
+          subtitleEl.textContent = personMtgs.length === 0 ? 'No upcoming meetings' : personMtgs.length + ' upcoming';
+
+          container.innerHTML = '';
+
+          if (personMtgs.length === 0) {
+            container.innerHTML = '<div style="text-align:center;color:var(--grey-400);font-size:12px;padding:12px;">No upcoming meetings</div>';
+            return;
+          }
+
+          personMtgs.forEach(function(m) {
+            var d = new Date(m.date + 'T12:00:00');
+            var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            var monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            var dateStr = dayNames[d.getDay()] + ', ' + monthNames[d.getMonth()] + ' ' + d.getDate();
+
+            var timeStr = '';
+            if (m.time) {
+              var parts = m.time.split(':');
+              var hr = parseInt(parts[0]);
+              timeStr = (hr > 12 ? hr - 12 : hr) + ':' + parts[1] + (hr >= 12 ? ' PM' : ' AM');
+            }
+            if (m.duration === 0) timeStr = 'All day';
+
+            var projLabel = m.project && PROJECTS[m.project] ? PROJECTS[m.project].shortName : '';
+            var gcalUrl = buildGoogleCalUrl(m);
+
+            var el = document.createElement('div');
+            el.style.cssText = 'padding:10px 12px;border-left:3px solid var(--gold);margin-bottom:8px;background:var(--grey-50);border-radius:0 8px 8px 0;';
+            el.innerHTML =
+              '<div style="font-size:13px;font-weight:600;color:var(--grey-800);">' + m.title + '</div>' +
+              '<div style="font-size:11px;color:var(--grey-500);margin-top:2px;">' + dateStr + (timeStr ? ' \u00b7 ' + timeStr : '') + (projLabel ? ' \u00b7 ' + projLabel : '') + '</div>' +
+              (m.location ? '<div style="font-size:11px;color:var(--grey-500);">' + m.location + '</div>' : '') +
+              '<div style="margin-top:6px;display:flex;gap:8px;align-items:center;">' +
+                '<a class="dc-meeting-gcal-btn" href="' + gcalUrl + '" target="_blank" rel="noopener">' +
+                  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+                  'Add to Calendar' +
+                '</a>' +
+                '<button class="dc-meeting-card-delete" onclick="deleteMeeting(\'' + m.id + '\')" title="Delete">\u00d7</button>' +
+              '</div>';
+            container.appendChild(el);
+          });
+        });
+      });
+    }
+
     function loadUpcomingMeetings() {
       const container = document.getElementById('dc-upcoming-meetings');
       if (!container) return;
@@ -10481,6 +10747,16 @@ Finish: TBD</span></div>
     }
 
     // ========== DC TEAM CALENDAR ==========
+
+    // Google Calendar IDs — add each team member's calendar ID as they share it
+    const DC_CALENDAR_IDS = {
+      eric: 'c_2f84fe69b8c627c05bf9b882d38b2623347d3a9822c75ade153cd15a93e80339@group.calendar.google.com',
+      santo: '',
+      jared: '',
+      luciano: '',
+      nalu: '',
+      jordan: ''
+    };
 
     // Build a Google Calendar "Add Event" URL from a meeting object
     function buildGoogleCalUrl(m) {
