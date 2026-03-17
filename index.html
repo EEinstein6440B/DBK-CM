@@ -3444,6 +3444,34 @@
     .dc-meeting-card-delete:hover {
       color: #c0664e;
     }
+    .dc-meeting-card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      align-items: center;
+    }
+    .dc-meeting-gcal-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--grey-50);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--grey-600);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .dc-meeting-gcal-btn:hover {
+      background: var(--grey-100);
+      color: var(--grey-800);
+    }
+    .dc-meeting-gcal-btn svg {
+      flex-shrink: 0;
+    }
 
     /* Tag picker dropdown */
     .ttl-tag-picker {
@@ -10351,6 +10379,12 @@ Finish: TBD</span></div>
 
       db.ref('meetings').push(meetingData);
 
+      // Open Google Calendar with the event pre-filled
+      var gcalLink = buildGoogleCalUrl(meetingData);
+      if (confirm('Meeting created! Add to your Google Calendar?')) {
+        window.open(gcalLink, '_blank');
+      }
+
       // Reset form
       document.getElementById('mtg-title').value = '';
       document.getElementById('mtg-date').value = '';
@@ -10415,6 +10449,8 @@ Finish: TBD</span></div>
 
           const card = document.createElement('div');
           card.className = 'dc-meeting-card';
+          var gcalUrl = buildGoogleCalUrl(m);
+
           card.innerHTML =
             '<div class="dc-meeting-card-header">' +
               '<div>' +
@@ -10424,7 +10460,13 @@ Finish: TBD</span></div>
               '</div>' +
               '<button class="dc-meeting-card-delete" onclick="deleteMeeting(\'' + m.id + '\')" title="Delete">×</button>' +
             '</div>' +
-            (attendeeHtml ? '<div class="dc-meeting-card-attendees">' + attendeeHtml + '</div>' : '');
+            (attendeeHtml ? '<div class="dc-meeting-card-attendees">' + attendeeHtml + '</div>' : '') +
+            '<div class="dc-meeting-card-actions">' +
+              '<a class="dc-meeting-gcal-btn" href="' + gcalUrl + '" target="_blank" rel="noopener">' +
+                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+                'Add to Google Calendar' +
+              '</a>' +
+            '</div>';
 
           container.appendChild(card);
         });
@@ -10440,16 +10482,48 @@ Finish: TBD</span></div>
 
     // ========== DC TEAM CALENDAR ==========
 
-    // Google Calendar IDs — replace with real Calendar IDs once team shares them
-    // Each person's Calendar ID is their Gmail or the calendar's integration ID
-    const DC_CALENDAR_IDS = {
-      jordan: '', // e.g. 'jordan@gmail.com' or calendar integration ID
-      santo: '',
-      jared: '',
-      luciano: '',
-      nalu: '',
-      eric: ''
-    };
+    // Build a Google Calendar "Add Event" URL from a meeting object
+    function buildGoogleCalUrl(m) {
+      // Format: YYYYMMDDTHHMMSS (local time, no timezone = user's local)
+      var dateClean = m.date.replace(/-/g, '');
+      var startDT, endDT;
+
+      if (m.time) {
+        var timeClean = m.time.replace(/:/g, '') + '00';
+        startDT = dateClean + 'T' + timeClean;
+        // Calculate end time
+        var dur = parseInt(m.duration) || 60;
+        var sh = parseInt(m.time.split(':')[0]);
+        var sm = parseInt(m.time.split(':')[1]);
+        var totalMin = sh * 60 + sm + dur;
+        var eh = Math.floor(totalMin / 60) % 24;
+        var em = totalMin % 60;
+        endDT = dateClean + 'T' + String(eh).padStart(2,'0') + String(em).padStart(2,'0') + '00';
+      } else {
+        // All-day event
+        startDT = dateClean;
+        // Google Calendar all-day end date is exclusive (next day)
+        var nd = new Date(m.date + 'T12:00:00');
+        nd.setDate(nd.getDate() + 1);
+        endDT = nd.getFullYear() + String(nd.getMonth()+1).padStart(2,'0') + String(nd.getDate()).padStart(2,'0');
+      }
+
+      var params = [
+        'action=TEMPLATE',
+        'text=' + encodeURIComponent(m.title || 'Meeting'),
+        'dates=' + startDT + '/' + endDT
+      ];
+      if (m.location) params.push('location=' + encodeURIComponent(m.location));
+
+      var details = '';
+      if (m.project && PROJECTS[m.project]) details += 'Project: ' + PROJECTS[m.project].name + '\n';
+      if (m.attendees && m.attendees.length > 0) {
+        details += 'Team: ' + m.attendees.map(function(p) { return getPersonDisplayName(p); }).join(', ');
+      }
+      if (details) params.push('details=' + encodeURIComponent(details));
+
+      return 'https://calendar.google.com/calendar/render?' + params.join('&');
+    }
 
     // Calendar state
     let calCurrentDate = new Date();
@@ -10720,6 +10794,7 @@ Finish: TBD</span></div>
 
           const evEl = document.createElement('div');
           evEl.className = 'dc-cal-event';
+          var gcalUrlCal = buildGoogleCalUrl(m);
           evEl.innerHTML =
             '<div class="dc-cal-event-avatar" style="background:var(--gold);">' +
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
@@ -10728,6 +10803,10 @@ Finish: TBD</span></div>
               '<div class="dc-cal-event-title">' + (m.title || 'Untitled') + '</div>' +
               '<div class="dc-cal-event-meta">' + (timeStr ? timeStr + ' · ' : '') + (projLabel ? projLabel + ' · ' : '') + (attendeeNames || '') + '</div>' +
               (m.location ? '<div class="dc-cal-event-meta">' + m.location + '</div>' : '') +
+              '<a class="dc-meeting-gcal-btn" href="' + gcalUrlCal + '" target="_blank" rel="noopener" style="margin-top:4px;">' +
+                '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+                'Add to Calendar' +
+              '</a>' +
             '</div>' +
             '<span class="dc-cal-event-type-badge type-meeting">Meeting</span>';
           eventsContainer.appendChild(evEl);
